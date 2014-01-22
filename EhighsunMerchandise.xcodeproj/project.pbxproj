@@ -1,0 +1,458 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		75A4C462188FCC3D0083C8AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C461188FCC3D0083C8AC /* Foundation.framework */; };
+		75A4C464188FCC3D0083C8AC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C463188FCC3D0083C8AC /* CoreGraphics.framework */; };
+		75A4C466188FCC3D0083C8AC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C465188FCC3D0083C8AC /* UIKit.framework */; };
+		75A4C46C188FCC3D0083C8AC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 75A4C46A188FCC3D0083C8AC /* InfoPlist.strings */; };
+		75A4C46E188FCC3D0083C8AC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C46D188FCC3D0083C8AC /* main.m */; };
+		75A4C472188FCC3D0083C8AC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C471188FCC3D0083C8AC /* AppDelegate.m */; };
+		75A4C474188FCC3D0083C8AC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75A4C473188FCC3D0083C8AC /* Images.xcassets */; };
+		75A4C47B188FCC3E0083C8AC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C47A188FCC3E0083C8AC /* XCTest.framework */; };
+		75A4C47C188FCC3E0083C8AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C461188FCC3D0083C8AC /* Foundation.framework */; };
+		75A4C47D188FCC3E0083C8AC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C465188FCC3D0083C8AC /* UIKit.framework */; };
+		75A4C485188FCC3E0083C8AC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 75A4C483188FCC3E0083C8AC /* InfoPlist.strings */; };
+		75A4C487188FCC3E0083C8AC /* EhighsunMerchandiseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C486188FCC3E0083C8AC /* EhighsunMerchandiseTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		75A4C47E188FCC3E0083C8AC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75A4C456188FCC3D0083C8AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75A4C45D188FCC3D0083C8AC;
+			remoteInfo = EhighsunMerchandise;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		75A4C45E188FCC3D0083C8AC /* EhighsunMerchandise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EhighsunMerchandise.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		75A4C461188FCC3D0083C8AC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		75A4C463188FCC3D0083C8AC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		75A4C465188FCC3D0083C8AC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		75A4C469188FCC3D0083C8AC /* EhighsunMerchandise-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EhighsunMerchandise-Info.plist"; sourceTree = "<group>"; };
+		75A4C46B188FCC3D0083C8AC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		75A4C46D188FCC3D0083C8AC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		75A4C46F188FCC3D0083C8AC /* EhighsunMerchandise-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EhighsunMerchandise-Prefix.pch"; sourceTree = "<group>"; };
+		75A4C470188FCC3D0083C8AC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		75A4C471188FCC3D0083C8AC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		75A4C473188FCC3D0083C8AC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		75A4C479188FCC3E0083C8AC /* EhighsunMerchandiseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EhighsunMerchandiseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		75A4C47A188FCC3E0083C8AC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		75A4C482188FCC3E0083C8AC /* EhighsunMerchandiseTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EhighsunMerchandiseTests-Info.plist"; sourceTree = "<group>"; };
+		75A4C484188FCC3E0083C8AC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		75A4C486188FCC3E0083C8AC /* EhighsunMerchandiseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EhighsunMerchandiseTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		75A4C45B188FCC3D0083C8AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75A4C464188FCC3D0083C8AC /* CoreGraphics.framework in Frameworks */,
+				75A4C466188FCC3D0083C8AC /* UIKit.framework in Frameworks */,
+				75A4C462188FCC3D0083C8AC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75A4C476188FCC3E0083C8AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75A4C47B188FCC3E0083C8AC /* XCTest.framework in Frameworks */,
+				75A4C47D188FCC3E0083C8AC /* UIKit.framework in Frameworks */,
+				75A4C47C188FCC3E0083C8AC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		75A4C455188FCC3D0083C8AC = {
+			isa = PBXGroup;
+			children = (
+				75A4C467188FCC3D0083C8AC /* EhighsunMerchandise */,
+				75A4C480188FCC3E0083C8AC /* EhighsunMerchandiseTests */,
+				75A4C460188FCC3D0083C8AC /* Frameworks */,
+				75A4C45F188FCC3D0083C8AC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		75A4C45F188FCC3D0083C8AC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				75A4C45E188FCC3D0083C8AC /* EhighsunMerchandise.app */,
+				75A4C479188FCC3E0083C8AC /* EhighsunMerchandiseTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		75A4C460188FCC3D0083C8AC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				75A4C461188FCC3D0083C8AC /* Foundation.framework */,
+				75A4C463188FCC3D0083C8AC /* CoreGraphics.framework */,
+				75A4C465188FCC3D0083C8AC /* UIKit.framework */,
+				75A4C47A188FCC3E0083C8AC /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		75A4C467188FCC3D0083C8AC /* EhighsunMerchandise */ = {
+			isa = PBXGroup;
+			children = (
+				75A4C470188FCC3D0083C8AC /* AppDelegate.h */,
+				75A4C471188FCC3D0083C8AC /* AppDelegate.m */,
+				75A4C473188FCC3D0083C8AC /* Images.xcassets */,
+				75A4C468188FCC3D0083C8AC /* Supporting Files */,
+			);
+			path = EhighsunMerchandise;
+			sourceTree = "<group>";
+		};
+		75A4C468188FCC3D0083C8AC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				75A4C469188FCC3D0083C8AC /* EhighsunMerchandise-Info.plist */,
+				75A4C46A188FCC3D0083C8AC /* InfoPlist.strings */,
+				75A4C46D188FCC3D0083C8AC /* main.m */,
+				75A4C46F188FCC3D0083C8AC /* EhighsunMerchandise-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		75A4C480188FCC3E0083C8AC /* EhighsunMerchandiseTests */ = {
+			isa = PBXGroup;
+			children = (
+				75A4C486188FCC3E0083C8AC /* EhighsunMerchandiseTests.m */,
+				75A4C481188FCC3E0083C8AC /* Supporting Files */,
+			);
+			path = EhighsunMerchandiseTests;
+			sourceTree = "<group>";
+		};
+		75A4C481188FCC3E0083C8AC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				75A4C482188FCC3E0083C8AC /* EhighsunMerchandiseTests-Info.plist */,
+				75A4C483188FCC3E0083C8AC /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		75A4C45D188FCC3D0083C8AC /* EhighsunMerchandise */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75A4C48A188FCC3E0083C8AC /* Build configuration list for PBXNativeTarget "EhighsunMerchandise" */;
+			buildPhases = (
+				75A4C45A188FCC3D0083C8AC /* Sources */,
+				75A4C45B188FCC3D0083C8AC /* Frameworks */,
+				75A4C45C188FCC3D0083C8AC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EhighsunMerchandise;
+			productName = EhighsunMerchandise;
+			productReference = 75A4C45E188FCC3D0083C8AC /* EhighsunMerchandise.app */;
+			productType = "com.apple.product-type.application";
+		};
+		75A4C478188FCC3E0083C8AC /* EhighsunMerchandiseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75A4C48D188FCC3E0083C8AC /* Build configuration list for PBXNativeTarget "EhighsunMerchandiseTests" */;
+			buildPhases = (
+				75A4C475188FCC3E0083C8AC /* Sources */,
+				75A4C476188FCC3E0083C8AC /* Frameworks */,
+				75A4C477188FCC3E0083C8AC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				75A4C47F188FCC3E0083C8AC /* PBXTargetDependency */,
+			);
+			name = EhighsunMerchandiseTests;
+			productName = EhighsunMerchandiseTests;
+			productReference = 75A4C479188FCC3E0083C8AC /* EhighsunMerchandiseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		75A4C456188FCC3D0083C8AC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = loohcs;
+				TargetAttributes = {
+					75A4C478188FCC3E0083C8AC = {
+						TestTargetID = 75A4C45D188FCC3D0083C8AC;
+					};
+				};
+			};
+			buildConfigurationList = 75A4C459188FCC3D0083C8AC /* Build configuration list for PBXProject "EhighsunMerchandise" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 75A4C455188FCC3D0083C8AC;
+			productRefGroup = 75A4C45F188FCC3D0083C8AC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				75A4C45D188FCC3D0083C8AC /* EhighsunMerchandise */,
+				75A4C478188FCC3E0083C8AC /* EhighsunMerchandiseTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		75A4C45C188FCC3D0083C8AC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75A4C46C188FCC3D0083C8AC /* InfoPlist.strings in Resources */,
+				75A4C474188FCC3D0083C8AC /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75A4C477188FCC3E0083C8AC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75A4C485188FCC3E0083C8AC /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		75A4C45A188FCC3D0083C8AC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75A4C472188FCC3D0083C8AC /* AppDelegate.m in Sources */,
+				75A4C46E188FCC3D0083C8AC /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75A4C475188FCC3E0083C8AC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75A4C487188FCC3E0083C8AC /* EhighsunMerchandiseTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		75A4C47F188FCC3E0083C8AC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75A4C45D188FCC3D0083C8AC /* EhighsunMerchandise */;
+			targetProxy = 75A4C47E188FCC3E0083C8AC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		75A4C46A188FCC3D0083C8AC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				75A4C46B188FCC3D0083C8AC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		75A4C483188FCC3E0083C8AC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				75A4C484188FCC3E0083C8AC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		75A4C488188FCC3E0083C8AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		75A4C489188FCC3E0083C8AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		75A4C48B188FCC3E0083C8AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "EhighsunMerchandise/EhighsunMerchandise-Prefix.pch";
+				INFOPLIST_FILE = "EhighsunMerchandise/EhighsunMerchandise-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		75A4C48C188FCC3E0083C8AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "EhighsunMerchandise/EhighsunMerchandise-Prefix.pch";
+				INFOPLIST_FILE = "EhighsunMerchandise/EhighsunMerchandise-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		75A4C48E188FCC3E0083C8AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/EhighsunMerchandise.app/EhighsunMerchandise";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "EhighsunMerchandise/EhighsunMerchandise-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "EhighsunMerchandiseTests/EhighsunMerchandiseTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		75A4C48F188FCC3E0083C8AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/EhighsunMerchandise.app/EhighsunMerchandise";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "EhighsunMerchandise/EhighsunMerchandise-Prefix.pch";
+				INFOPLIST_FILE = "EhighsunMerchandiseTests/EhighsunMerchandiseTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		75A4C459188FCC3D0083C8AC /* Build configuration list for PBXProject "EhighsunMerchandise" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75A4C488188FCC3E0083C8AC /* Debug */,
+				75A4C489188FCC3E0083C8AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		75A4C48A188FCC3E0083C8AC /* Build configuration list for PBXNativeTarget "EhighsunMerchandise" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75A4C48B188FCC3E0083C8AC /* Debug */,
+				75A4C48C188FCC3E0083C8AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		75A4C48D188FCC3E0083C8AC /* Build configuration list for PBXNativeTarget "EhighsunMerchandiseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75A4C48E188FCC3E0083C8AC /* Debug */,
+				75A4C48F188FCC3E0083C8AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 75A4C456188FCC3D0083C8AC /* Project object */;
+}
