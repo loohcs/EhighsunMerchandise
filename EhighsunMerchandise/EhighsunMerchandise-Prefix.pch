@@ -13,4 +13,28 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+
+//宏定义屏幕的大小，便于进行不同手机的兼容
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+#import "LoginViewController.h"//登录页面
+
+#import "HomeViewController.h"//登录成功后显示的主页
+
+#import "HighsunHomeViewController.h"//海印主页
+#import "ShoppingCardViewController.h"//购物卡销售
+#import "MemberAnalyseViewController.h"//会员分析
+#import "FinalSumViewController.h"//结算汇总
+#import "SaleCustomsListViewController.h"//销售客单
+#import "SaleCompareViewController.h"//销售对比
+
+#import "PPRevealSideViewController.h"//侧滑型tabBar
+#import "SideTableViewController.h"//侧边栏的tableView
+
+#import "FloorViewController.h"
+#import "ProjectAnalyseViewController.h"
+
+#import "CustomTableView.h"
+
 #endif

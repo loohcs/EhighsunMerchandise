@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7504525A1890B11700EEE1C5 /* PPRevealSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750452571890B11700EEE1C5 /* PPRevealSideViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7504525B1890B11700EEE1C5 /* SideTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750452591890B11700EEE1C5 /* SideTableViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7504525F1890D9AF00EEE1C5 /* FloorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7504525E1890D9AF00EEE1C5 /* FloorViewController.m */; };
+		750452621890D9E500EEE1C5 /* ProjectAnalyseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750452611890D9E500EEE1C5 /* ProjectAnalyseViewController.m */; };
+		750452651890FD2400EEE1C5 /* CustomTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 750452641890FD2400EEE1C5 /* CustomTableView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		75A4C462188FCC3D0083C8AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C461188FCC3D0083C8AC /* Foundation.framework */; };
 		75A4C464188FCC3D0083C8AC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C463188FCC3D0083C8AC /* CoreGraphics.framework */; };
 		75A4C466188FCC3D0083C8AC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C465188FCC3D0083C8AC /* UIKit.framework */; };
@@ -19,6 +24,14 @@
 		75A4C47D188FCC3E0083C8AC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C465188FCC3D0083C8AC /* UIKit.framework */; };
 		75A4C485188FCC3E0083C8AC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 75A4C483188FCC3E0083C8AC /* InfoPlist.strings */; };
 		75A4C487188FCC3E0083C8AC /* EhighsunMerchandiseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C486188FCC3E0083C8AC /* EhighsunMerchandiseTests.m */; };
+		75A4C496188FCCA90083C8AC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C495188FCCA90083C8AC /* LoginViewController.m */; };
+		75A4C49A188FCCC90083C8AC /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C499188FCCC90083C8AC /* HomeViewController.m */; };
+		75A4C49E188FCD090083C8AC /* HighsunHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C49D188FCD090083C8AC /* HighsunHomeViewController.m */; };
+		75A4C4A2188FCD380083C8AC /* SaleCompareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C4A1188FCD380083C8AC /* SaleCompareViewController.m */; };
+		75A4C4A7188FCD6E0083C8AC /* SaleCustomsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C4A6188FCD6E0083C8AC /* SaleCustomsListViewController.m */; };
+		75A4C4AB188FCDAD0083C8AC /* FinalSumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C4AA188FCDAD0083C8AC /* FinalSumViewController.m */; };
+		75A4C4AF188FCDF10083C8AC /* MemberAnalyseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C4AE188FCDF10083C8AC /* MemberAnalyseViewController.m */; };
+		75A4C4B3188FCE1C0083C8AC /* ShoppingCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C4B2188FCE1C0083C8AC /* ShoppingCardViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +45,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		750452561890B11700EEE1C5 /* PPRevealSideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPRevealSideViewController.h; sourceTree = "<group>"; };
+		750452571890B11700EEE1C5 /* PPRevealSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRevealSideViewController.m; sourceTree = "<group>"; };
+		750452581890B11700EEE1C5 /* SideTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideTableViewController.h; sourceTree = "<group>"; };
+		750452591890B11700EEE1C5 /* SideTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideTableViewController.m; sourceTree = "<group>"; };
+		7504525D1890D9AF00EEE1C5 /* FloorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloorViewController.h; sourceTree = "<group>"; };
+		7504525E1890D9AF00EEE1C5 /* FloorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloorViewController.m; sourceTree = "<group>"; };
+		750452601890D9E500EEE1C5 /* ProjectAnalyseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectAnalyseViewController.h; sourceTree = "<group>"; };
+		750452611890D9E500EEE1C5 /* ProjectAnalyseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectAnalyseViewController.m; sourceTree = "<group>"; };
+		750452631890FD2400EEE1C5 /* CustomTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableView.h; sourceTree = "<group>"; };
+		750452641890FD2400EEE1C5 /* CustomTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableView.m; sourceTree = "<group>"; };
 		75A4C45E188FCC3D0083C8AC /* EhighsunMerchandise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EhighsunMerchandise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75A4C461188FCC3D0083C8AC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		75A4C463188FCC3D0083C8AC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -48,6 +71,22 @@
 		75A4C482188FCC3E0083C8AC /* EhighsunMerchandiseTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EhighsunMerchandiseTests-Info.plist"; sourceTree = "<group>"; };
 		75A4C484188FCC3E0083C8AC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		75A4C486188FCC3E0083C8AC /* EhighsunMerchandiseTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EhighsunMerchandiseTests.m; sourceTree = "<group>"; };
+		75A4C494188FCCA90083C8AC /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		75A4C495188FCCA90083C8AC /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		75A4C498188FCCC90083C8AC /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		75A4C499188FCCC90083C8AC /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		75A4C49C188FCD090083C8AC /* HighsunHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighsunHomeViewController.h; sourceTree = "<group>"; };
+		75A4C49D188FCD090083C8AC /* HighsunHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighsunHomeViewController.m; sourceTree = "<group>"; };
+		75A4C4A0188FCD380083C8AC /* SaleCompareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaleCompareViewController.h; sourceTree = "<group>"; };
+		75A4C4A1188FCD380083C8AC /* SaleCompareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleCompareViewController.m; sourceTree = "<group>"; };
+		75A4C4A5188FCD6E0083C8AC /* SaleCustomsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaleCustomsListViewController.h; sourceTree = "<group>"; };
+		75A4C4A6188FCD6E0083C8AC /* SaleCustomsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleCustomsListViewController.m; sourceTree = "<group>"; };
+		75A4C4A9188FCDAD0083C8AC /* FinalSumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinalSumViewController.h; sourceTree = "<group>"; };
+		75A4C4AA188FCDAD0083C8AC /* FinalSumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinalSumViewController.m; sourceTree = "<group>"; };
+		75A4C4AD188FCDF10083C8AC /* MemberAnalyseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberAnalyseViewController.h; sourceTree = "<group>"; };
+		75A4C4AE188FCDF10083C8AC /* MemberAnalyseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberAnalyseViewController.m; sourceTree = "<group>"; };
+		75A4C4B1188FCE1C0083C8AC /* ShoppingCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCardViewController.h; sourceTree = "<group>"; };
+		75A4C4B2188FCE1C0083C8AC /* ShoppingCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCardViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,9 +113,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		750452551890B11700EEE1C5 /* 侧滑型tabBar */ = {
+			isa = PBXGroup;
+			children = (
+				750452561890B11700EEE1C5 /* PPRevealSideViewController.h */,
+				750452571890B11700EEE1C5 /* PPRevealSideViewController.m */,
+				750452581890B11700EEE1C5 /* SideTableViewController.h */,
+				750452591890B11700EEE1C5 /* SideTableViewController.m */,
+			);
+			path = "侧滑型tabBar";
+			sourceTree = "<group>";
+		};
+		7504525C1890D95B00EEE1C5 /* 自定义的表单 */ = {
+			isa = PBXGroup;
+			children = (
+				750452631890FD2400EEE1C5 /* CustomTableView.h */,
+				750452641890FD2400EEE1C5 /* CustomTableView.m */,
+				7504525D1890D9AF00EEE1C5 /* FloorViewController.h */,
+				7504525E1890D9AF00EEE1C5 /* FloorViewController.m */,
+				750452601890D9E500EEE1C5 /* ProjectAnalyseViewController.h */,
+				750452611890D9E500EEE1C5 /* ProjectAnalyseViewController.m */,
+			);
+			name = "自定义的表单";
+			sourceTree = "<group>";
+		};
 		75A4C455188FCC3D0083C8AC = {
 			isa = PBXGroup;
 			children = (
+				7504525C1890D95B00EEE1C5 /* 自定义的表单 */,
+				75A4C497188FCCB60083C8AC /* 主页 */,
+				75A4C490188FCC4E0083C8AC /* 登陆页面 */,
+				750452551890B11700EEE1C5 /* 侧滑型tabBar */,
+				75A4C49B188FCCCE0083C8AC /* 海印百货通主页 */,
 				75A4C467188FCC3D0083C8AC /* EhighsunMerchandise */,
 				75A4C480188FCC3E0083C8AC /* EhighsunMerchandiseTests */,
 				75A4C460188FCC3D0083C8AC /* Frameworks */,
@@ -142,6 +210,91 @@
 				75A4C483188FCC3E0083C8AC /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		75A4C490188FCC4E0083C8AC /* 登陆页面 */ = {
+			isa = PBXGroup;
+			children = (
+				75A4C494188FCCA90083C8AC /* LoginViewController.h */,
+				75A4C495188FCCA90083C8AC /* LoginViewController.m */,
+			);
+			name = "登陆页面";
+			sourceTree = "<group>";
+		};
+		75A4C497188FCCB60083C8AC /* 主页 */ = {
+			isa = PBXGroup;
+			children = (
+				75A4C498188FCCC90083C8AC /* HomeViewController.h */,
+				75A4C499188FCCC90083C8AC /* HomeViewController.m */,
+			);
+			name = "主页";
+			sourceTree = "<group>";
+		};
+		75A4C49B188FCCCE0083C8AC /* 海印百货通主页 */ = {
+			isa = PBXGroup;
+			children = (
+				75A4C4A3188FCD3E0083C8AC /* 主页 */,
+				75A4C4B0188FCDF80083C8AC /* 购物卡销售 */,
+				75A4C4AC188FCDB00083C8AC /* 会员分析 */,
+				75A4C4A8188FCD740083C8AC /* 结算汇总 */,
+				75A4C4A4188FCD4D0083C8AC /* 销售客单 */,
+				75A4C49F188FCD180083C8AC /* 销售对比 */,
+			);
+			name = "海印百货通主页";
+			sourceTree = "<group>";
+		};
+		75A4C49F188FCD180083C8AC /* 销售对比 */ = {
+			isa = PBXGroup;
+			children = (
+				75A4C4A0188FCD380083C8AC /* SaleCompareViewController.h */,
+				75A4C4A1188FCD380083C8AC /* SaleCompareViewController.m */,
+			);
+			name = "销售对比";
+			sourceTree = "<group>";
+		};
+		75A4C4A3188FCD3E0083C8AC /* 主页 */ = {
+			isa = PBXGroup;
+			children = (
+				75A4C49C188FCD090083C8AC /* HighsunHomeViewController.h */,
+				75A4C49D188FCD090083C8AC /* HighsunHomeViewController.m */,
+			);
+			name = "主页";
+			sourceTree = "<group>";
+		};
+		75A4C4A4188FCD4D0083C8AC /* 销售客单 */ = {
+			isa = PBXGroup;
+			children = (
+				75A4C4A5188FCD6E0083C8AC /* SaleCustomsListViewController.h */,
+				75A4C4A6188FCD6E0083C8AC /* SaleCustomsListViewController.m */,
+			);
+			name = "销售客单";
+			sourceTree = "<group>";
+		};
+		75A4C4A8188FCD740083C8AC /* 结算汇总 */ = {
+			isa = PBXGroup;
+			children = (
+				75A4C4A9188FCDAD0083C8AC /* FinalSumViewController.h */,
+				75A4C4AA188FCDAD0083C8AC /* FinalSumViewController.m */,
+			);
+			name = "结算汇总";
+			sourceTree = "<group>";
+		};
+		75A4C4AC188FCDB00083C8AC /* 会员分析 */ = {
+			isa = PBXGroup;
+			children = (
+				75A4C4AD188FCDF10083C8AC /* MemberAnalyseViewController.h */,
+				75A4C4AE188FCDF10083C8AC /* MemberAnalyseViewController.m */,
+			);
+			name = "会员分析";
+			sourceTree = "<group>";
+		};
+		75A4C4B0188FCDF80083C8AC /* 购物卡销售 */ = {
+			isa = PBXGroup;
+			children = (
+				75A4C4B1188FCE1C0083C8AC /* ShoppingCardViewController.h */,
+				75A4C4B2188FCE1C0083C8AC /* ShoppingCardViewController.m */,
+			);
+			name = "购物卡销售";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,8 +392,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				750452621890D9E500EEE1C5 /* ProjectAnalyseViewController.m in Sources */,
+				7504525B1890B11700EEE1C5 /* SideTableViewController.m in Sources */,
+				75A4C49E188FCD090083C8AC /* HighsunHomeViewController.m in Sources */,
+				7504525A1890B11700EEE1C5 /* PPRevealSideViewController.m in Sources */,
+				75A4C4AB188FCDAD0083C8AC /* FinalSumViewController.m in Sources */,
 				75A4C472188FCC3D0083C8AC /* AppDelegate.m in Sources */,
+				75A4C4A7188FCD6E0083C8AC /* SaleCustomsListViewController.m in Sources */,
+				75A4C4B3188FCE1C0083C8AC /* ShoppingCardViewController.m in Sources */,
+				7504525F1890D9AF00EEE1C5 /* FloorViewController.m in Sources */,
 				75A4C46E188FCC3D0083C8AC /* main.m in Sources */,
+				75A4C4A2188FCD380083C8AC /* SaleCompareViewController.m in Sources */,
+				750452651890FD2400EEE1C5 /* CustomTableView.m in Sources */,
+				75A4C496188FCCA90083C8AC /* LoginViewController.m in Sources */,
+				75A4C49A188FCCC90083C8AC /* HomeViewController.m in Sources */,
+				75A4C4AF188FCDF10083C8AC /* MemberAnalyseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +609,7 @@
 				75A4C48C188FCC3E0083C8AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		75A4C48D188FCC3E0083C8AC /* Build configuration list for PBXNativeTarget "EhighsunMerchandiseTests" */ = {
 			isa = XCConfigurationList;
@@ -451,6 +618,7 @@
 				75A4C48F188FCC3E0083C8AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

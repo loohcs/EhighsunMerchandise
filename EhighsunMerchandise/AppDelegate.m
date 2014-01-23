@@ -8,12 +8,23 @@
 
 #import "AppDelegate.h"
 
+#import "LoginViewController.h"
+#import "HomeViewController.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    
+    HomeViewController *homeVC = [[HomeViewController alloc] init];
+    UINavigationController *homeNavi = [[UINavigationController alloc] initWithRootViewController:homeVC];
+    _revealSideVC = [[PPRevealSideViewController alloc] initWithRootViewController:homeNavi];
+    self.window.rootViewController = _revealSideVC;
+
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
