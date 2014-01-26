@@ -19,29 +19,28 @@
 @synthesize leftDataKeys = _leftDataKeys;
 @synthesize rightDataKeys = _rightDataKeys;
 
-- (id)initWithData:(NSArray *)dArray trDictionary:(NSDictionary *)trDict size:(CGSize)size scrollMethod:(ScrollMethod)sm leftDataKeys:(NSArray *)leftDataKeys rightDataKeys:(NSArray *)rightDataKeys {
+- (id)initWithData:(NSArray *)dArray size:(CGSize)size scrollMethod:(ScrollMethod)sm leftDataKeys:(NSArray *)leftDataKeys headDataKeys:(NSArray *)headDataKeys{
     if (self = [super initWithFrame:CGRectMake(0, 0, size.width, size.height)]) {
         //data
         self.dataArray = [NSArray arrayWithArray:dArray];
-        self.trDictionary = [NSDictionary dictionaryWithDictionary:trDict];
         self.leftDataKeys = [NSArray arrayWithArray:leftDataKeys];
-        self.rightDataKeys = [NSArray arrayWithArray:rightDataKeys];
+        self.headDataKeys = [NSArray arrayWithArray:headDataKeys];
         
         float leftWidth = 0;//左边tableview的宽度
         float rightWidth = 0;//右边tableview的宽度
-        for (NSString *trKey in _leftDataKeys) {
-            float trWidth = [[trDict objectForKey:trKey] floatValue];
-            leftWidth += trWidth;
+
+        leftWidth = kTableViewTitleWidth;
+        
+        for (NSString *trKey in _headDataKeys) {
+            rightWidth += kTableViewTitleWidth;
         }
-        for (NSString *trKey in _rightDataKeys) {
-            float trWidth = [[trDict objectForKey:trKey] floatValue];
-            rightWidth += trWidth;
-        }
+        
+        //因为在_headDataKeys 中包括第一列的title，所以我们在计算完成之后需要减去一个width
+        rightWidth -= kTableViewTitleWidth;
         
         //scrollview
         float leftScrollWidth = 0;
         float rightScrollWidth = 0;
-        //???: @try, @catch 来捕获异常错误，只有在@try中出现错误才会执行@catch 中的代码
         @try {
             if (sm == kScrollMethodWithLeft) {
                 if (rightWidth > size.width) {
@@ -64,8 +63,8 @@
             NSAssert(false, @"width small");
         }
     
-        //???: 为什么左边的scrollView的位置会下降20+44距离，而同样定义的rightView则不会
-        UIScrollView *leftScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, -64, leftScrollWidth, size.height+64)];
+        //???: 左边的scrollView的坐标有问题，下降了64，而同样的右边scrollView则没有这种问题
+        UIScrollView *leftScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, leftScrollWidth, size.height)];
         [leftScrollView setShowsHorizontalScrollIndicator:FALSE];
         [leftScrollView setShowsVerticalScrollIndicator:FALSE];
         self.leftScrollView = leftScrollView;
@@ -74,6 +73,7 @@
         UIScrollView *rightScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(leftScrollWidth, 0, rightScrollWidth, size.height)];
         [rightScrollView setShowsHorizontalScrollIndicator:FALSE];
         [rightScrollView setShowsVerticalScrollIndicator:FALSE];
+        rightScrollView.delegate = self;
         self.rightScrollView = rightScrollView;
         [rightScrollView release];
         
@@ -94,20 +94,44 @@
         self.rightTableView = rightTableView;
         [rightTableView release];
         
-        [self.leftScrollView addSubview:_leftTableView];
-        [self.rightScrollView addSubview:_rightTableView];
-        [self.leftScrollView setContentSize:_leftTableView.frame.size];
-        [self.rightScrollView setContentSize:_rightTableView.frame.size];
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -20, kTableViewTitleWidth, kTableViewTitleHeight)];
+        titleLabel.backgroundColor = [UIColor yellowColor];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.text = [_headDataKeys objectAtIndex:0];
+        titleLabel.font = [UIFont systemFontOfSize:10];
+        [self addSubview:titleLabel];
         
+        UITableView *headTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, SCREEN_HEIGHT)];
+        headTableView.delegate = self;
+        headTableView.dataSource = self;
+        [headTableView.layer setAnchorPoint:CGPointMake(0.0, 0.0)];
+        headTableView.transform = CGAffineTransformMakeRotation(M_PI/-2);//旋转90度
+        headTableView.frame = CGRectMake(kTableViewTitleWidth, 0, SCREEN_WIDTH-kTableViewTitleWidth, kTableViewTitleHeight);
+        self.headTableView = headTableView;
+        [headTableView release];
+        
+        [self.leftScrollView addSubview:_leftTableView];
+        [self.leftScrollView setContentSize:_leftTableView.frame.size];
+        
+        [self.rightScrollView addSubview:_rightTableView];
+        [self.rightScrollView setContentSize:_rightTableView.frame.size];
         self.rightScrollView.bounces = NO;
+        
+        self.headTableView.showsVerticalScrollIndicator = NO;
+        self.headTableView.bounces = NO;
         
         [self addSubview:_leftScrollView];
         [self addSubview:_rightScrollView];
+        [self addSubview:_headTableView];
+        
+
+        
     }
     return self;
 }
 
 - (void)dealloc {
+    [_headTableView release];
     [_leftTableView release];
     [_leftScrollView release];
     [_rightTableView release];
@@ -123,28 +147,16 @@
 
 - (UIView *)viewWithLeftContent:(NSInteger)index {
     UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _leftTableView.frame.size.width, kTableViewCellHeight)] autorelease];
-    NSDictionary *rowDict = [_dataArray objectAtIndex:index];
-    @try {
-        float x;
-        for (NSString *key in _leftDataKeys) {
-            float width = [[_trDictionary objectForKey:key] floatValue];
-            NSString *value = [rowDict objectForKey:key];
-            
-// TODO: 初始化内部label 可以自定义
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, width, kTableViewCellHeight)];
+    view.backgroundColor = [UIColor cyanColor];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewCellHeight)];
             label.contentMode = UIViewContentModeCenter;
             label.textAlignment = NSTextAlignmentCenter;
-            label.text = value;
+            label.text = [_leftDataKeys objectAtIndex:index];
             label.font = [UIFont systemFontOfSize:10.0];
             [view addSubview:label];
             [label release];
-            
-            x += width;
-        }
-    }
-    @catch (NSException *exception) {
-        
-    }
+    
     return view;
 }
 
@@ -153,12 +165,13 @@
     NSDictionary *rowDict = [_dataArray objectAtIndex:index];
     @try {
         float x;
-        for (NSString *key in _rightDataKeys) {
-            float width = [[_trDictionary objectForKey:key] floatValue];
+        for (int i = 1; i < _headDataKeys.count; i++) {
+            
+            NSString *key = [_headDataKeys objectAtIndex:i];
             NSString *value = [rowDict objectForKey:key];
             
 // TODO: 初始化内部label 可以自定义
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, width, kTableViewCellHeight)];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, kTableViewTitleWidth, kTableViewCellHeight)];
             label.contentMode = UIViewContentModeCenter;
             label.textAlignment = NSTextAlignmentCenter;
             label.text = value;
@@ -166,7 +179,7 @@
             [view addSubview:label];
             [label release];
             
-            x += width;
+            x += kTableViewTitleWidth;
         }
     }
     @catch (NSException *exception) {
@@ -175,31 +188,31 @@
     return view;
 }
 
+- (UIView *)viewWithHeadContent:(NSInteger)index
+{
+    UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, 20)] autorelease];
+    label.backgroundColor = [UIColor redColor];
+    @try {
+        NSString *title = [self.headDataKeys objectAtIndex:index+1];
+        label.text = title;
+        label.textAlignment = NSTextAlignmentCenter;
+        label.font = [UIFont systemFontOfSize:10];
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
+    
+    return label;
+}
+
 #pragma mark - TableView DataSource Methods
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
 }
-
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.leftScrollView.frame.size.width+self.rightScrollView.frame.size.width, 20)];
-//    view.backgroundColor = [UIColor redColor];
-//    
-//    if ([tableView isEqual:_leftScrollView]) {
-//        UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
-//        leftLabel.text = @"结算单号";
-//        [view addSubview:leftLabel];
-//    }
-//    else
-//    {
-//        UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 20)];
-//        leftLabel.text = @"Test";
-//        [view addSubview:leftLabel];
-//    }
-//    
-//    return view;
-//}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *SimpleTableIdentifier = @"SimpleTableIdentifier";
@@ -212,8 +225,23 @@
     UIView *view;
     if ([tableView isEqual:_leftTableView]) {
         view = [self viewWithLeftContent:indexPath.row];
-    } else {
+    }
+    else if([tableView isEqual:_rightTableView]){
         view = [self viewWithRightContent:indexPath.row];
+    }
+    else if([tableView isEqual:_headTableView])
+    {
+//        if (indexPath.row < _headDataKeys.count) {
+//            view = [self viewWithHeadContent:indexPath.row];
+//            cell.contentView.transform = CGAffineTransformMakeRotation(M_PI/2);
+//        }
+//        else
+//        {
+//            NSLog(@"Error++++++++");
+//        }
+        
+        view = [self viewWithHeadContent:indexPath.row];
+        cell.contentView.transform = CGAffineTransformMakeRotation(M_PI/2);
     }
     
     while ([cell.contentView.subviews lastObject] != nil) {
@@ -229,31 +257,75 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    @try {
+        if ([tableView isEqual:_headTableView ]||[tableView isEqual:_rightDataKeys]) {
+            return _headDataKeys.count-1;
+        }
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
+
     return _dataArray.count;
 }
 
 #pragma mark - TableView Delegate Methods
 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    @try {
+        if ([tableView isEqual:_headTableView]) {
+            return kTableViewTitleWidth;
+        }
+    }
+    @catch (NSException *exception) {
+        
+    }
+    @finally {
+        
+    }
+    
     return kTableViewCellHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([tableView isEqual:_leftTableView]) {
         [self.rightTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-    } else {
+        
+        
+    }
+    else if([tableView isEqual:_rightTableView]){
         [self.leftTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
+    else if([tableView isEqual:_headTableView])
+    {
+        [self.headTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
 }
 
-#pragma mark - ScrollView Delegate 
+#pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    //确定三个tableView在移动时候各自的关系
     if ([scrollView isEqual:_leftTableView]) {
+        //在左边的leftTableView在上下移动的时候，同时会带动右边的rightTableView的移动
         self.rightTableView.contentOffset = _leftTableView.contentOffset;
-    } else {
+        
+        //在右边rightTableView移动的时候，上方headTableView需要保持与右边的tableView位置的一致，此时_rightScrollView.contentOffset.x=0
+        self.headTableView.contentOffset = CGPointMake(0, _rightScrollView.contentOffset.x);
+    }
+    else {
+        //在右边rightTableView在左右移动的时候，同时headTableView也需要出现左右移动的效果，但是headTableView实际是初始的tableView旋转了90度之后得到的，因此要左右滑动，实际上是上下移动
+        self.headTableView.contentOffset = CGPointMake(0, _rightScrollView.contentOffset.x);
         self.leftTableView.contentOffset = _rightTableView.contentOffset;
     }
 }
+
+
 
 @end

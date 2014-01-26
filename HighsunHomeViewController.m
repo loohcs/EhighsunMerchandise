@@ -31,34 +31,57 @@
     self.navigationItem.title = @"海印百货通";
     self.view.backgroundColor = [UIColor cyanColor];
     
-    NSMutableDictionary *trDict = [NSMutableDictionary dictionaryWithCapacity:0];
+    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBackSideTV)];
+    self.navigationItem.leftBarButtonItem = leftBarBtn;
+    
+    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"退出" style:UIBarButtonItemStyleDone target:self action:@selector(logOutSystem)];
+    self.navigationItem.rightBarButtonItem = rightBarBtn;
+    
+    NSMutableArray *headKeys = [NSMutableArray arrayWithCapacity:0];
     NSMutableArray *leftKeys = [NSMutableArray arrayWithCapacity:0];
-    NSMutableArray *rightKeys = [NSMutableArray arrayWithCapacity:0];
-    int leftNumber = 1;
+
+    headKeys = [NSMutableArray arrayWithArray:[SQLDataSearch getTitle:@"主页"]];
+    
     for (int i = 0; i < 50; i++) {
         NSString *key = [NSString stringWithFormat:@"test_%d", i];
-        [trDict setValue:[NSNumber numberWithFloat:50.0] forKey:key];
-        if (i < leftNumber) {
-            [leftKeys addObject:key];
-        } else {
-            [rightKeys addObject:key];
-        }
+
+        //添加左边tableView的数据的key
+        [leftKeys addObject:key];
     }
+
     
     NSMutableArray *dArray = [NSMutableArray arrayWithCapacity:0];
     for (int i = 0; i < 50; i ++) {
         NSMutableDictionary *data = [NSMutableDictionary dictionaryWithCapacity:0];
-        for (NSString *key in trDict) {
-            [data setValue:[NSString stringWithFormat:@"%@ %d", key, i] forKey:key];
+//        for (NSString *key in headKeys) {
+//            [data setValue:[NSString stringWithFormat:@"%@ %d", key, i] forKey:key];
+//        }
+        for (int j = 0; j < headKeys.count; j++) {
+            NSString *key = [headKeys objectAtIndex:j];
+            [data setValue:[NSString stringWithFormat:@"%@ %d-%d", key, i, j] forKey:key];
         }
+
         [dArray addObject:data];
     }
     
-    CustomTableView *view = [[CustomTableView alloc] initWithData:dArray trDictionary:trDict size:CGSizeMake(self.view.frame.size.width, SCREEN_HEIGHT-64) scrollMethod:kScrollMethodWithRight leftDataKeys:leftKeys rightDataKeys:rightKeys];
-    CGRect frame = view.frame;
-    frame.origin = CGPointMake(0, 64);
-    view.frame = frame;
-    [self.view addSubview:view];
+    _customTableView = [[CustomTableView alloc] initWithData:dArray size:CGSizeMake(self.view.frame.size.width, SCREEN_HEIGHT-84) scrollMethod:kScrollMethodWithRight leftDataKeys:leftKeys headDataKeys:headKeys];
+    CGRect frame = _customTableView.frame;
+    frame.origin = CGPointMake(0, 84);
+    _customTableView.frame = frame;
+    [self.view addSubview:_customTableView];
+}
+
+//TODO: 导航栏上左右两边的动作响应
+- (void)goBackSideTV
+{
+    NSLog(@"返回");
+    
+    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
+}
+
+- (void)logOutSystem
+{
+    NSLog(@"退出");
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,5 +89,49 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations.
+    
+    return YES;
+    
+}
+
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
+        
+#undef SCREEN_WIDTH
+#undef SCREEN_HEIGHT
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+        
+        NSLog(@"切换到竖屏");
+        NSLog(@"SCREEN_WIDTH = %g", SCREEN_WIDTH);
+        NSLog(@"SCREEN_HEITHT = %g", SCREEN_HEIGHT);
+    }
+    
+    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
+        
+#undef SCREEN_WIDTH
+#undef SCREEN_HEIGHT
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.height
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.width
+        
+        NSLog(@"切换到横屏");
+        NSLog(@"SCREEN_WIDTH = %g", SCREEN_WIDTH);
+        NSLog(@"SCREEN_HEITHT = %g", SCREEN_HEIGHT);
+        
+        _customTableView.leftScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
+        _customTableView.rightScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
+        
+        _customTableView.leftTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        _customTableView.rightTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        
+        _customTableView.headTableView.frame = CGRectMake(kTableViewTitleWidth, 0, SCREEN_WIDTH-kTableViewTitleWidth, kTableViewTitleHeight);
+        [_customTableView.headTableView reloadData];
+    }
+}
+
 
 @end

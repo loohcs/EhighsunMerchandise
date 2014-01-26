@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		7504525A1890B11700EEE1C5 /* PPRevealSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750452571890B11700EEE1C5 /* PPRevealSideViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7504525B1890B11700EEE1C5 /* SideTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750452591890B11700EEE1C5 /* SideTableViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7504525F1890D9AF00EEE1C5 /* FloorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7504525E1890D9AF00EEE1C5 /* FloorViewController.m */; };
-		750452621890D9E500EEE1C5 /* ProjectAnalyseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750452611890D9E500EEE1C5 /* ProjectAnalyseViewController.m */; };
-		750452651890FD2400EEE1C5 /* CustomTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 750452641890FD2400EEE1C5 /* CustomTableView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		75161C86189508D500E9BACB /* SingleDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75161C85189508D500E9BACB /* SingleDataViewController.m */; };
+		759D453F1892027D005EA32E /* CustomTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 759D453E1892027D005EA32E /* CustomTableView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		759D4A061894AF9B00E26DF9 /* SQLDataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 759D4A051894AF9B00E26DF9 /* SQLDataSearch.m */; };
 		75A4C462188FCC3D0083C8AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C461188FCC3D0083C8AC /* Foundation.framework */; };
 		75A4C464188FCC3D0083C8AC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C463188FCC3D0083C8AC /* CoreGraphics.framework */; };
 		75A4C466188FCC3D0083C8AC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C465188FCC3D0083C8AC /* UIKit.framework */; };
@@ -49,12 +49,12 @@
 		750452571890B11700EEE1C5 /* PPRevealSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPRevealSideViewController.m; sourceTree = "<group>"; };
 		750452581890B11700EEE1C5 /* SideTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideTableViewController.h; sourceTree = "<group>"; };
 		750452591890B11700EEE1C5 /* SideTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideTableViewController.m; sourceTree = "<group>"; };
-		7504525D1890D9AF00EEE1C5 /* FloorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FloorViewController.h; sourceTree = "<group>"; };
-		7504525E1890D9AF00EEE1C5 /* FloorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloorViewController.m; sourceTree = "<group>"; };
-		750452601890D9E500EEE1C5 /* ProjectAnalyseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectAnalyseViewController.h; sourceTree = "<group>"; };
-		750452611890D9E500EEE1C5 /* ProjectAnalyseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectAnalyseViewController.m; sourceTree = "<group>"; };
-		750452631890FD2400EEE1C5 /* CustomTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableView.h; sourceTree = "<group>"; };
-		750452641890FD2400EEE1C5 /* CustomTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableView.m; sourceTree = "<group>"; };
+		75161C84189508D500E9BACB /* SingleDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleDataViewController.h; sourceTree = "<group>"; };
+		75161C85189508D500E9BACB /* SingleDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleDataViewController.m; sourceTree = "<group>"; };
+		759D453D1892027D005EA32E /* CustomTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableView.h; sourceTree = "<group>"; };
+		759D453E1892027D005EA32E /* CustomTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableView.m; sourceTree = "<group>"; };
+		759D4A041894AF9B00E26DF9 /* SQLDataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLDataSearch.h; sourceTree = "<group>"; };
+		759D4A051894AF9B00E26DF9 /* SQLDataSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLDataSearch.m; sourceTree = "<group>"; };
 		75A4C45E188FCC3D0083C8AC /* EhighsunMerchandise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EhighsunMerchandise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75A4C461188FCC3D0083C8AC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		75A4C463188FCC3D0083C8AC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -127,14 +127,21 @@
 		7504525C1890D95B00EEE1C5 /* 自定义的表单 */ = {
 			isa = PBXGroup;
 			children = (
-				750452631890FD2400EEE1C5 /* CustomTableView.h */,
-				750452641890FD2400EEE1C5 /* CustomTableView.m */,
-				7504525D1890D9AF00EEE1C5 /* FloorViewController.h */,
-				7504525E1890D9AF00EEE1C5 /* FloorViewController.m */,
-				750452601890D9E500EEE1C5 /* ProjectAnalyseViewController.h */,
-				750452611890D9E500EEE1C5 /* ProjectAnalyseViewController.m */,
+				759D453D1892027D005EA32E /* CustomTableView.h */,
+				759D453E1892027D005EA32E /* CustomTableView.m */,
+				75161C84189508D500E9BACB /* SingleDataViewController.h */,
+				75161C85189508D500E9BACB /* SingleDataViewController.m */,
 			);
 			name = "自定义的表单";
+			sourceTree = "<group>";
+		};
+		759D4A071894AFAB00E26DF9 /* 数据请求 */ = {
+			isa = PBXGroup;
+			children = (
+				759D4A041894AF9B00E26DF9 /* SQLDataSearch.h */,
+				759D4A051894AF9B00E26DF9 /* SQLDataSearch.m */,
+			);
+			name = "数据请求";
 			sourceTree = "<group>";
 		};
 		75A4C455188FCC3D0083C8AC = {
@@ -233,6 +240,7 @@
 		75A4C49B188FCCCE0083C8AC /* 海印百货通主页 */ = {
 			isa = PBXGroup;
 			children = (
+				759D4A071894AFAB00E26DF9 /* 数据请求 */,
 				75A4C4A3188FCD3E0083C8AC /* 主页 */,
 				75A4C4B0188FCDF80083C8AC /* 购物卡销售 */,
 				75A4C4AC188FCDB00083C8AC /* 会员分析 */,
@@ -392,18 +400,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				750452621890D9E500EEE1C5 /* ProjectAnalyseViewController.m in Sources */,
 				7504525B1890B11700EEE1C5 /* SideTableViewController.m in Sources */,
 				75A4C49E188FCD090083C8AC /* HighsunHomeViewController.m in Sources */,
 				7504525A1890B11700EEE1C5 /* PPRevealSideViewController.m in Sources */,
 				75A4C4AB188FCDAD0083C8AC /* FinalSumViewController.m in Sources */,
+				75161C86189508D500E9BACB /* SingleDataViewController.m in Sources */,
 				75A4C472188FCC3D0083C8AC /* AppDelegate.m in Sources */,
 				75A4C4A7188FCD6E0083C8AC /* SaleCustomsListViewController.m in Sources */,
 				75A4C4B3188FCE1C0083C8AC /* ShoppingCardViewController.m in Sources */,
-				7504525F1890D9AF00EEE1C5 /* FloorViewController.m in Sources */,
 				75A4C46E188FCC3D0083C8AC /* main.m in Sources */,
+				759D4A061894AF9B00E26DF9 /* SQLDataSearch.m in Sources */,
 				75A4C4A2188FCD380083C8AC /* SaleCompareViewController.m in Sources */,
-				750452651890FD2400EEE1C5 /* CustomTableView.m in Sources */,
+				759D453F1892027D005EA32E /* CustomTableView.m in Sources */,
 				75A4C496188FCCA90083C8AC /* LoginViewController.m in Sources */,
 				75A4C49A188FCCC90083C8AC /* HomeViewController.m in Sources */,
 				75A4C4AF188FCDF10083C8AC /* MemberAnalyseViewController.m in Sources */,

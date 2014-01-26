@@ -15,9 +15,12 @@ typedef enum {
 }ScrollMethod;
 
 #define kTableViewCellHeight 40.0
+#define kTableViewTitleWidth 60.0
+#define kTableViewTitleHeight 20.0
 
 @interface CustomTableView : UIView <UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, retain) UITableView *headTableView;
 @property (nonatomic, retain) UITableView *leftTableView;
 @property (nonatomic, retain) UITableView *rightTableView;
 @property (nonatomic, retain) UIScrollView *leftScrollView;
@@ -26,8 +29,15 @@ typedef enum {
 @property (nonatomic, retain) NSDictionary *trDictionary;
 @property (nonatomic, retain) NSArray *leftDataKeys;
 @property (nonatomic, retain) NSArray *rightDataKeys;
+@property (nonatomic, retain) NSArray *headDataKeys;
+
+@property (nonatomic, assign) CGFloat startDragContentOffsetX;
+@property (nonatomic, assign) CGFloat endDragContentOffsetX;
+
+@property (nonatomic, assign) CGPoint lastPoint;
+@property (nonatomic, assign) CGPoint presentPoint;
 
 //传递的leftDataKeys rightDataKeys我们是经过了判断的，他们每个长度不能在kScrollMethodWithLeft 和 kScrollMethodWithRight模式下不能越界,具体参看代码
-- (id)initWithData:(NSArray *)dArray trDictionary:(NSDictionary *)trDict size:(CGSize)size scrollMethod:(ScrollMethod)sm leftDataKeys:(NSArray *)leftDataKeys rightDataKeys:(NSArray *)rightDataKeys;
+- (id)initWithData:(NSArray *)dArray size:(CGSize)size scrollMethod:(ScrollMethod)sm leftDataKeys:(NSArray *)leftDataKeys headDataKeys:(NSArray *)headDataKeys;
 
 @end

@@ -31,20 +31,57 @@
     self.navigationItem.title = @"购物卡销售";
     self.view.backgroundColor = [UIColor cyanColor];
     
-    UIScrollView *floorScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 60, SCREEN_HEIGHT)];
-    floorScrollView.contentSize = CGSizeMake(60, SCREEN_HEIGHT*2);
-    floorScrollView.pagingEnabled = NO;
-    floorScrollView.bounces = YES;
+    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBackSideTV)];
+    self.navigationItem.leftBarButtonItem = leftBarBtn;
     
-    UITableView *floorTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 60, SCREEN_HEIGHT)];
+    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"退出" style:UIBarButtonItemStyleDone target:self action:@selector(logOutSystem)];
+    self.navigationItem.rightBarButtonItem = rightBarBtn;
     
-    [floorScrollView addSubview:floorTableView];
+    NSMutableArray *headKeys = [NSMutableArray arrayWithCapacity:0];
+    NSMutableArray *leftKeys = [NSMutableArray arrayWithCapacity:0];
+    
+    headKeys = [NSMutableArray arrayWithArray:[SQLDataSearch getTitle:@"购物卡销售"]];
+    
+    for (int i = 0; i < 50; i++) {
+        NSString *key = [NSString stringWithFormat:@"test_%d", i];
+        
+        //添加左边tableView的数据的key
+        [leftKeys addObject:key];
+    }
     
     
-    [self.view addSubview:floorScrollView];
+    NSMutableArray *dArray = [NSMutableArray arrayWithCapacity:0];
+    for (int i = 0; i < 50; i ++) {
+        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithCapacity:0];
+//        for (NSString *key in headKeys) {
+//            [data setValue:[NSString stringWithFormat:@"%@ %d", key, i] forKey:key];
+//        }
+        for (int j = 0; j < headKeys.count; j++) {
+            NSString *key = [headKeys objectAtIndex:j];
+            [data setValue:[NSString stringWithFormat:@"%@ %d-%d", key, i, j] forKey:key];
+        }
+
+        [dArray addObject:data];
+    }
     
+    CustomTableView *view = [[CustomTableView alloc] initWithData:dArray size:CGSizeMake(self.view.frame.size.width, SCREEN_HEIGHT-84) scrollMethod:kScrollMethodWithRight leftDataKeys:leftKeys headDataKeys:headKeys];
+    CGRect frame = view.frame;
+    frame.origin = CGPointMake(0, 84);
+    view.frame = frame;
+    [self.view addSubview:view];
+}
+
+//TODO: 导航栏上左右两边的动作响应
+- (void)goBackSideTV
+{
+    NSLog(@"返回");
     
-    
+    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
+}
+
+- (void)logOutSystem
+{
+    NSLog(@"退出");
 }
 
 - (void)didReceiveMemoryWarning

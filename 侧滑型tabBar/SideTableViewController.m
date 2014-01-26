@@ -74,10 +74,22 @@
     return _viewControllers.count;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, 20)] autorelease];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
+    label.textAlignment = NSTextAlignmentCenter;
+    [view addSubview:label];
+    [label release];
+    
+    return view;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [[tableView dequeueReusableCellWithIdentifier:CellIdentifier] autorelease];
     
     // Configure the cell...
     if (cell == nil) {

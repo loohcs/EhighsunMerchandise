@@ -192,7 +192,7 @@
             _animationInProgress = YES;
             [UIView animateWithDuration:OpenAnimationTime*0.15
                                   delay:0.0
-                                options:UIViewAnimationCurveEaseInOut
+                                options:UIViewAnimationOptionCurveEaseInOut
                              animations:^{
                                  CGFloat offsetBounce;
                                  if (direction == PPRevealSideDirectionLeft || direction == PPRevealSideDirectionRight)
@@ -205,7 +205,7 @@
                              } completion:^(BOOL finished) {
                                  [UIView animateWithDuration:OpenAnimationTime*0.15
                                                        delay:0.0
-                                                     options:UIViewAnimationCurveEaseInOut
+                                                     options:UIViewAnimationOptionCurveEaseInOut
                                                   animations:^{
                                                       _rootViewController.view.frame = originalFrame;
                                                   } completion:^(BOOL finished) {

@@ -43,8 +43,11 @@ static bool isLogin = NO;
     self.navigationItem.title = @"海印百货通";
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIBarButtonItem *righttBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"退出" style:UIBarButtonItemStyleDone target:self action:nil];
-    self.navigationItem.rightBarButtonItem = righttBarBtn;
+    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBackSideTV)];
+    self.navigationItem.leftBarButtonItem = leftBarBtn;
+    
+    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"退出" style:UIBarButtonItemStyleDone target:self action:@selector(logOutSystem)];
+    self.navigationItem.rightBarButtonItem = rightBarBtn;
  
     self.revealSideViewController.panInteractionsWhenClosed = PPRevealSideInteractionNavigationBar|PPRevealSideInteractionNone;
     
@@ -53,6 +56,53 @@ static bool isLogin = NO;
     
     [self.revealSideViewController preloadViewController:self.mySideTV forSide:PPRevealSideDirectionTop];
     [self.revealSideViewController preloadViewController:self.mySideTV forSide:PPRevealSideDirectionLeft];
+    
+    UIButton *highsunHomeVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    highsunHomeVCBtn.frame = CGRectMake(60, 80, 100, 100*0.618);
+    [highsunHomeVCBtn setTitle:@"海印主页" forState:UIControlStateNormal];
+    [highsunHomeVCBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:highsunHomeVCBtn];
+    
+    UIButton *shoppingCardVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    shoppingCardVCBtn.frame = CGRectMake(180, 80, 100, 100*0.618);
+    [shoppingCardVCBtn setTitle:@"购物卡销售" forState:UIControlStateNormal];
+    [shoppingCardVCBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:shoppingCardVCBtn];
+    
+    UIButton *memberAnalyseVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    memberAnalyseVCBtn.frame = CGRectMake(60, 180, 100, 100*0.618);
+    [memberAnalyseVCBtn setTitle:@"会员分析" forState:UIControlStateNormal];
+    [memberAnalyseVCBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:memberAnalyseVCBtn];
+    
+    UIButton *finalSumVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    finalSumVCBtn.frame = CGRectMake(180, 180, 100, 100*0.618);
+    [finalSumVCBtn setTitle:@"结算汇总" forState:UIControlStateNormal];
+    [finalSumVCBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:finalSumVCBtn];
+    
+    UIButton *saleCustomsListVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    saleCustomsListVCBtn.frame = CGRectMake(60, 280, 100, 100*0.618);
+    [saleCustomsListVCBtn setTitle:@"销售客单" forState:UIControlStateNormal];
+    [saleCustomsListVCBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:saleCustomsListVCBtn];
+    
+    UIButton *saleCompareVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    saleCompareVCBtn.frame = CGRectMake(180, 280, 100, 100*0.618);
+    [saleCompareVCBtn setTitle:@"销售对比" forState:UIControlStateNormal];
+    [saleCompareVCBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:saleCompareVCBtn];
+}
+
+//TODO: 导航栏上左右两边的动作响应
+- (void)goBackSideTV
+{
+    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
+}
+
+- (void)logOutSystem
+{
+    
 }
 
 - (void)initWithTableView
@@ -78,7 +128,7 @@ static bool isLogin = NO;
     SaleCompareViewController *saleCompareVC = [[SaleCompareViewController alloc] init];
     UINavigationController *saleCompareNavi = [[UINavigationController alloc] initWithRootViewController:saleCompareVC];
     
-    NSArray *array = [[NSArray alloc] initWithObjects:@"首页", @"海印主页",@"购物卡销售", @"会员分析",@"结算分析", @"销售客单", @"销售对比", nil];
+    NSArray *array = [[NSArray alloc] initWithObjects:@"首页", @"海印主页",@"购物卡销售", @"会员分析",@"结算汇总", @"销售客单", @"销售对比", nil];
     
     _mySideTV.titles = [NSMutableArray arrayWithArray:array];
     _mySideTV.viewControllers = [[NSMutableArray alloc] initWithObjects:homeNavi, highsunNavi, shoppingNavi, memberNavi, finalNavi, saleCustomsNavi, saleCompareNavi, nil];

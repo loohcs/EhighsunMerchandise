@@ -10,4 +10,6 @@
 
 @interface HighsunHomeViewController : UIViewController
 
+@property (nonatomic, strong) CustomTableView *customTableView;
+
 @end

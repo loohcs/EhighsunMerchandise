@@ -18,6 +18,23 @@
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
+#define UIDeviceOrientationIsPortrait(orientation)  ((orientation) == UIDeviceOrientationPortrait || (orientation) == UIDeviceOrientationPortraitUpsideDown)
+#define UIDeviceOrientationIsLandscape(orientation) ((orientation) == UIDeviceOrientationLandscapeLeft || (orientation) == UIDeviceOrientationLandscapeRight)
+
+#if UIDeviceOrientationIsPortrait(orientation)
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+#elif UIDeviceOrientationIsLandscape(orientation)
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.height
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.width
+
+#endif
+
+#import "CustomTableView.h"
+
+#import "SQLDataSearch.h"
+
 #import "LoginViewController.h"//登录页面
 
 #import "HomeViewController.h"//登录成功后显示的主页
@@ -32,9 +49,6 @@
 #import "PPRevealSideViewController.h"//侧滑型tabBar
 #import "SideTableViewController.h"//侧边栏的tableView
 
-#import "FloorViewController.h"
-#import "ProjectAnalyseViewController.h"
 
-#import "CustomTableView.h"
 
 #endif
