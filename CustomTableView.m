@@ -23,8 +23,12 @@
 - (id)initWithData:(NSArray *)dArray size:(CGSize)size scrollMethod:(ScrollMethod)sm leftDataKeys:(NSArray *)leftDataKeys headDataKeys:(NSArray *)headDataKeys{
     if (self = [super initWithFrame:CGRectMake(0, 0, size.width, size.height)]) {
         //data
-        self.dataArray = [NSArray arrayWithArray:dArray];
+        self.dataArray = [NSArray arrayWithArray:dArray];//存放所有的数据
+        
+        //存放左边的数据，同时也是关键字，我们将通过左边的关键字，在dataArray中查找出同一行中右边的数据
         self.leftDataKeys = [NSArray arrayWithArray:leftDataKeys];
+        
+        //存放表头的文字信息，如果有必要，我们也将通过表头的关键字，查找这一列的所有数据
         self.headDataKeys = [NSArray arrayWithArray:headDataKeys];
         
         self.size = size;
@@ -65,6 +69,7 @@
             NSAssert(false, @"width small");
         }
         
+        //TODO: 建立3种tableView，以及2个scrollView
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -20, kTableViewTitleWidth, kTableViewTitleHeight)];
         titleLabel.backgroundColor = [UIColor yellowColor];
         titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -72,6 +77,7 @@
         titleLabel.font = [UIFont systemFontOfSize:10];
         [self addSubview:titleLabel];
         
+        //表头的tableView，通过普通的tableView旋转90度之后得到的横向tableView
         UITableView *headTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, rightScrollWidth)];
         headTableView.delegate = self;
         headTableView.dataSource = self;
@@ -82,6 +88,7 @@
         [headTableView release];
         
 
+        //scrollView 主要用来承载tableView，使左边和右边的tableView可以正常滑动
         UIScrollView *leftScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, leftScrollWidth, size.height)];
         [leftScrollView setShowsHorizontalScrollIndicator:FALSE];
         [leftScrollView setShowsVerticalScrollIndicator:FALSE];
@@ -199,6 +206,7 @@
         label.font = [UIFont systemFontOfSize:10];
         label.userInteractionEnabled = YES;
         [view addSubview:label];
+        view.userInteractionEnabled = YES;
         [label release];
     }
     @catch (NSException *exception) {
@@ -225,6 +233,8 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                        reuseIdentifier: SimpleTableIdentifier] autorelease];
     }
+    
+    //通过判断tableView来添加各自对应的view
     UIView *view;
     if ([tableView isEqual:_leftTableView]) {
         view = [self viewWithLeftContent:indexPath.row];
@@ -238,6 +248,7 @@
         cell.contentView.transform = CGAffineTransformMakeRotation(M_PI/2);
     }
     
+    //释放每一行中的view，避免内存浪费
     while ([cell.contentView.subviews lastObject] != nil) {
         [(UIView*)[cell.contentView.subviews lastObject] removeFromSuperview];
     }
@@ -320,7 +331,7 @@
 
 - (void)fitWithScreenRotation:(UIInterfaceOrientation)toInterfaceOrientation
 {
-    
+    //根据方向的不同，首先获得屏幕大小，然后根据大小重新定义页面中的所有view.fram
     self.size = [GetScreenSize getScreenSize:toInterfaceOrientation];
     
     self.frame = CGRectMake(0, 0, self.size.width, self.size.height);

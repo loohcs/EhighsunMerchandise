@@ -149,6 +149,7 @@ static bool isLogin = NO;
 
 - (void)initWithTableView
 {
+    //添加各个viewController 到侧滑栏中的
     HomeViewController *homeVC = [[HomeViewController alloc] init];
     UINavigationController *homeNavi =[[UINavigationController alloc] initWithRootViewController:homeVC];
     
@@ -183,6 +184,7 @@ static bool isLogin = NO;
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark -- scrollView delegate
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations.
     
@@ -196,6 +198,7 @@ static bool isLogin = NO;
     [self resignBtnFram:toInterfaceOrientation];
 }
 
+//根据屏幕方向重新定义按钮的位置
 - (void)resignBtnFram:(UIInterfaceOrientation)orientation
 {
     self.size = [GetScreenSize getScreenSize:orientation];
