@@ -53,45 +53,51 @@ static bool isLogin = NO;
     
     _mySideTV = [[SideTableViewController alloc] initWithStyle:UITableViewStylePlain];
     [self initWithTableView];
-    
+    //预加载侧边栏
     [self.revealSideViewController preloadViewController:self.mySideTV forSide:PPRevealSideDirectionTop];
     [self.revealSideViewController preloadViewController:self.mySideTV forSide:PPRevealSideDirectionLeft];
     
-    UIButton *highsunHomeVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    highsunHomeVCBtn.frame = CGRectMake(60, 80, 100, 100*0.618);
-    [highsunHomeVCBtn setTitle:@"海印主页" forState:UIControlStateNormal];
-    [highsunHomeVCBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:highsunHomeVCBtn];
+
+    //添加屏幕按钮以及定义响应方法
+    _highsunHomeVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _highsunHomeVCBtn.backgroundColor = [UIColor cyanColor];
+    [_highsunHomeVCBtn setTitle:@"海印主页" forState:UIControlStateNormal];
+    [_highsunHomeVCBtn addTarget:self action:@selector(highsunHomeVCAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_highsunHomeVCBtn];
     
-    UIButton *shoppingCardVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    shoppingCardVCBtn.frame = CGRectMake(180, 80, 100, 100*0.618);
-    [shoppingCardVCBtn setTitle:@"购物卡销售" forState:UIControlStateNormal];
-    [shoppingCardVCBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:shoppingCardVCBtn];
+    _shoppingCardVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _shoppingCardVCBtn.backgroundColor = [UIColor cyanColor];
+    [_shoppingCardVCBtn setTitle:@"购物卡销售" forState:UIControlStateNormal];
+    [_shoppingCardVCBtn addTarget:self action:@selector(shoppingCardVCAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_shoppingCardVCBtn];
     
-    UIButton *memberAnalyseVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    memberAnalyseVCBtn.frame = CGRectMake(60, 180, 100, 100*0.618);
-    [memberAnalyseVCBtn setTitle:@"会员分析" forState:UIControlStateNormal];
-    [memberAnalyseVCBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:memberAnalyseVCBtn];
+    _memberAnalyseVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _memberAnalyseVCBtn.backgroundColor = [UIColor cyanColor];
+    [_memberAnalyseVCBtn setTitle:@"会员分析" forState:UIControlStateNormal];
+    [_memberAnalyseVCBtn addTarget:self action:@selector(memberAnalyseVCAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_memberAnalyseVCBtn];
     
-    UIButton *finalSumVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    finalSumVCBtn.frame = CGRectMake(180, 180, 100, 100*0.618);
-    [finalSumVCBtn setTitle:@"结算汇总" forState:UIControlStateNormal];
-    [finalSumVCBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:finalSumVCBtn];
+    _finalSumVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _finalSumVCBtn.backgroundColor = [UIColor cyanColor];
+    [_finalSumVCBtn setTitle:@"结算汇总" forState:UIControlStateNormal];
+    [_finalSumVCBtn addTarget:self action:@selector(finalSumVCAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_finalSumVCBtn];
     
-    UIButton *saleCustomsListVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    saleCustomsListVCBtn.frame = CGRectMake(60, 280, 100, 100*0.618);
-    [saleCustomsListVCBtn setTitle:@"销售客单" forState:UIControlStateNormal];
-    [saleCustomsListVCBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:saleCustomsListVCBtn];
+    _saleCustomsListVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _saleCustomsListVCBtn.backgroundColor = [UIColor cyanColor];
+    [_saleCustomsListVCBtn setTitle:@"销售客单" forState:UIControlStateNormal];
+    [_saleCustomsListVCBtn addTarget:self action:@selector(saleCustomsListVCAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_saleCustomsListVCBtn];
     
-    UIButton *saleCompareVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    saleCompareVCBtn.frame = CGRectMake(180, 280, 100, 100*0.618);
-    [saleCompareVCBtn setTitle:@"销售对比" forState:UIControlStateNormal];
-    [saleCompareVCBtn addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:saleCompareVCBtn];
+    _saleCompareVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _saleCompareVCBtn.backgroundColor = [UIColor cyanColor];
+    [_saleCompareVCBtn setTitle:@"销售对比" forState:UIControlStateNormal];
+    [_saleCompareVCBtn addTarget:self action:@selector(saleCompareVCAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_saleCompareVCBtn];
+    
+    
+    //获取当前的屏幕大小，即确定屏幕方向
+    [self resignBtnFram:self.interfaceOrientation];
 }
 
 //TODO: 导航栏上左右两边的动作响应
@@ -103,6 +109,42 @@ static bool isLogin = NO;
 - (void)logOutSystem
 {
     
+}
+
+- (void)highsunHomeVCAction
+{
+    HighsunHomeViewController *highsunHomeVC = [[HighsunHomeViewController alloc] init];
+    [self.navigationController pushViewController:highsunHomeVC animated:YES];
+}
+
+- (void)shoppingCardVCAction
+{
+    ShoppingCardViewController *shoppingVC = [[ShoppingCardViewController alloc] init];
+    [self.navigationController pushViewController:shoppingVC animated:YES];
+}
+
+- (void)memberAnalyseVCAction
+{
+    MemberAnalyseViewController *memberVC = [[MemberAnalyseViewController alloc] init];
+    [self.navigationController pushViewController:memberVC animated:YES];
+}
+
+- (void)finalSumVCAction
+{
+    FinalSumViewController *finalVC = [[FinalSumViewController alloc] init];
+    [self.navigationController pushViewController:finalVC animated:YES];
+}
+
+- (void)saleCustomsListVCAction
+{
+    SaleCustomsListViewController *saleCustomsVC = [[SaleCustomsListViewController alloc] init];
+    [self.navigationController pushViewController:saleCustomsVC animated:YES];
+}
+
+- (void)saleCompareVCAction
+{
+    SaleCompareViewController *saleCompareVC = [[SaleCompareViewController alloc] init];
+    [self.navigationController pushViewController:saleCompareVC animated:YES];
 }
 
 - (void)initWithTableView
@@ -139,6 +181,52 @@ static bool isLogin = NO;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations.
+    
+    return YES;
+    
+}
+
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    self.size = [GetScreenSize getScreenSize:toInterfaceOrientation];
+    [self resignBtnFram:toInterfaceOrientation];
+}
+
+- (void)resignBtnFram:(UIInterfaceOrientation)orientation
+{
+    self.size = [GetScreenSize getScreenSize:orientation];
+    CGFloat width = 100;
+    CGFloat height = 100*0.618;
+    CGFloat distanceX = 0;
+    CGFloat distanceY = 0;
+    if (UIDeviceOrientationIsPortrait(orientation)) {
+        distanceX = (self.size.width-width*2)/3;
+        distanceY = (self.size.height-20-44-height*0.618*3)/4;
+        
+        _highsunHomeVCBtn.frame = CGRectMake(distanceX, distanceY+32, width, height);
+        _shoppingCardVCBtn.frame = CGRectMake(width+distanceX*2, distanceY+32, width, height);
+        _memberAnalyseVCBtn.frame = CGRectMake(distanceX, height+distanceY*2+32, width, height);
+        _finalSumVCBtn.frame = CGRectMake(width+distanceX*2, height+distanceY*2+32, width, height);
+        _saleCustomsListVCBtn.frame = CGRectMake(distanceX, height*2+distanceY*3+32, width, height);
+        _saleCompareVCBtn.frame = CGRectMake(width+distanceX*2, height*2+distanceY*3+32, width, height);
+    }
+    else if(UIDeviceOrientationIsLandscape(orientation))
+    {
+        distanceX = (self.size.width-width*3)/4;
+        distanceY = (self.size.height-20-44-height*0.618*2)/3;
+        
+        _highsunHomeVCBtn.frame = CGRectMake(distanceX, distanceY+32, width, height);
+        _shoppingCardVCBtn.frame = CGRectMake(width+distanceX*2, distanceY+32, width, height);
+        _memberAnalyseVCBtn.frame = CGRectMake(width*2+distanceX*3, distanceY+32, width, height);
+        _finalSumVCBtn.frame = CGRectMake(distanceX, height+distanceY*2+32, width, height);
+        _saleCustomsListVCBtn.frame = CGRectMake(width+distanceX*2, height+distanceY*2+32, width, height);
+        _saleCompareVCBtn.frame = CGRectMake(width*2+distanceX*3, height+distanceY*2+32, width, height);
+    }
+
 }
 
 @end

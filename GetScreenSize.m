@@ -10,4 +10,23 @@
 
 @implementation GetScreenSize
 
++ (CGSize)getScreenSize:(UIInterfaceOrientation)orientation
+{
+    CGSize size = CGSizeZero;
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    
+    if (UIDeviceOrientationIsPortrait(orientation)) {
+        NSLog(@"现在是竖屏方向");
+        size = CGSizeMake(width, height);
+    }
+    
+    else if (UIDeviceOrientationIsLandscape(orientation)) {
+        NSLog(@"现在是横屏方向");
+        size = CGSizeMake(height, width);
+    }
+    
+    return size;
+}
+
 @end

@@ -10,4 +10,6 @@
 
 @interface GetScreenSize : NSObject
 
++ (CGSize)getScreenSize:(UIInterfaceOrientation)orientation;
+
 @end

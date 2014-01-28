@@ -10,6 +10,7 @@
 		7504525A1890B11700EEE1C5 /* PPRevealSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750452571890B11700EEE1C5 /* PPRevealSideViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7504525B1890B11700EEE1C5 /* SideTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750452591890B11700EEE1C5 /* SideTableViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		75161C86189508D500E9BACB /* SingleDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75161C85189508D500E9BACB /* SingleDataViewController.m */; };
+		7596B6B4189743A0007D7E72 /* GetScreenSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 7596B6B3189743A0007D7E72 /* GetScreenSize.m */; };
 		759D453F1892027D005EA32E /* CustomTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 759D453E1892027D005EA32E /* CustomTableView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		759D4A061894AF9B00E26DF9 /* SQLDataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 759D4A051894AF9B00E26DF9 /* SQLDataSearch.m */; };
 		75A4C462188FCC3D0083C8AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C461188FCC3D0083C8AC /* Foundation.framework */; };
@@ -51,6 +52,8 @@
 		750452591890B11700EEE1C5 /* SideTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideTableViewController.m; sourceTree = "<group>"; };
 		75161C84189508D500E9BACB /* SingleDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleDataViewController.h; sourceTree = "<group>"; };
 		75161C85189508D500E9BACB /* SingleDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleDataViewController.m; sourceTree = "<group>"; };
+		7596B6B2189743A0007D7E72 /* GetScreenSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetScreenSize.h; sourceTree = "<group>"; };
+		7596B6B3189743A0007D7E72 /* GetScreenSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetScreenSize.m; sourceTree = "<group>"; };
 		759D453D1892027D005EA32E /* CustomTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableView.h; sourceTree = "<group>"; };
 		759D453E1892027D005EA32E /* CustomTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableView.m; sourceTree = "<group>"; };
 		759D4A041894AF9B00E26DF9 /* SQLDataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLDataSearch.h; sourceTree = "<group>"; };
@@ -127,6 +130,8 @@
 		7504525C1890D95B00EEE1C5 /* 自定义的表单 */ = {
 			isa = PBXGroup;
 			children = (
+				7596B6B2189743A0007D7E72 /* GetScreenSize.h */,
+				7596B6B3189743A0007D7E72 /* GetScreenSize.m */,
 				759D453D1892027D005EA32E /* CustomTableView.h */,
 				759D453E1892027D005EA32E /* CustomTableView.m */,
 				75161C84189508D500E9BACB /* SingleDataViewController.h */,
@@ -405,6 +410,7 @@
 				7504525A1890B11700EEE1C5 /* PPRevealSideViewController.m in Sources */,
 				75A4C4AB188FCDAD0083C8AC /* FinalSumViewController.m in Sources */,
 				75161C86189508D500E9BACB /* SingleDataViewController.m in Sources */,
+				7596B6B4189743A0007D7E72 /* GetScreenSize.m in Sources */,
 				75A4C472188FCC3D0083C8AC /* AppDelegate.m in Sources */,
 				75A4C4A7188FCD6E0083C8AC /* SaleCustomsListViewController.m in Sources */,
 				75A4C4B3188FCE1C0083C8AC /* ShoppingCardViewController.m in Sources */,

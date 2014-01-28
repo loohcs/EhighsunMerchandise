@@ -16,5 +16,5 @@
 @property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *passWard;
 @property (nonatomic, assign) BOOL isRememberPassward;
-
+@property (nonatomic, assign) CGSize size;
 @end
