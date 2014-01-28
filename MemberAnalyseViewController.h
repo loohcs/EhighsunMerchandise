@@ -10,4 +10,6 @@
 
 @interface MemberAnalyseViewController : UIViewController
 
+@property (nonatomic, strong) CustomTableView *customTableView;
+
 @end

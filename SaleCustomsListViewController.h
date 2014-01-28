@@ -10,4 +10,6 @@
 
 @interface SaleCustomsListViewController : UIViewController
 
+@property (nonatomic, strong) CustomTableView *customTableView;
+
 @end

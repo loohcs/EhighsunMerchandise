@@ -32,6 +32,8 @@
     self.navigationItem.title = @"欢迎进入海印百货通";
     self.view.backgroundColor = [UIColor whiteColor];
     
+    self.size = [GetScreenSize getScreenSize:self.interfaceOrientation];
+    
     //用户名
     UILabel *nameLable = [[UILabel alloc] initWithFrame:CGRectMake(60, 100, 50, 30)];
     nameLable.font = [UIFont systemFontOfSize:13];
@@ -147,6 +149,18 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations.
+    
+    return YES;
+    
+}
+
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    self.size = [GetScreenSize getScreenSize:toInterfaceOrientation];
 }
 
 @end

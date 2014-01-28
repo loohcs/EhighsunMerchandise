@@ -63,11 +63,11 @@
         [dArray addObject:data];
     }
     
-    CustomTableView *view = [[CustomTableView alloc] initWithData:dArray size:CGSizeMake(self.view.frame.size.width, SCREEN_HEIGHT-84) scrollMethod:kScrollMethodWithRight leftDataKeys:leftKeys headDataKeys:headKeys];
-    CGRect frame = view.frame;
+    _customTableView = [[CustomTableView alloc] initWithData:dArray size:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) scrollMethod:kScrollMethodWithRight leftDataKeys:leftKeys headDataKeys:headKeys];
+    CGRect frame = _customTableView.frame;
     frame.origin = CGPointMake(0, 84);
-    view.frame = frame;
-    [self.view addSubview:view];
+    _customTableView.frame = frame;
+    [self.view addSubview:_customTableView];
 }
 
 //TODO: 导航栏上左右两边的动作响应
@@ -89,5 +89,19 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations.
+    
+    return YES;
+    
+}
+
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+
+    [_customTableView fitWithScreenRotation:toInterfaceOrientation];
+}
+
 
 @end

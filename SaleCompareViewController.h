@@ -10,4 +10,6 @@
 
 @interface SaleCompareViewController : UIViewController
 
+@property (nonatomic, strong) CustomTableView *customTableView;
+
 @end

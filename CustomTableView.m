@@ -19,6 +19,7 @@
 @synthesize leftDataKeys = _leftDataKeys;
 @synthesize rightDataKeys = _rightDataKeys;
 
+
 - (id)initWithData:(NSArray *)dArray size:(CGSize)size scrollMethod:(ScrollMethod)sm leftDataKeys:(NSArray *)leftDataKeys headDataKeys:(NSArray *)headDataKeys{
     if (self = [super initWithFrame:CGRectMake(0, 0, size.width, size.height)]) {
         //data
@@ -26,6 +27,7 @@
         self.leftDataKeys = [NSArray arrayWithArray:leftDataKeys];
         self.headDataKeys = [NSArray arrayWithArray:headDataKeys];
         
+        self.size = size;
         float leftWidth = 0;//左边tableview的宽度
         float rightWidth = 0;//右边tableview的宽度
 
@@ -62,8 +64,24 @@
             NSLog(@"ERROR:%@", exception.name);
             NSAssert(false, @"width small");
         }
-    
-        //???: 左边的scrollView的坐标有问题，下降了64，而同样的右边scrollView则没有这种问题
+        
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -20, kTableViewTitleWidth, kTableViewTitleHeight)];
+        titleLabel.backgroundColor = [UIColor yellowColor];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.text = [_headDataKeys objectAtIndex:0];
+        titleLabel.font = [UIFont systemFontOfSize:10];
+        [self addSubview:titleLabel];
+        
+        UITableView *headTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, rightScrollWidth)];
+        headTableView.delegate = self;
+        headTableView.dataSource = self;
+        [headTableView.layer setAnchorPoint:CGPointMake(0.0, 0.0)];
+        headTableView.transform = CGAffineTransformMakeRotation(M_PI/-2);//旋转90度
+        headTableView.frame = CGRectMake(kTableViewTitleWidth, 0, rightWidth, kTableViewTitleHeight);
+        self.headTableView = headTableView;
+        [headTableView release];
+        
+
         UIScrollView *leftScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, leftScrollWidth, size.height)];
         [leftScrollView setShowsHorizontalScrollIndicator:FALSE];
         [leftScrollView setShowsVerticalScrollIndicator:FALSE];
@@ -93,23 +111,7 @@
         [rightTableView setShowsVerticalScrollIndicator:NO];
         self.rightTableView = rightTableView;
         [rightTableView release];
-        
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -20, kTableViewTitleWidth, kTableViewTitleHeight)];
-        titleLabel.backgroundColor = [UIColor yellowColor];
-        titleLabel.textAlignment = NSTextAlignmentCenter;
-        titleLabel.text = [_headDataKeys objectAtIndex:0];
-        titleLabel.font = [UIFont systemFontOfSize:10];
-        [self addSubview:titleLabel];
-        
-        UITableView *headTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, SCREEN_HEIGHT)];
-        headTableView.delegate = self;
-        headTableView.dataSource = self;
-        [headTableView.layer setAnchorPoint:CGPointMake(0.0, 0.0)];
-        headTableView.transform = CGAffineTransformMakeRotation(M_PI/-2);//旋转90度
-        headTableView.frame = CGRectMake(kTableViewTitleWidth, 0, SCREEN_WIDTH-kTableViewTitleWidth, kTableViewTitleHeight);
-        self.headTableView = headTableView;
-        [headTableView release];
-        
+
         [self.leftScrollView addSubview:_leftTableView];
         [self.leftScrollView setContentSize:_leftTableView.frame.size];
         
@@ -123,9 +125,6 @@
         [self addSubview:_leftScrollView];
         [self addSubview:_rightScrollView];
         [self addSubview:_headTableView];
-        
-
-        
     }
     return self;
 }
@@ -190,13 +189,17 @@
 
 - (UIView *)viewWithHeadContent:(NSInteger)index
 {
-    UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, 20)] autorelease];
+    UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewTitleHeight)] autorelease];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewTitleHeight)];
     label.backgroundColor = [UIColor redColor];
     @try {
         NSString *title = [self.headDataKeys objectAtIndex:index+1];
         label.text = title;
         label.textAlignment = NSTextAlignmentCenter;
         label.font = [UIFont systemFontOfSize:10];
+        label.userInteractionEnabled = YES;
+        [view addSubview:label];
+        [label release];
     }
     @catch (NSException *exception) {
         
@@ -204,8 +207,8 @@
     @finally {
         
     }
-    
-    return label;
+
+    return view;
 }
 
 #pragma mark - TableView DataSource Methods
@@ -231,15 +234,6 @@
     }
     else if([tableView isEqual:_headTableView])
     {
-//        if (indexPath.row < _headDataKeys.count) {
-//            view = [self viewWithHeadContent:indexPath.row];
-//            cell.contentView.transform = CGAffineTransformMakeRotation(M_PI/2);
-//        }
-//        else
-//        {
-//            NSLog(@"Error++++++++");
-//        }
-        
         view = [self viewWithHeadContent:indexPath.row];
         cell.contentView.transform = CGAffineTransformMakeRotation(M_PI/2);
     }
@@ -296,8 +290,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([tableView isEqual:_leftTableView]) {
         [self.rightTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-        
-        
     }
     else if([tableView isEqual:_rightTableView]){
         [self.leftTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
@@ -326,6 +318,29 @@
     }
 }
 
-
+- (void)fitWithScreenRotation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    
+    self.size = [GetScreenSize getScreenSize:toInterfaceOrientation];
+    
+    self.frame = CGRectMake(0, 0, self.size.width, self.size.height);
+    CGRect frame = self.frame;
+    frame.origin = CGPointMake(0, 84);
+    self.frame = frame;
+    
+    self.leftScrollView.frame = CGRectMake(0, 0, kTableViewTitleWidth, self.size.height-20-44-20);
+    self.leftScrollView.contentSize = CGSizeMake(self.leftScrollView.contentSize.width, self.size.height-20-44-20);
+    self.rightScrollView.frame = CGRectMake(kTableViewTitleWidth, 0, self.size.width-kTableViewTitleWidth, self.size.height-20-44-20);
+    self.rightScrollView.contentSize = CGSizeMake(self.rightScrollView.contentSize.width, self.size.height-20-44-20);
+    
+    self.leftTableView.frame = CGRectMake(0, 0, self.size.width, self.size.height-20-44-20);
+    
+    self.rightTableView.frame = CGRectMake(0, 0, self.rightScrollView.contentSize.width, self.size.height-20-44-20);
+    
+    
+    self.headTableView.frame = CGRectMake(kTableViewTitleWidth, 0, self.rightScrollView.contentSize.width, kTableViewTitleHeight);
+    
+    
+}
 
 @end

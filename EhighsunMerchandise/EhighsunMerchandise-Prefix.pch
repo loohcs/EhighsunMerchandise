@@ -15,21 +15,50 @@
     #import <Foundation/Foundation.h>
 
 //宏定义屏幕的大小，便于进行不同手机的兼容
-#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
-#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#ifndef SCREEN_WIDTH
+    #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#endif
+
+#ifndef SCREEN_HEIGHT
+    #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#endif
 
 #define UIDeviceOrientationIsPortrait(orientation)  ((orientation) == UIDeviceOrientationPortrait || (orientation) == UIDeviceOrientationPortraitUpsideDown)
 #define UIDeviceOrientationIsLandscape(orientation) ((orientation) == UIDeviceOrientationLandscapeLeft || (orientation) == UIDeviceOrientationLandscapeRight)
 
-#if UIDeviceOrientationIsPortrait(orientation)
-#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
-#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+//#if (UIDeviceOrientationIsPortrait(UIDeviceOrientationPortrait|UIDeviceOrientationPortraitUpsideDown))
+//    #ifndef SCREEN_WIDTH
+//        #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+//    #else
+//        #undef SCREEN_WIDTH
+//        #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+//    #endif
+//
+//    #ifndef SCREEN_HEIGHT
+//        #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+//    #else
+//        #undef SCREEN_HEIGHT
+//        #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+//    #endif
+//#endif
+//
+//#if (UIDeviceOrientationIsLandscape(UIDeviceOrientationLandscapeLeft|UIDeviceOrientationLandscapeRight))
+//    #ifndef SCREEN_WIDTH
+//        #define #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.height
+//    #else
+//        #undef SCREEN_WIDTH
+//        #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.height
+//    #endif
+//
+//    #ifndef SCREEN_HEIGHT
+//        #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.width
+//    #else
+//    #undef SCREEN_HEIGHT
+//        #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.width
+//    #endif
+//#endif
 
-#elif UIDeviceOrientationIsLandscape(orientation)
-#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.height
-#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.width
-
-#endif
+#import "GetScreenSize.h"
 
 #import "CustomTableView.h"
 

@@ -37,7 +37,11 @@ typedef enum {
 @property (nonatomic, assign) CGPoint lastPoint;
 @property (nonatomic, assign) CGPoint presentPoint;
 
+@property (nonatomic, assign) CGSize size;
+
 //传递的leftDataKeys rightDataKeys我们是经过了判断的，他们每个长度不能在kScrollMethodWithLeft 和 kScrollMethodWithRight模式下不能越界,具体参看代码
 - (id)initWithData:(NSArray *)dArray size:(CGSize)size scrollMethod:(ScrollMethod)sm leftDataKeys:(NSArray *)leftDataKeys headDataKeys:(NSArray *)headDataKeys;
+
+- (void)fitWithScreenRotation:(UIInterfaceOrientation)toInterfaceOrientation;
 
 @end

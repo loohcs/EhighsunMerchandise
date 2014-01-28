@@ -10,4 +10,6 @@
 
 @interface ShoppingCardViewController : UIViewController
 
+@property (nonatomic, strong) CustomTableView *customTableView;
+
 @end

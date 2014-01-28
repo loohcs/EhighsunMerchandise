@@ -49,7 +49,6 @@
         [leftKeys addObject:key];
     }
 
-    
     NSMutableArray *dArray = [NSMutableArray arrayWithCapacity:0];
     for (int i = 0; i < 50; i ++) {
         NSMutableDictionary *data = [NSMutableDictionary dictionaryWithCapacity:0];
@@ -64,7 +63,8 @@
         [dArray addObject:data];
     }
     
-    _customTableView = [[CustomTableView alloc] initWithData:dArray size:CGSizeMake(self.view.frame.size.width, SCREEN_HEIGHT-84) scrollMethod:kScrollMethodWithRight leftDataKeys:leftKeys headDataKeys:headKeys];
+    CGSize size = [GetScreenSize getScreenSize:self.interfaceOrientation];
+    _customTableView = [[CustomTableView alloc] initWithData:dArray size:CGSizeMake(size.width, size.height-84) scrollMethod:kScrollMethodWithRight leftDataKeys:leftKeys headDataKeys:headKeys];
     CGRect frame = _customTableView.frame;
     frame.origin = CGPointMake(0, 84);
     _customTableView.frame = frame;
@@ -93,44 +93,15 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations.
     
-    return YES;
+    return NO;
     
 }
 
 -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
-        
-#undef SCREEN_WIDTH
-#undef SCREEN_HEIGHT
-#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
-#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
-        
-        NSLog(@"切换到竖屏");
-        NSLog(@"SCREEN_WIDTH = %g", SCREEN_WIDTH);
-        NSLog(@"SCREEN_HEITHT = %g", SCREEN_HEIGHT);
-    }
     
-    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
-        
-#undef SCREEN_WIDTH
-#undef SCREEN_HEIGHT
-#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.height
-#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.width
-        
-        NSLog(@"切换到横屏");
-        NSLog(@"SCREEN_WIDTH = %g", SCREEN_WIDTH);
-        NSLog(@"SCREEN_HEITHT = %g", SCREEN_HEIGHT);
-        
-        _customTableView.leftScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
-        _customTableView.rightScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
-        
-        _customTableView.leftTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        _customTableView.rightTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        
-        _customTableView.headTableView.frame = CGRectMake(kTableViewTitleWidth, 0, SCREEN_WIDTH-kTableViewTitleWidth, kTableViewTitleHeight);
-        [_customTableView.headTableView reloadData];
-    }
+    [_customTableView fitWithScreenRotation:toInterfaceOrientation];
+//    [self.view setNeedsDisplay];
 }
 
 

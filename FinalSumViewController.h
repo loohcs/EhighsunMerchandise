@@ -10,4 +10,6 @@
 
 @interface FinalSumViewController : UIViewController
 
+@property (nonatomic, strong) CustomTableView *customTableView;
+
 @end
