@@ -108,7 +108,7 @@ static bool isLogin = NO;
 
 - (void)logOutSystem
 {
-    
+    [self performSelector:@selector(aaaa)];
 }
 
 - (void)highsunHomeVCAction

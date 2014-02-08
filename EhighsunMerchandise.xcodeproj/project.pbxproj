@@ -10,6 +10,7 @@
 		7504525A1890B11700EEE1C5 /* PPRevealSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750452571890B11700EEE1C5 /* PPRevealSideViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7504525B1890B11700EEE1C5 /* SideTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750452591890B11700EEE1C5 /* SideTableViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		75161C86189508D500E9BACB /* SingleDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75161C85189508D500E9BACB /* SingleDataViewController.m */; };
+		754BE18918A5D4C00023F4E4 /* UncaughtExceptionHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 754BE18818A5D4C00023F4E4 /* UncaughtExceptionHandler.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7596B6B4189743A0007D7E72 /* GetScreenSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 7596B6B3189743A0007D7E72 /* GetScreenSize.m */; };
 		759D453F1892027D005EA32E /* CustomTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 759D453E1892027D005EA32E /* CustomTableView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		759D4A061894AF9B00E26DF9 /* SQLDataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 759D4A051894AF9B00E26DF9 /* SQLDataSearch.m */; };
@@ -18,7 +19,7 @@
 		75A4C466188FCC3D0083C8AC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C465188FCC3D0083C8AC /* UIKit.framework */; };
 		75A4C46C188FCC3D0083C8AC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 75A4C46A188FCC3D0083C8AC /* InfoPlist.strings */; };
 		75A4C46E188FCC3D0083C8AC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C46D188FCC3D0083C8AC /* main.m */; };
-		75A4C472188FCC3D0083C8AC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C471188FCC3D0083C8AC /* AppDelegate.m */; };
+		75A4C472188FCC3D0083C8AC /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C471188FCC3D0083C8AC /* AppDelegate.mm */; };
 		75A4C474188FCC3D0083C8AC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75A4C473188FCC3D0083C8AC /* Images.xcassets */; };
 		75A4C47B188FCC3E0083C8AC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C47A188FCC3E0083C8AC /* XCTest.framework */; };
 		75A4C47C188FCC3E0083C8AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C461188FCC3D0083C8AC /* Foundation.framework */; };
@@ -52,6 +53,8 @@
 		750452591890B11700EEE1C5 /* SideTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideTableViewController.m; sourceTree = "<group>"; };
 		75161C84189508D500E9BACB /* SingleDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleDataViewController.h; sourceTree = "<group>"; };
 		75161C85189508D500E9BACB /* SingleDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleDataViewController.m; sourceTree = "<group>"; };
+		754BE18718A5D4C00023F4E4 /* UncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UncaughtExceptionHandler.h; sourceTree = "<group>"; };
+		754BE18818A5D4C00023F4E4 /* UncaughtExceptionHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UncaughtExceptionHandler.mm; sourceTree = "<group>"; };
 		7596B6B2189743A0007D7E72 /* GetScreenSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetScreenSize.h; sourceTree = "<group>"; };
 		7596B6B3189743A0007D7E72 /* GetScreenSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetScreenSize.m; sourceTree = "<group>"; };
 		759D453D1892027D005EA32E /* CustomTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableView.h; sourceTree = "<group>"; };
@@ -67,7 +70,7 @@
 		75A4C46D188FCC3D0083C8AC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		75A4C46F188FCC3D0083C8AC /* EhighsunMerchandise-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EhighsunMerchandise-Prefix.pch"; sourceTree = "<group>"; };
 		75A4C470188FCC3D0083C8AC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		75A4C471188FCC3D0083C8AC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		75A4C471188FCC3D0083C8AC /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		75A4C473188FCC3D0083C8AC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		75A4C479188FCC3E0083C8AC /* EhighsunMerchandiseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EhighsunMerchandiseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		75A4C47A188FCC3E0083C8AC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -140,6 +143,15 @@
 			name = "自定义的表单";
 			sourceTree = "<group>";
 		};
+		754BE18D18A5D94C0023F4E4 /* 崩溃处理 */ = {
+			isa = PBXGroup;
+			children = (
+				754BE18718A5D4C00023F4E4 /* UncaughtExceptionHandler.h */,
+				754BE18818A5D4C00023F4E4 /* UncaughtExceptionHandler.mm */,
+			);
+			name = "崩溃处理";
+			sourceTree = "<group>";
+		};
 		759D4A071894AFAB00E26DF9 /* 数据请求 */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +164,7 @@
 		75A4C455188FCC3D0083C8AC = {
 			isa = PBXGroup;
 			children = (
+				754BE18D18A5D94C0023F4E4 /* 崩溃处理 */,
 				7504525C1890D95B00EEE1C5 /* 自定义的表单 */,
 				75A4C497188FCCB60083C8AC /* 主页 */,
 				75A4C490188FCC4E0083C8AC /* 登陆页面 */,
@@ -188,7 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				75A4C470188FCC3D0083C8AC /* AppDelegate.h */,
-				75A4C471188FCC3D0083C8AC /* AppDelegate.m */,
+				75A4C471188FCC3D0083C8AC /* AppDelegate.mm */,
 				75A4C473188FCC3D0083C8AC /* Images.xcassets */,
 				75A4C468188FCC3D0083C8AC /* Supporting Files */,
 			);
@@ -411,8 +424,9 @@
 				75A4C4AB188FCDAD0083C8AC /* FinalSumViewController.m in Sources */,
 				75161C86189508D500E9BACB /* SingleDataViewController.m in Sources */,
 				7596B6B4189743A0007D7E72 /* GetScreenSize.m in Sources */,
-				75A4C472188FCC3D0083C8AC /* AppDelegate.m in Sources */,
+				75A4C472188FCC3D0083C8AC /* AppDelegate.mm in Sources */,
 				75A4C4A7188FCD6E0083C8AC /* SaleCustomsListViewController.m in Sources */,
+				754BE18918A5D4C00023F4E4 /* UncaughtExceptionHandler.mm in Sources */,
 				75A4C4B3188FCE1C0083C8AC /* ShoppingCardViewController.m in Sources */,
 				75A4C46E188FCC3D0083C8AC /* main.m in Sources */,
 				759D4A061894AF9B00E26DF9 /* SQLDataSearch.m in Sources */,

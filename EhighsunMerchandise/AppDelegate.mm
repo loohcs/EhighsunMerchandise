@@ -8,13 +8,18 @@
 
 #import "AppDelegate.h"
 
+#import "UncaughtExceptionHandler.h"
 #import "LoginViewController.h"
 #import "HomeViewController.h"
 
 @implementation AppDelegate
 
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    InstallUncaughtExceptionHandler();
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
