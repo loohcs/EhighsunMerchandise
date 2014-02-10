@@ -23,6 +23,26 @@
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+    [super viewWillAppear:YES];
+    
+    //TODO: 根据当前的网络状态执行不同的代码
+    //在本项目中主要的内容就是数据的获取与加载，因此本部分的功能也可以放在appDelegate里面，并实现数据的传输或者从服务器请求新的数据
+    AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if(appDlg.isReachable)
+    {
+        NSLog(@"网络已连接");//执行网络正常时的代码
+    }
+    else
+    {
+        NSLog(@"网络连接异常");//执行网络异常时的代码
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"网络连接异常" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

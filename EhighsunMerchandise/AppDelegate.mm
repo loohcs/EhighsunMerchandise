@@ -14,11 +14,48 @@
 
 @implementation AppDelegate
 
+-(void)reachabilityChanged:(NSNotification *)note
 
+{
+    
+    Reachability *currReach = [note object];
+    NSParameterAssert([currReach isKindOfClass:[Reachability class]]);
+    
+    //对连接改变做出响应处理动作
+    NetworkStatus status = [currReach currentReachabilityStatus];
+    
+    //如果没有连接到网络就弹出提醒实况
+    self.isReachable = YES;
+    
+    if(status == NotReachable)
+    {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"网络连接异常" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alert show];
+        self.isReachable = NO;
+        return;
+    }
+    if (status==ReachableViaWiFi||status==ReachableViaWWAN) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"网络连接信息" message:@"网络连接正常" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        
+        [alert show];
+        
+        self.isReachable = YES;
+        
+    }
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     InstallUncaughtExceptionHandler();
+    
+    // 监测网络情况
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reachabilityChanged:)
+                                                 name: kReachabilityChangedNotification
+                                               object: nil];
+    hostReach = [Reachability reachabilityWithHostName:@"www.google.com"];
+    [hostReach startNotifier];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.

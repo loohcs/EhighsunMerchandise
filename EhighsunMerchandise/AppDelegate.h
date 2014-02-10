@@ -7,10 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Reachability.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+{
+    Reachability  *hostReach;
+}
+
 
 @property (strong, nonatomic) UIWindow *window;
+@property (assign, nonatomic) BOOL isReachable;
 @property (strong, nonatomic) PPRevealSideViewController *revealSideVC;
 
 @end

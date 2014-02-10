@@ -11,6 +11,8 @@
 		7504525B1890B11700EEE1C5 /* SideTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 750452591890B11700EEE1C5 /* SideTableViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		75161C86189508D500E9BACB /* SingleDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75161C85189508D500E9BACB /* SingleDataViewController.m */; };
 		754BE18918A5D4C00023F4E4 /* UncaughtExceptionHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 754BE18818A5D4C00023F4E4 /* UncaughtExceptionHandler.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		754BE18F18A6255E0023F4E4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 754BE18E18A6255E0023F4E4 /* SystemConfiguration.framework */; };
+		754BE19218A627F00023F4E4 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 754BE19118A627F00023F4E4 /* Reachability.m */; };
 		7596B6B4189743A0007D7E72 /* GetScreenSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 7596B6B3189743A0007D7E72 /* GetScreenSize.m */; };
 		759D453F1892027D005EA32E /* CustomTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 759D453E1892027D005EA32E /* CustomTableView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		759D4A061894AF9B00E26DF9 /* SQLDataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 759D4A051894AF9B00E26DF9 /* SQLDataSearch.m */; };
@@ -55,6 +57,9 @@
 		75161C85189508D500E9BACB /* SingleDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleDataViewController.m; sourceTree = "<group>"; };
 		754BE18718A5D4C00023F4E4 /* UncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UncaughtExceptionHandler.h; sourceTree = "<group>"; };
 		754BE18818A5D4C00023F4E4 /* UncaughtExceptionHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UncaughtExceptionHandler.mm; sourceTree = "<group>"; };
+		754BE18E18A6255E0023F4E4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		754BE19018A627F00023F4E4 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		754BE19118A627F00023F4E4 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		7596B6B2189743A0007D7E72 /* GetScreenSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetScreenSize.h; sourceTree = "<group>"; };
 		7596B6B3189743A0007D7E72 /* GetScreenSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetScreenSize.m; sourceTree = "<group>"; };
 		759D453D1892027D005EA32E /* CustomTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableView.h; sourceTree = "<group>"; };
@@ -100,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				754BE18F18A6255E0023F4E4 /* SystemConfiguration.framework in Frameworks */,
 				75A4C464188FCC3D0083C8AC /* CoreGraphics.framework in Frameworks */,
 				75A4C466188FCC3D0083C8AC /* UIKit.framework in Frameworks */,
 				75A4C462188FCC3D0083C8AC /* Foundation.framework in Frameworks */,
@@ -164,6 +170,8 @@
 		75A4C455188FCC3D0083C8AC = {
 			isa = PBXGroup;
 			children = (
+				754BE19018A627F00023F4E4 /* Reachability.h */,
+				754BE19118A627F00023F4E4 /* Reachability.m */,
 				754BE18D18A5D94C0023F4E4 /* 崩溃处理 */,
 				7504525C1890D95B00EEE1C5 /* 自定义的表单 */,
 				75A4C497188FCCB60083C8AC /* 主页 */,
@@ -189,6 +197,7 @@
 		75A4C460188FCC3D0083C8AC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				754BE18E18A6255E0023F4E4 /* SystemConfiguration.framework */,
 				75A4C461188FCC3D0083C8AC /* Foundation.framework */,
 				75A4C463188FCC3D0083C8AC /* CoreGraphics.framework */,
 				75A4C465188FCC3D0083C8AC /* UIKit.framework */,
@@ -434,6 +443,7 @@
 				759D453F1892027D005EA32E /* CustomTableView.m in Sources */,
 				75A4C496188FCCA90083C8AC /* LoginViewController.m in Sources */,
 				75A4C49A188FCCC90083C8AC /* HomeViewController.m in Sources */,
+				754BE19218A627F00023F4E4 /* Reachability.m in Sources */,
 				75A4C4AF188FCDF10083C8AC /* MemberAnalyseViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

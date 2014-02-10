@@ -58,6 +58,11 @@
 //    #endif
 //#endif
 
+#import "PPRevealSideViewController.h"//侧滑型tabBar
+#import "SideTableViewController.h"//侧边栏的tableView
+
+#import "AppDelegate.h"
+
 #import "GetScreenSize.h"
 
 #import "CustomTableView.h"
@@ -75,8 +80,7 @@
 #import "SaleCustomsListViewController.h"//销售客单
 #import "SaleCompareViewController.h"//销售对比
 
-#import "PPRevealSideViewController.h"//侧滑型tabBar
-#import "SideTableViewController.h"//侧边栏的tableView
+
 
 
 

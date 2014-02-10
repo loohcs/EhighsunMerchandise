@@ -108,7 +108,8 @@ static bool isLogin = NO;
 
 - (void)logOutSystem
 {
-    [self performSelector:@selector(aaaa)];
+    //崩溃测试，点击退出会马上使程序崩溃，但是不会出现闪退现象，会跳出警示框
+//    [self performSelector:@selector(aaaa)];
 }
 
 - (void)highsunHomeVCAction
