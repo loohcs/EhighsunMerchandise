@@ -170,13 +170,13 @@
     UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _rightTableView.frame.size.width, kTableViewCellHeight)] autorelease];
     NSDictionary *rowDict = [_dataArray objectAtIndex:index];
     @try {
-        float x;
+        float x = 0.0;
         for (int i = 1; i < _headDataKeys.count; i++) {
             
             NSString *key = [_headDataKeys objectAtIndex:i];
             NSString *value = [rowDict objectForKey:key];
             
-// TODO: 初始化内部label 可以自定义
+            // TODO: 初始化内部label 可以自定义
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, kTableViewTitleWidth, kTableViewCellHeight)];
             label.contentMode = UIViewContentModeCenter;
             label.textAlignment = NSTextAlignmentCenter;
@@ -213,7 +213,7 @@
         
     }
     @finally {
-        
+
     }
 
     return view;

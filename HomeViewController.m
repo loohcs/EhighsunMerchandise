@@ -27,10 +27,24 @@ static bool isLogin = NO;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
     if (!isLogin) {
         LoginViewController *loginVC = [[LoginViewController alloc] init];
         [self presentViewController:loginVC animated:NO completion:nil];
         isLogin = YES;
+    }
+    else
+    {
+        //网络监测
+        AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        if(appDlg.isReachable)
+        {
+            NSLog(@"网络已连接11111111111");//执行网络正常时的代码
+        }
+        else
+        {
+            NSLog(@"网络连接异常2222222222");//执行网络异常时的代码
+        }
     }
 }
 

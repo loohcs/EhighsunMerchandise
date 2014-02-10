@@ -170,8 +170,7 @@
 		75A4C455188FCC3D0083C8AC = {
 			isa = PBXGroup;
 			children = (
-				754BE19018A627F00023F4E4 /* Reachability.h */,
-				754BE19118A627F00023F4E4 /* Reachability.m */,
+				75D866ED18A86EDF00A7098C /* 网络监测 */,
 				754BE18D18A5D94C0023F4E4 /* 崩溃处理 */,
 				7504525C1890D95B00EEE1C5 /* 自定义的表单 */,
 				75A4C497188FCCB60083C8AC /* 主页 */,
@@ -330,6 +329,15 @@
 				75A4C4B2188FCE1C0083C8AC /* ShoppingCardViewController.m */,
 			);
 			name = "购物卡销售";
+			sourceTree = "<group>";
+		};
+		75D866ED18A86EDF00A7098C /* 网络监测 */ = {
+			isa = PBXGroup;
+			children = (
+				754BE19018A627F00023F4E4 /* Reachability.h */,
+				754BE19118A627F00023F4E4 /* Reachability.m */,
+			);
+			name = "网络监测";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -15,7 +15,6 @@
 @implementation AppDelegate
 
 -(void)reachabilityChanged:(NSNotification *)note
-
 {
     
     Reachability *currReach = [note object];
@@ -35,10 +34,12 @@
         self.isReachable = NO;
         return;
     }
+    //网络正常时弹出框
+    //暂时不需要，即正常时不弹框
     if (status==ReachableViaWiFi||status==ReachableViaWWAN) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"网络连接信息" message:@"网络连接正常" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        //UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"网络连接信息" message:@"网络连接正常" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
         
-        [alert show];
+        //[alert show];
         
         self.isReachable = YES;
         
