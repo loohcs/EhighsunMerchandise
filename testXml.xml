@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://webservice.modules.springside.org">
+    <soap:Header>
+        <authHeader>
+            <userId>wanfang</userId>
+            <userPass>wanfang</userPass>
+        </authHeader>
+    </soap:Header>
+    <soap:Body>
+        <ns1:simpleQuery>
+            <queryString>法律</queryString>
+            <section>all</section>
+            <pageNo>1</pageNo>
+        </ns1:simpleQuery>
+    </soap:Body>
+</soap:Envelope>
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <TestConnectOracle xmlns="http://192.168.3.7:8000/WebServices">
+            <headid>string</headid>
+        </TestConnectOracle>
+    </soap:Body>
+</soap:Envelope>

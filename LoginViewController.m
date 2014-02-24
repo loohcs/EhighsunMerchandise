@@ -8,6 +8,8 @@
 
 #import "LoginViewController.h"
 
+
+
 @interface LoginViewController ()
 
 @end
@@ -33,6 +35,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.size = [GetScreenSize getScreenSize:self.interfaceOrientation];
+    
+    _helper=[[ServiceHelper alloc] init];
     
     //用户名
     UILabel *nameLable = [[UILabel alloc] initWithFrame:CGRectMake(60, 100, 50, 30)];
@@ -112,6 +116,107 @@
         [failAlertView show];
         failAlertView.tag = 200;
     }
+    
+    
+    NSLog(@"----------Test Connet WebService Success!");
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.3.7:8000/WebServices/WS_VipMember.asmx?op=Test"]];
+//    [webView loadRequest:request];
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@"WS_VipMember",@"WS_Name", @"TestTemp",@"Method_Name", nil];
+    NSURL *url = [URLHelper getUrlWithString:HOST_HTTP andArgument:dic];
+    NSLog(@"-----------%@", url);
+    NSURLRequest *requestTest = [NSURLRequest requestWithURL:url];
+    [webView loadRequest:requestTest];
+    
+    webView.delegate = self;
+    [self.view addSubview:webView];
+    
+    [NSURLConnection connectionWithRequest:requestTest delegate:self];
+    
+    
+//    WebServiceHelper* service = [[WebServiceHelper alloc]initWebService:@"login"];
+//    [service addParameterForString:@"username" value:_userName];
+//    [service addParameterForString:@"password" value:_passWard];
+//    service.delegate = self;
+//    [service startASynchronous];
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    
+}
+
+//-(void)requestFinished:(WebServiceHelper *)request
+//{
+//    NSString* result = [request getSimpleResult];
+//    NSArray *array = [result componentsSeparatedByString:@"{h}"];
+//    NSString* code = [array objectAtIndex:0];
+//    if(code.intValue == 1)
+//    {
+////        NSString* userinfo = [array objectAtIndex:1];
+////        UserModel* model = [[UserModel alloc]initWithXmlData:userinfo];
+////        [AppManager sharedManager].currentUserModel = model;
+////        [model release];
+////        [WToast showWithText:@"登陆成功！"];
+////        [LoginController hideLoginController];
+//        
+//        NSLog(@"登录成功");
+//        
+//    }
+//    else if(code.intValue == -1)
+//    {
+////        [WToast showWithText:@"请核对账号密码后登陆。"];
+//        
+//        NSLog(@"请核对账号密码后登陆。");
+//    }
+//    else {
+////        [WToast showWithText:@"系统繁忙！请稍后登陆。"];
+//        
+//        NSLog(@"系统繁忙！请稍后登陆。");
+//    }
+//}
+//
+//
+//-(void)requestFailed:(WebServiceHelper *)request
+//{
+////    [WToast showWithText:@"系统繁忙！请稍后登陆。"];
+//    NSLog(@"%@",request.error.debugDescription);
+//    
+//}
+
+
+#pragma mark -- WebView Delegate
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSLog(@"+++++++++");
+    return YES;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    
 }
 
 
@@ -123,7 +228,7 @@
     HomeViewController *homeVC = [[HomeViewController alloc] init];
     UINavigationController *homeNavi = [[UINavigationController alloc] initWithRootViewController:homeVC];
     PPRevealSideViewController *revealSideVC = [[PPRevealSideViewController alloc] initWithRootViewController:homeNavi];
-    [self presentViewController:revealSideVC animated:YES completion:nil];
+    //[self presentViewController:revealSideVC animated:YES completion:nil];
 }
 
 - (void)registerBtnAction:(UIButton *)sender
@@ -161,6 +266,117 @@
 -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     self.size = [GetScreenSize getScreenSize:toInterfaceOrientation];
+}
+
+
+//同步请求
+- (void)SyncClick:(id)sender {
+    /**(1)调用其它的webservice并有参数**
+     NSMutableArray *params=[NSMutableArray array];
+     [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"道道香食府",@"userName", nil]];
+     [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"123456",@"passWord", nil]];
+     ServiceArgs *args1=[[[ServiceArgs alloc] init] autorelease];
+     args1.serviceURL=@"http://117.27.136.236:9000/WebServer/Phone/PHoneWebServer.asmx";
+     args1.serviceNameSpace=@"http://www.race.net.cn";
+     args1.methodName=@"EnterpriseLogin";
+     args1.soapParams=params;
+     NSLog(@"soap=%@\n",args1.soapMessage);
+     ServiceResult *result=[ServiceHelper syncService:args1];
+     NSLog(@"xml=%@\n",[result.request responseString]);
+     ***/
+    
+    /**(2)调用无参数的webservice**/
+    [self showLoadingAnimatedWithTitle:@"正在同步..."];
+    ServiceResult *result=[ServiceHelper syncMethodName:@"TestConnectOracle"];
+    NSLog(@"同步请求xml=%@\n",result);
+    NSLog(@"----------同步请求xml=%@\n",result.xmlString);
+    /********[--如果无法解析，请启用以下两句--]**********
+     NSString* xml=[result.xmlString stringByReplacingOccurrencesOfString:result.xmlnsAttr withString:@""];
+     [result.xmlParse setDataSource:xml];
+     ****/
+    NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//Test"];
+    NSLog(@"解析xml结果=%@\n",arr);
+    [self hideLoadingSuccessWithTitle:@"同步完成!" completed:nil];
+    
+}
+//异步请求deletegated
+- (void)asyncDelegatedClick:(id)sender {
+    [self showLoadingAnimatedWithTitle:@"正在执行异步请求deletegated,请稍等..."];
+    [_helper asynServiceMethodName:@"getForexRmbRate" delegate:self];
+}
+//异步请求block
+- (void)asyncBlockClick:(id)sender {
+    NSLog(@"异步请求block\n");
+    [self showLoadingAnimatedWithTitle:@"正在执行异步block请求,请稍等..."];
+    [_helper asynServiceMethodName:@"getForexRmbRate" success:^(ServiceResult *result) {
+        BOOL boo=strlen([result.xmlString UTF8String])>0?YES:NO;
+        if (boo) {
+            [self hideLoadingSuccessWithTitle:@"block请求成功!" completed:nil];
+        }else{
+            [self hideLoadingFailedWithTitle:@"block请求失败!" completed:nil];
+        }
+        NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//ForexRmbRate"];
+        NSLog(@"解析xml结果=%@\n",arr);
+        
+        
+        
+    } failed:^(NSError *error, NSDictionary *userInfo) {
+        NSLog(@"error=%@\n",[error description]);
+        [self hideLoadingFailedWithTitle:@"block请求失败!" completed:nil];
+    }];
+}
+//队列请求
+- (void)queueClick:(id)sender {
+    ServiceHelper *helper=[ServiceHelper sharedInstance];
+    
+    
+    
+    //添加队列1
+    ASIHTTPRequest *request1=[ServiceHelper commonSharedRequest:[ServiceArgs serviceMethodName:@"getForexRmbRate"]];
+    [request1 setUserInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"request1",@"name", nil]];
+    [helper addQueue:request1];
+    //添加队列2
+    ServiceArgs *args1=[[ServiceArgs alloc] init];
+    args1.serviceURL=@"http://webservice.webxml.com.cn/WebServices/MobileCodeWS.asmx";
+    args1.serviceNameSpace=@"http://WebXml.com.cn/";
+    args1.methodName=@"getDatabaseInfo";
+    ASIHTTPRequest *request2=[ServiceHelper commonSharedRequest:args1];
+    [request1 setUserInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"request2",@"name", nil]];
+    [helper addQueue:request2];
+    
+    [self showLoadingAnimatedWithTitle:@"正在执行队列请求,请稍等..."];
+    //执行队列
+    [helper startQueue:^(ServiceResult *result) {
+        NSString *name=[result.userInfo objectForKey:@"name"];
+        NSLog(@"%@请求成功，xml=%@",name,result.xmlString);
+    } failed:^(NSError *error, NSDictionary *userInfo) {
+        NSString *name=[userInfo objectForKey:@"name"];
+        NSLog(@"%@请求失败，失败原因:%@",name,[error description]);
+    } complete:^(NSArray *results) {
+        NSLog(@"排队列请求完成！\n");
+        [self hideLoadingViewAnimated:^(AnimateLoadView *hideView) {
+            [self showSuccessViewWithHide:^(AnimateErrorView *errorView) {
+                errorView.labelTitle.text=@"排队列请求完成！";
+            } completed:nil];
+        }];
+    }];
+}
+#pragma mark -
+#pragma mark ServiceHelperDelegate Methods
+-(void)finishSoapRequest:(ServiceResult*)result{
+    
+    NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//TestTemp"];
+    NSLog(@"解析xml结果=%@\n",arr);
+    BOOL boo=strlen([result.xmlString UTF8String])>0?YES:NO;
+    if (boo) {
+        [self hideLoadingSuccessWithTitle:@"deletegated请求成功!" completed:nil];
+    }else{
+        [self hideLoadingFailedWithTitle:@"deletegated请求失败!" completed:nil];
+    }
+}
+-(void)failedSoapRequest:(NSError*)error userInfo:(NSDictionary*)dic{
+    NSLog(@"error=%@\n",[error description]);
+    [self hideLoadingFailedWithTitle:@"deletegated请求失败!" completed:nil];
 }
 
 @end

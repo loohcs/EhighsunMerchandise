@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soapenv:Envelope
+    xmlns:q0="http://webservice.modules.springside.org"
+    xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Header>
+        <authHeader>
+            <userId>loohcs</userId>
+            <userPass>school</userPass>
+        </authHeader>
+    </soapenv:Header>
+    <soapenv:Body>
+        <q0:getVersion/>
+    </soapenv:Body>  
+</soapenv:Envelope>
+
+
