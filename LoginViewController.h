@@ -15,7 +15,7 @@
 #import "BasicViewController.h"
 //#import "WebServiceHelper.h"
 
-@interface LoginViewController : BasicViewController<UITextFieldDelegate, UIWebViewDelegate, NSURLConnectionDelegate, NSURLConnectionDataDelegate, ServiceHelperDelegate>
+@interface LoginViewController : BasicViewController<UITextFieldDelegate, ServiceHelperDelegate>
 
 @property (nonatomic, strong) ServiceHelper *helper;
 @property (nonatomic, strong) UITextField *nameText;
@@ -25,10 +25,5 @@
 @property (nonatomic, assign) BOOL isRememberPassward;
 @property (nonatomic, assign) CGSize size;
 
-
-- (void)SyncClick:(id)sender;
-- (void)asyncDelegatedClick:(id)sender;
-- (void)asyncBlockClick:(id)sender;
-- (void)queueClick:(id)sender;
 
 @end

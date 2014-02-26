@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BasicViewController.h"
 #import "SideTableViewController.h"
-@interface HomeViewController : UIViewController
+@interface HomeViewController : BasicViewController
 
 @property (nonatomic, strong) UITextField *nameText;
 @property (nonatomic, strong) UITextField *passwardText;

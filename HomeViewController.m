@@ -25,6 +25,33 @@
 
 static bool isLogin = NO;
 
+- (NSArray *)getDataFromWS:(NSString *)WS_Name andMethod:(NSString *)method andParams:(NSArray *)params
+{
+    [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
+    
+    ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_VipMember" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"TestConnectOracle" andParams:Nil];
+//    args1.serviceURL=[ServiceArgs getServiceURL:@"WS_VipMember"];
+//    args1.serviceNameSpace=DefaultWebServiceNamespace;
+//    args1.methodName=@"TestConnectOracle";
+//    args1.soapParams=params;
+    
+    ServiceResult *result=[ServiceHelper syncService:args];
+    NSLog(@"同步请求xml=%@\n",result);
+    NSLog(@"----------同步请求xml=%@\n",result.xmlString);
+    
+    /********[--如果无法解析，请启用以下两句--]**********
+     NSString* xml=[result.xmlString stringByReplacingOccurrencesOfString:result.xmlnsAttr withString:@""];
+     [result.xmlParse setDataSource:xml];
+     ****/
+    
+    NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//SellHead"];
+    NSLog(@"解析xml结果=%@\n",arr);
+    [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+    
+    
+    return arr;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
@@ -47,7 +74,6 @@ static bool isLogin = NO;
         }
     }
 }
-
 
 - (void)viewDidLoad
 {
@@ -152,13 +178,21 @@ static bool isLogin = NO;
 
 - (void)saleCustomsListVCAction
 {
+    [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
+    [SQLDataSearch SyncGetDataWith:@"WS_VipMember" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"TestConnectOracle" andParams:Nil];
+    [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+    
     SaleCustomsListViewController *saleCustomsVC = [[SaleCustomsListViewController alloc] init];
     [self.navigationController pushViewController:saleCustomsVC animated:YES];
 }
 
 - (void)saleCompareVCAction
 {
-    SaleCompareViewController *saleCompareVC = [[SaleCompareViewController alloc] init];
+    [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
+    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_VipMember" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"TestConnectOracle" andParams:Nil]];
+    [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+    
+    SaleCompareViewController *saleCompareVC = [[SaleCompareViewController alloc] initWithDataDic:dic];
     [self.navigationController pushViewController:saleCompareVC animated:YES];
 }
 

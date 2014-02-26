@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>testSqlStr</key>
+	<string>(
+select class1,class2,SUM(XSSR+pfsr) BQSR ,SUM(xsjjml+pfjjml) BQML,0.00 TQSR ,0.00 TQML,0.00 HBSR,0.00 HBML   
+ from SALECOSTDAY,view_mframe_all
+where scdmfid = class3 
+AND SCDDATE &gt;= TO_DATE(&apos;2013-12-23&apos;,&apos;YYYY-MM-DD&apos;) 
+AND SCDDATE &lt;  TO_DATE(&apos;2013-12-29&apos;,&apos;YYYY-MM-DD&apos;) + 1
+and scdwmid LIKE NVL(&apos;&apos;,&apos;%&apos;)
+GROUP BY class1,class2
+UNION
+select class1,class2,0.00 BQSR ,0.00 BQML,SUM(XSSR+pfsr) TQSR ,SUM(xsjjml+pfjjml) TQML,0.00 HBSR,0.00 HBML   
+ from SALECOSTDAY,view_mframe_all
+where scdmfid = class3 
+AND SCDDATE &gt;= ADD_MONTHS(TO_DATE(&apos;2013-12-23&apos;,&apos;YYYY-MM-DD&apos;),-12)
+AND SCDDATE &lt;  ADD_MONTHS(TO_DATE(&apos;2013-12-29&apos;,&apos;YYYY-MM-DD&apos;),-12) + 1
+and scdwmid LIKE NVL(&apos;&apos;,&apos;%&apos;)
+GROUP BY class2,class1
+UNION
+select class1,class2,0.00 BQSR ,0.00 BQML,0.00 TQSR ,0.00 TQML,SUM(XSSR+pfsr) HBSR,SUM(xsjjml+pfjjml) HBML   
+ from SALECOSTDAY,view_mframe_all
+where scdmfid = class3 
+AND SCDDATE &gt;= ADD_MONTHS(TO_DATE(&apos;2013-12-23&apos;,&apos;YYYY-MM-DD&apos;),-1)
+AND SCDDATE &lt;  ADD_MONTHS(TO_DATE(&apos;2013-12-29&apos;,&apos;YYYY-MM-DD&apos;),-1) + 1
+--AND SCDDATE &gt;= TO_DATE(&apos;2013-12-23&apos;,&apos;YYYY-MM-DD&apos;) - (TO_DATE(&apos;2013-12-29&apos;,&apos;YYYY-MM-DD&apos;) -  TO_DATE(&apos;2013-12-23&apos;,&apos;YYYY-MM-DD&apos;))
+--AND SCDDATE &lt;  TO_DATE(&apos;2013-12-29&apos;,&apos;YYYY-MM-DD&apos;) -  (TO_DATE(&apos;2013-12-29&apos;,&apos;YYYY-MM-DD&apos;) -  TO_DATE(&apos;2013-12-23&apos;,&apos;YYYY-MM-DD&apos;)) + 1
+and scdwmid LIKE NVL(&apos;&apos;,&apos;%&apos;)
+GROUP BY class1,class2)</string>
+	<key>salepayment</key>
+	<string>select * from salepayment</string>
+	<key>selldetail</key>
+	<string>select * from selldetail</string>
+	<key>sellhead</key>
+	<string>select * from sellhead</string>
+</dict>
+</plist>

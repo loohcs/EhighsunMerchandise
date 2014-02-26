@@ -12,8 +12,8 @@
 -(NSString*)paramsFormatString:(NSArray*)params;
 @end
 
-static NSString *defaultWebServiceUrl=@"http://192.168.3.7:8000/WebServices/WS_VipMember.asmx?op=TestTemp";
-static NSString *defaultWebServiceNameSpace=@"http://192.168.3.7:8000/WebServices";
+static NSString *defaultWebServiceUrl=@"http://192.168.2.214:8000/WebServices";
+static NSString *defaultWebServiceNameSpace=@"http://192.168.2.214:8000/WebServices/";
 
 //static NSString *defaultWebServiceUrl=@"http://webservice.webxml.com.cn/WebServices/ForexRmbRateWebService.asmx";
 //static NSString *defaultWebServiceNameSpace=@"http://webxml.com.cn/";
@@ -24,6 +24,22 @@ static NSString *defaultWebServiceNameSpace=@"http://192.168.3.7:8000/WebService
 @synthesize webURL,headers,defaultSoapMesage;
 @synthesize soapParams;
 
+- (id)initWithWebServiceName:(NSString *)ws_name andServiceNameSpace:(NSString *)serviceNameSpace andMethod:(NSString *)method andParams:(NSArray *)params
+{
+    if (self = [super init]) {
+        self.serviceURL = [ServiceArgs getServiceURL:ws_name];
+        self.serviceNameSpace = DefaultWebServiceNamespace;
+        self.methodName = method;
+        self.soapParams = params;
+    }
+    return self;
+}
+
++(NSString *)getServiceURL:(NSString *)webServiceName
+{
+    NSString *serviceURLTemp = [NSString stringWithFormat:@"%@/%@.asmx", DefaultWebServiceBaseUrl, webServiceName];
+    return serviceURLTemp;
+}
 
 +(void)setWebServiceURL:(NSString*)url
 {

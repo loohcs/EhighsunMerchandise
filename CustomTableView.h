@@ -39,8 +39,13 @@ typedef enum {
 
 @property (nonatomic, assign) CGSize size;
 
+@property (nonatomic, strong) NSDictionary *rightDataDic;
+
 //传递的leftDataKeys rightDataKeys我们是经过了判断的，他们每个长度不能在kScrollMethodWithLeft 和 kScrollMethodWithRight模式下不能越界,具体参看代码
 - (id)initWithData:(NSArray *)dArray size:(CGSize)size scrollMethod:(ScrollMethod)sm leftDataKeys:(NSArray *)leftDataKeys headDataKeys:(NSArray *)headDataKeys;
+
+
+- (id)initWithHeadDataKeys:(NSArray *)headDataKeys andLeftDataKeys:(NSArray *)leftDataKeys andRightData:(NSDictionary *)rightDataDic andSize:(CGSize)size andScrollMethod:(ScrollMethod)sm;
 
 - (void)fitWithScreenRotation:(UIInterfaceOrientation)toInterfaceOrientation;
 

@@ -26,7 +26,8 @@
 #define UIDeviceOrientationIsPortrait(orientation)  ((orientation) == UIDeviceOrientationPortrait || (orientation) == UIDeviceOrientationPortraitUpsideDown)
 #define UIDeviceOrientationIsLandscape(orientation) ((orientation) == UIDeviceOrientationLandscapeLeft || (orientation) == UIDeviceOrientationLandscapeRight)
 
-#define HOST_HTTP  @"http://192.168.3.7:8000/WebServices"
+#define DefaultWebServiceBaseUrl  @"http://192.168.2.214:8000/WebServices"
+#define DefaultWebServiceNamespace @"http://192.168.2.214:8000/WebServices"
 
 #import "PPRevealSideViewController.h"//侧滑型tabBar
 #import "SideTableViewController.h"//侧边栏的tableView
@@ -40,6 +41,11 @@
 
 #import "CustomTableView.h"
 
+#import "ServiceHelper.h"
+#import "ServiceArgs.h"
+#import "ServiceResult.h"
+
+#import "DBDataHelper.h"
 #import "SQLDataSearch.h"
 
 #import "LoginViewController.h"//登录页面

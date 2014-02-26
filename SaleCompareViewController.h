@@ -11,5 +11,8 @@
 @interface SaleCompareViewController : UIViewController
 
 @property (nonatomic, strong) CustomTableView *customTableView;
+@property (nonatomic, strong) NSDictionary *dataDic;
+
+- (id)initWithDataDic:(NSDictionary *)dic;
 
 @end

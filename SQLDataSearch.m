@@ -53,4 +53,47 @@
     return dataDic;
 }
 
+//同步请求
++ (NSDictionary *)SyncGetDataWith:(NSString *)ws_name andServiceNameSpace:(NSString *)ws_namespace andMethod:(NSString *)method andParams:(NSArray *)params
+{
+    ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_VipMember" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"TestConnectOracle" andParams:Nil];    
+    ServiceResult *result=[ServiceHelper syncService:args];
+    NSLog(@"同步请求xml=%@\n",result);
+    NSLog(@"----------同步请求xml=%@\n",result.xmlString);
+    
+    /********[--如果无法解析，请启用以下两句--]**********
+     NSString* xml=[result.xmlString stringByReplacingOccurrencesOfString:result.xmlnsAttr withString:@""];
+     [result.xmlParse setDataSource:xml];
+     ****/
+    
+    NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//SellHead"];
+    NSLog(@"解析xml结果=%@\n",arr);
+    
+    NSDictionary *dic = [DBDataHelper getData:arr];
+    NSLog(@"%@", dic);
+    
+    return dic;
+}
+
+//异步请求block
+- (void)asyncBlockClick:(id)sender
+{
+    NSLog(@"异步请求block\n");
+    [_helper asynServiceMethodName:@"getForexRmbRate" success:^(ServiceResult *result) {
+        BOOL boo=strlen([result.xmlString UTF8String])>0?YES:NO;
+        if (boo) {
+            
+        }else{
+            
+        }
+        NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//ForexRmbRate"];
+        NSLog(@"解析xml结果=%@\n",arr);
+
+    } failed:^(NSError *error, NSDictionary *userInfo) {
+        NSLog(@"error=%@\n",[error description]);
+        
+    }];
+}
+
+
 @end

@@ -17,6 +17,7 @@
 		759D4A061894AF9B00E26DF9 /* SQLDataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 759D4A051894AF9B00E26DF9 /* SQLDataSearch.m */; };
 		75A077C718B5964B002DCDDC /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A077C618B5964B002DCDDC /* libxml2.2.dylib */; };
 		75A077CA18B59DF2002DCDDC /* URLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A077C918B59DF2002DCDDC /* URLHelper.m */; };
+		75A306BF18BB3BC000316A57 /* SQLStr.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75A306BE18BB3BC000316A57 /* SQLStr.plist */; };
 		75A4C462188FCC3D0083C8AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C461188FCC3D0083C8AC /* Foundation.framework */; };
 		75A4C464188FCC3D0083C8AC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C463188FCC3D0083C8AC /* CoreGraphics.framework */; };
 		75A4C466188FCC3D0083C8AC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A4C465188FCC3D0083C8AC /* UIKit.framework */; };
@@ -37,6 +38,7 @@
 		75A4C4AB188FCDAD0083C8AC /* FinalSumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C4AA188FCDAD0083C8AC /* FinalSumViewController.m */; };
 		75A4C4AF188FCDF10083C8AC /* MemberAnalyseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C4AE188FCDF10083C8AC /* MemberAnalyseViewController.m */; };
 		75A4C4B3188FCE1C0083C8AC /* ShoppingCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C4B2188FCE1C0083C8AC /* ShoppingCardViewController.m */; };
+		75A756F018BC753300E28B61 /* DBDataHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A756EF18BC753300E28B61 /* DBDataHelper.m */; };
 		75AB966018B9DEBB00930371 /* NSData+TPCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AB962C18B9DEBB00930371 /* NSData+TPCategory.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		75AB966118B9DEBB00930371 /* NSString+TPCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AB962E18B9DEBB00930371 /* NSString+TPCategory.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		75AB966218B9DEBB00930371 /* UIColor+TPCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AB963018B9DEBB00930371 /* UIColor+TPCategory.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -95,6 +97,7 @@
 		75A077C618B5964B002DCDDC /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		75A077C818B59DF2002DCDDC /* URLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLHelper.h; sourceTree = "<group>"; };
 		75A077C918B59DF2002DCDDC /* URLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLHelper.m; sourceTree = "<group>"; };
+		75A306BE18BB3BC000316A57 /* SQLStr.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SQLStr.plist; sourceTree = "<group>"; };
 		75A4C45E188FCC3D0083C8AC /* EhighsunMerchandise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EhighsunMerchandise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75A4C461188FCC3D0083C8AC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		75A4C463188FCC3D0083C8AC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -127,6 +130,8 @@
 		75A4C4AE188FCDF10083C8AC /* MemberAnalyseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberAnalyseViewController.m; sourceTree = "<group>"; };
 		75A4C4B1188FCE1C0083C8AC /* ShoppingCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCardViewController.h; sourceTree = "<group>"; };
 		75A4C4B2188FCE1C0083C8AC /* ShoppingCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCardViewController.m; sourceTree = "<group>"; };
+		75A756EE18BC753300E28B61 /* DBDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBDataHelper.h; sourceTree = "<group>"; };
+		75A756EF18BC753300E28B61 /* DBDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBDataHelper.m; sourceTree = "<group>"; };
 		75AB962B18B9DEBB00930371 /* NSData+TPCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+TPCategory.h"; sourceTree = "<group>"; };
 		75AB962C18B9DEBB00930371 /* NSData+TPCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+TPCategory.m"; sourceTree = "<group>"; };
 		75AB962D18B9DEBB00930371 /* NSString+TPCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TPCategory.h"; sourceTree = "<group>"; };
@@ -249,6 +254,7 @@
 		759D4A071894AFAB00E26DF9 /* 数据请求 */ = {
 			isa = PBXGroup;
 			children = (
+				75A306BE18BB3BC000316A57 /* SQLStr.plist */,
 				759D4A041894AF9B00E26DF9 /* SQLDataSearch.h */,
 				759D4A051894AF9B00E26DF9 /* SQLDataSearch.m */,
 				75ABFAFD18B494A800B22171 /* HTTPRequest.h */,
@@ -369,6 +375,7 @@
 		75A4C49B188FCCCE0083C8AC /* 海印百货通主页 */ = {
 			isa = PBXGroup;
 			children = (
+				75A756ED18BC74F400E28B61 /* 数据处理 */,
 				759D4A071894AFAB00E26DF9 /* 数据请求 */,
 				75A4C4A3188FCD3E0083C8AC /* 主页 */,
 				75A4C4B0188FCDF80083C8AC /* 购物卡销售 */,
@@ -432,6 +439,15 @@
 				75A4C4B2188FCE1C0083C8AC /* ShoppingCardViewController.m */,
 			);
 			name = "购物卡销售";
+			sourceTree = "<group>";
+		};
+		75A756ED18BC74F400E28B61 /* 数据处理 */ = {
+			isa = PBXGroup;
+			children = (
+				75A756EE18BC753300E28B61 /* DBDataHelper.h */,
+				75A756EF18BC753300E28B61 /* DBDataHelper.m */,
+			);
+			name = "数据处理";
 			sourceTree = "<group>";
 		};
 		75AB962A18B9DEBB00930371 /* 数据处理添加的类目 */ = {
@@ -602,6 +618,7 @@
 				75A4C474188FCC3D0083C8AC /* Images.xcassets in Resources */,
 				75AB967218B9DEBB00930371 /* namespaceXml.xml in Resources */,
 				75AB967318B9DEBB00930371 /* testXml.xml in Resources */,
+				75A306BF18BB3BC000316A57 /* SQLStr.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -621,6 +638,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7504525B1890B11700EEE1C5 /* SideTableViewController.m in Sources */,
+				75A756F018BC753300E28B61 /* DBDataHelper.m in Sources */,
 				75AB966018B9DEBB00930371 /* NSData+TPCategory.m in Sources */,
 				75AB966F18B9DEBB00930371 /* ServiceArgs.m in Sources */,
 				75A4C49E188FCD090083C8AC /* HighsunHomeViewController.m in Sources */,
