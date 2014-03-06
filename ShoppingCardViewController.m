@@ -23,12 +23,34 @@
     return self;
 }
 
+- (id)initWithDataDic:(NSDictionary *)dic andTitle:(NSString *)title
+{
+    if (self = [super init]) {
+        self.dataDic = [NSDictionary dictionaryWithDictionary:dic];
+        self.pageTitle = [NSString stringWithString:title];
+    }
+    return self;
+}
+
+#pragma mark -- 一些按钮的初始化
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    self.navigationItem.title = @"购物卡销售";
+    //    NSLog(@"----------------------------------------------------\n%@", self.dataDic);
+    
+    if (self.dataDic.count ==0) {
+        [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
+        NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_ShoppingCard" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetShoppingCardData" andParams:Nil andPageTitle:@"购物卡销售"]];
+        [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+        
+        self.dataDic = dic;
+        self.pageTitle = @"购物卡销售";
+    }
+
+    
+    self.navigationItem.title = self.pageTitle;
     self.view.backgroundColor = [UIColor cyanColor];
     
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBackSideTV)];
@@ -36,35 +58,13 @@
     
     UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"退出" style:UIBarButtonItemStyleDone target:self action:@selector(logOutSystem)];
     self.navigationItem.rightBarButtonItem = rightBarBtn;
-    
-    NSMutableArray *headKeys = [NSMutableArray arrayWithCapacity:0];
-    NSMutableArray *leftKeys = [NSMutableArray arrayWithCapacity:0];
-    
-    headKeys = [NSMutableArray arrayWithArray:[SQLDataSearch getTitle:@"购物卡销售"]];
-    
-    for (int i = 0; i < 50; i++) {
-        NSString *key = [NSString stringWithFormat:@"test_%d", i];
-        
-        //添加左边tableView的数据的key
-        [leftKeys addObject:key];
-    }
-    
-    
-    NSMutableArray *dArray = [NSMutableArray arrayWithCapacity:0];
-    for (int i = 0; i < 50; i ++) {
-        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithCapacity:0];
-//        for (NSString *key in headKeys) {
-//            [data setValue:[NSString stringWithFormat:@"%@ %d", key, i] forKey:key];
-//        }
-        for (int j = 0; j < headKeys.count; j++) {
-            NSString *key = [headKeys objectAtIndex:j];
-            [data setValue:[NSString stringWithFormat:@"%@ %d-%d", key, i, j] forKey:key];
-        }
 
-        [dArray addObject:data];
-    }
     
-    _customTableView = [[CustomTableView alloc] initWithData:dArray size:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) scrollMethod:kScrollMethodWithRight leftDataKeys:leftKeys headDataKeys:headKeys];
+    NSArray *headArr = [NSArray arrayWithArray:[self.dataDic objectForKey:@"headTitleKey"]];
+    NSMutableArray *leftKeys = [NSMutableArray arrayWithArray:[self.dataDic objectForKey:@"leftTable"]];
+    NSDictionary *rightDic = [NSDictionary dictionaryWithDictionary:[self.dataDic objectForKey:@"rightTable"]];
+    
+    _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"购物卡销售" andLeftDataKeys:leftKeys andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
     CGRect frame = _customTableView.frame;
     frame.origin = CGPointMake(0, 84);
     _customTableView.frame = frame;
@@ -76,12 +76,18 @@
 {
     NSLog(@"返回");
     
-    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)logOutSystem
 {
     NSLog(@"退出");
+}
+
+- (NSDictionary *)getData:(NSDictionary *)dic
+{
+    self.dataDic = [NSDictionary dictionaryWithDictionary:dic];
+    return self.dataDic;
 }
 
 - (void)didReceiveMemoryWarning

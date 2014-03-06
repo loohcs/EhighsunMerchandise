@@ -14,9 +14,12 @@
 
 @property (nonatomic, strong) ServiceHelper *helper;
 
+//获取存储关键字的文件地址
++ (NSString *)getPlistPath:(NSString *)fileName;
+
 + (NSArray *)getTitle:(NSString *)titleKey;
 
 //同步请求
-+ (NSDictionary *)SyncGetDataWith:(NSString *)ws_name andServiceNameSpace:(NSString *)ws_namespace andMethod:(NSString *)method andParams:(NSArray *)params;
++ (NSDictionary *)SyncGetDataWith:(NSString *)ws_name andServiceNameSpace:(NSString *)ws_namespace andMethod:(NSString *)method andParams:(NSArray *)params andPageTitle:(NSString *)pageTitle;
 
 @end

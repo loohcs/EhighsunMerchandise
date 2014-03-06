@@ -23,10 +23,11 @@
     return self;
 }
 
-- (id)initWithDataDic:(NSDictionary *)dic
+- (id)initWithDataDic:(NSDictionary *)dic andTitle:(NSString *)title
 {
     if (self = [super init]) {
         self.dataDic = [NSDictionary dictionaryWithDictionary:dic];
+        self.pageTitle = [NSString stringWithString:title];
     }
     return self;
 }
@@ -37,9 +38,18 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    NSLog(@"----------------------------------------------------\n%@", self.dataDic);
+//    NSLog(@"----------------------------------------------------\n%@", self.dataDic);
     
-    self.navigationItem.title = @"销售对比";
+    if (self.dataDic.count ==0) {
+        [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
+        NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_SaleCompare" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCompareData" andParams:Nil andPageTitle:@"销售对比"]];
+        [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+        
+        self.dataDic = dic;
+        self.pageTitle = @"销售对比";
+    }
+    
+    self.navigationItem.title = self.pageTitle;
     self.view.backgroundColor = [UIColor cyanColor];
 
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBackSideTV)];
@@ -48,45 +58,50 @@
     UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"退出" style:UIBarButtonItemStyleDone target:self action:@selector(logOutSystem)];
     self.navigationItem.rightBarButtonItem = rightBarBtn;
     
-//    NSMutableArray *headKeys = [NSMutableArray arrayWithArray:[SQLDataSearch getTitle:@"销售对比"]];
-//    NSArray *headArr = [NSArray arrayWithArray:[self.dataDic objectForKey:@"headTitle"]];
-//    NSMutableArray *leftKeys = [NSMutableArray arrayWithArray:[self.dataDic objectForKey:@"leftTable"]];
-//    NSDictionary *rightDic = [NSDictionary dictionaryWithDictionary:[self.dataDic objectForKey:@"rightTable"]];
-//    
-//    _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andLeftDataKeys:leftKeys andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
+    NSArray *headArr = [NSArray arrayWithArray:[self.dataDic objectForKey:@"headTitleKey"]];
+    NSMutableArray *leftKeys = [NSMutableArray arrayWithArray:[self.dataDic objectForKey:@"leftTable"]];
+    NSDictionary *rightDic = [NSDictionary dictionaryWithDictionary:[self.dataDic objectForKey:@"rightTable"]];
     
-    NSMutableArray *headKeys = [NSMutableArray arrayWithCapacity:0];
-    NSMutableArray *leftKeys = [NSMutableArray arrayWithCapacity:0];
-    
-    headKeys = [NSMutableArray arrayWithArray:[SQLDataSearch getTitle:@"销售客单"]];
-    
-    for (int i = 0; i < 50; i++) {
-        NSString *key = [NSString stringWithFormat:@"test_%d", i];
-        
-        //添加左边tableView的数据的key
-        [leftKeys addObject:key];
-    }
-    
-    
-    NSMutableArray *dArray = [NSMutableArray arrayWithCapacity:0];
-    for (int i = 0; i < 50; i ++) {
-        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithCapacity:0];
-        for (int j = 0; j < headKeys.count; j++) {
-            NSString *key = [headKeys objectAtIndex:j];
-            [data setValue:[NSString stringWithFormat:@"%@ %d-%d", key, i, j] forKey:key];
-        }
-        
-        //        for (NSString *key in headKeys) {
-        //            [data setValue:[NSString stringWithFormat:@"%@ %d", key, i] forKey:key];
-        //        }
-        [dArray addObject:data];
-    }
+    _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:self.pageTitle andLeftDataKeys:leftKeys andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
 
-    _customTableView = [[CustomTableView alloc] initWithData:dArray size:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) scrollMethod:kScrollMethodWithRight leftDataKeys:leftKeys headDataKeys:headKeys];
     CGRect frame = _customTableView.frame;
     frame.origin = CGPointMake(0, 84);
     _customTableView.frame = frame;
     [self.view addSubview:_customTableView];
+    
+    //1,通知，注册监听者
+    NSNotificationCenter *notiCenter=[NSNotificationCenter defaultCenter];//拿到通知中心的对象，然后去注册
+    NSString *path = [SQLDataSearch getPlistPath:@"TitleInfo.plist"];
+    NSDictionary *pageTitle = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"组织结构"];
+    NSDictionary *pageTitle2 = [pageTitle objectForKey:@"海印又一城"];
+    NSString *pageTitle3 = [pageTitle2 objectForKey:self.pageTitle];
+    [notiCenter addObserver:self
+                   selector:@selector(didReceiveNotification:)
+                       name:pageTitle3
+                     object:nil];//注册监听者完毕
+}
+
+//收到通知的时候要触发的方法
+-(void)didReceiveNotification:(id)sender
+{
+    NSNotification *noti=(NSNotification *)sender;
+    NSDictionary *notiInfo = [noti userInfo];
+    NSLog(@"%@", notiInfo);
+    NSLog(@"------------- 收到通知");
+    
+    NSString *pageTitleNext = [notiInfo objectForKey:@"pageTitle"];
+    NSString *str = [NSString stringWithString:[notiInfo objectForKey:@"leftTableKey"]];
+    
+    
+    NSMutableArray *params = [[NSMutableArray alloc] init];
+    NSDictionary *key = [NSDictionary dictionaryWithObjectsAndKeys:str,@"primaryKey", nil];
+    [params addObject:key];
+    
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_SaleCompare" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCompareDataDetail" andParams:params andPageTitle:pageTitleNext]];
+    
+    SaleCompareDetailViewController *saleCompareDetailVC = [[SaleCompareDetailViewController alloc] initWithDataDic:dic andTitle:@"柜组销售分析"];
+    [self.navigationController pushViewController:saleCompareDetailVC animated:YES];
 }
 
 #pragma mark -- 按钮的响应动作
@@ -95,7 +110,7 @@
 {
     NSLog(@"返回");
     
-    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)logOutSystem
@@ -126,6 +141,8 @@
 
     [_customTableView fitWithScreenRotation:toInterfaceOrientation];
 }
+
+
 
 
 @end

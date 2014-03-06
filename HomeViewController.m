@@ -25,32 +25,6 @@
 
 static bool isLogin = NO;
 
-- (NSArray *)getDataFromWS:(NSString *)WS_Name andMethod:(NSString *)method andParams:(NSArray *)params
-{
-    [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
-    
-    ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_VipMember" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"TestConnectOracle" andParams:Nil];
-//    args1.serviceURL=[ServiceArgs getServiceURL:@"WS_VipMember"];
-//    args1.serviceNameSpace=DefaultWebServiceNamespace;
-//    args1.methodName=@"TestConnectOracle";
-//    args1.soapParams=params;
-    
-    ServiceResult *result=[ServiceHelper syncService:args];
-    NSLog(@"同步请求xml=%@\n",result);
-    NSLog(@"----------同步请求xml=%@\n",result.xmlString);
-    
-    /********[--如果无法解析，请启用以下两句--]**********
-     NSString* xml=[result.xmlString stringByReplacingOccurrencesOfString:result.xmlnsAttr withString:@""];
-     [result.xmlParse setDataSource:xml];
-     ****/
-    
-    NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//SellHead"];
-    NSLog(@"解析xml结果=%@\n",arr);
-    [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
-    
-    
-    return arr;
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -58,6 +32,7 @@ static bool isLogin = NO;
     if (!isLogin) {
         LoginViewController *loginVC = [[LoginViewController alloc] init];
         [self presentViewController:loginVC animated:NO completion:nil];
+        [loginVC release];
         isLogin = YES;
     }
     else
@@ -85,14 +60,17 @@ static bool isLogin = NO;
     
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBackSideTV)];
     self.navigationItem.leftBarButtonItem = leftBarBtn;
+    [leftBarBtn release];
     
     UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"退出" style:UIBarButtonItemStyleDone target:self action:@selector(logOutSystem)];
     self.navigationItem.rightBarButtonItem = rightBarBtn;
+    [rightBarBtn release];
  
     self.revealSideViewController.panInteractionsWhenClosed = PPRevealSideInteractionNavigationBar|PPRevealSideInteractionNone;
     
     _mySideTV = [[SideTableViewController alloc] initWithStyle:UITableViewStylePlain];
     [self initWithTableView];
+    
     //预加载侧边栏
     [self.revealSideViewController preloadViewController:self.mySideTV forSide:PPRevealSideDirectionTop];
     [self.revealSideViewController preloadViewController:self.mySideTV forSide:PPRevealSideDirectionLeft];
@@ -138,6 +116,25 @@ static bool isLogin = NO;
     
     //获取当前的屏幕大小，即确定屏幕方向
     [self resignBtnFram:self.interfaceOrientation];
+    
+#warning mark -- 下面的是获取店名的方法
+//    [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
+//    ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_ManaFrame" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetManaFrameData" andParams:Nil];
+//    ServiceResult *result=[ServiceHelper syncService:args];
+//    //    ServiceResult *result=[ServiceHelper syncMethodName:@"TestConnectOracle"];
+//    NSLog(@"同步请求xml=%@\n",result);
+//    NSLog(@"----------同步请求xml=%@\n",result.xmlString);
+//    NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//ManaFrameData"];
+//
+//    NSLog(@"%@", arr);
+//
+//    NSDictionary *dicTest = [DBDataHelper getChineseName:arr];
+//    
+//    NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射-4.plist"];
+//    NSFileManager *file = [NSFileManager defaultManager];
+//    if (![file fileExistsAtPath:path]) {
+//        [dicTest writeToFile:path atomically:YES];
+//    }
 }
 
 //TODO: 导航栏上左右两边的动作响应
@@ -154,46 +151,72 @@ static bool isLogin = NO;
 
 - (void)highsunHomeVCAction
 {
-    HighsunHomeViewController *highsunHomeVC = [[HighsunHomeViewController alloc] init];
+    [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
+    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_HighsunHome" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetHighsunHomeData" andParams:Nil andPageTitle:@"主页"]];
+    [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+    
+    
+    HighsunHomeViewController *highsunHomeVC = [[HighsunHomeViewController alloc] initWithDataDic:dic andTitle:@"主页"];
     [self.navigationController pushViewController:highsunHomeVC animated:YES];
+    [highsunHomeVC release];
+    
 }
 
 - (void)shoppingCardVCAction
 {
-    ShoppingCardViewController *shoppingVC = [[ShoppingCardViewController alloc] init];
+    [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
+    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_ShoppingCard" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetShoppingCardData" andParams:Nil andPageTitle:@"购物卡销售"]];
+    [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+    
+    ShoppingCardViewController *shoppingVC = [[ShoppingCardViewController alloc] initWithDataDic:dic andTitle:@"购物卡销售"];
     [self.navigationController pushViewController:shoppingVC animated:YES];
+    [shoppingVC release];
 }
 
 - (void)memberAnalyseVCAction
 {
-    MemberAnalyseViewController *memberVC = [[MemberAnalyseViewController alloc] init];
+    [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
+//    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_MemberAnalyse" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetMemberAnalyseData" andParams:Nil andPageTitle:@"会员分析"]];
+    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_VipMember" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetVipMemberData" andParams:Nil andPageTitle:@"会员分析"]];
+    
+    [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+    
+    MemberAnalyseViewController *memberVC = [[MemberAnalyseViewController alloc] initWithDataDic:dic andTitle:@"会员分析"];
     [self.navigationController pushViewController:memberVC animated:YES];
+    [memberVC release];
 }
 
 - (void)finalSumVCAction
 {
-    FinalSumViewController *finalVC = [[FinalSumViewController alloc] init];
+    [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
+    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_FinalSum" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetFinalSumData" andParams:Nil andPageTitle:@"结算汇总"]];
+    [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+    
+    FinalSumViewController *finalVC = [[FinalSumViewController alloc] initWithDataDic:dic andTitle:@"结算汇总"];
     [self.navigationController pushViewController:finalVC animated:YES];
+    [finalVC release];
 }
 
 - (void)saleCustomsListVCAction
 {
     [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
-    [SQLDataSearch SyncGetDataWith:@"WS_VipMember" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"TestConnectOracle" andParams:Nil];
+    NSDictionary *dic = [SQLDataSearch SyncGetDataWith:@"WS_SaleCustomsList" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCustomsListData" andParams:nil andPageTitle:@"销售客单"];
     [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
     
-    SaleCustomsListViewController *saleCustomsVC = [[SaleCustomsListViewController alloc] init];
+    SaleCustomsListViewController *saleCustomsVC = [[SaleCustomsListViewController alloc] initWithDataDic:dic andTitle:@"销售客单"];
     [self.navigationController pushViewController:saleCustomsVC animated:YES];
+    [saleCustomsVC release];
 }
 
 - (void)saleCompareVCAction
 {
     [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
-    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_VipMember" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"TestConnectOracle" andParams:Nil]];
+    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_SaleCompare" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCompareData" andParams:Nil andPageTitle:@"销售对比"]];
     [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
     
-    SaleCompareViewController *saleCompareVC = [[SaleCompareViewController alloc] initWithDataDic:dic];
+    SaleCompareViewController *saleCompareVC = [[SaleCompareViewController alloc] initWithDataDic:dic andTitle:@"销售对比"];
     [self.navigationController pushViewController:saleCompareVC animated:YES];
+    [saleCompareVC release];
 }
 
 - (void)initWithTableView
@@ -224,7 +247,32 @@ static bool isLogin = NO;
     
     _mySideTV.titles = [NSMutableArray arrayWithArray:array];
     _mySideTV.viewControllers = [[NSMutableArray alloc] initWithObjects:homeNavi, highsunNavi, shoppingNavi, memberNavi, finalNavi, saleCustomsNavi, saleCompareNavi, nil];
+    
+    [homeVC release];
+    [homeNavi release];
+    [highsunVC release];
+    [highsunNavi release];
+    [shoppingVC release];
+    [shoppingNavi release];
+    [memberVC release];
+    [memberNavi release];
+    [saleCompareVC release];
+    [saleCompareNavi release];
+    [saleCustomsVC release];
+    [saleCustomsNavi release];
+}
 
+- (void)dealloc
+{
+    [super dealloc];
+    
+    [_mySideTV release];
+    
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+//    [self.mySideTV release];
 }
 
 - (void)didReceiveMemoryWarning
@@ -280,5 +328,6 @@ static bool isLogin = NO;
     }
 
 }
+
 
 @end

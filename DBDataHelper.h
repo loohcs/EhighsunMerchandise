@@ -9,5 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface DBDataHelper : NSObject
-+ (NSDictionary *)getData:(NSArray *)arr;
+
++ (NSDictionary *)getData:(NSArray *)arr andValueArrName:(NSString *)name;
+
++ (NSMutableDictionary *)getChineseName:(NSArray *)arr;
+
++ (NSString *)getChineseWithCode:(NSString *)mfCode;
+
 @end

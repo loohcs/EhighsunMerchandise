@@ -89,7 +89,7 @@ static NSString *defaultWebServiceNameSpace=@"http://192.168.2.214:8000/WebServi
     NSMutableDictionary *dic=[NSMutableDictionary dictionary];
     [dic setValue:[[self webURL] host] forKey:@"Host"];
     [dic setValue:@"text/xml; charset=utf-8" forKey:@"Content-Type"];
-    [dic setValue:[NSString stringWithFormat:@"%d",[[self soapMessage] length]] forKey:@"Content-Length"];
+    [dic setValue:[NSString stringWithFormat:@"%lu",(unsigned long)[[self soapMessage] length]] forKey:@"Content-Length"];
     [dic setValue:[NSString stringWithFormat:@"%@%@",[self serviceNameSpace],[self methodName]] forKey:@"SOAPAction"];
     return dic;
 }

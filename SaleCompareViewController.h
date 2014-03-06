@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SaleCompareViewController : UIViewController
+@interface SaleCompareViewController : BasicViewController
 
 @property (nonatomic, strong) CustomTableView *customTableView;
 @property (nonatomic, strong) NSDictionary *dataDic;
+@property (nonatomic, strong) NSString *pageTitle;
 
-- (id)initWithDataDic:(NSDictionary *)dic;
+- (id)initWithDataDic:(NSDictionary *)dic andTitle:(NSString *)title;
 
 @end

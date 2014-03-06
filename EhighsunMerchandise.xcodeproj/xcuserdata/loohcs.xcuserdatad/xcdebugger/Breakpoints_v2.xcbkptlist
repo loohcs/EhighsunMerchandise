@@ -19,13 +19,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CustomTableView.m"
-            timestampString = "415076191.084808"
+            filePath = "DBDataHelper.m"
+            timestampString = "415707597.281383"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "+getData:andValueArrName:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "DBDataHelper.m"
+            timestampString = "415707597.281383"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "27"
             endingLineNumber = "27"
-            landmarkName = "-initWithData:size:scrollMethod:leftDataKeys:headDataKeys:"
+            landmarkName = "+getData:andValueArrName:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

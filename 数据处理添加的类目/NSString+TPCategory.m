@@ -85,7 +85,7 @@
                                                                                    (CFStringRef)@"!*'();:@&=+$,/?%#[]",
                                                                                    kCFStringEncodingUTF8);
 	
-	return encodedString;
+	return [encodedString autorelease];
     /***
     NSString * encodedString = (NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
                                                                                    (CFStringRef)self,
@@ -97,19 +97,21 @@
 }
 - (NSString *)URLEncodedParameterString {
 	static CFStringRef toEscape = CFSTR(":/=,!$&'()*+;[]@#?");
-    return ( NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-																				 ( CFStringRef)self,
-																				 NULL,
-																				 toEscape,
-																				 kCFStringEncodingUTF8);
+    NSString *str =( NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                        ( CFStringRef)self,
+                                                                        NULL,
+                                                                        toEscape,
+                                                                        kCFStringEncodingUTF8);
+    return [str autorelease];
 }
 
 
 - (NSString *)URLDecodedString {
-	return ( NSString *)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
-																								 ( CFStringRef)self,
-																								 CFSTR(""),
-																								 kCFStringEncodingUTF8);
+    NSString *str =( NSString *)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault,
+                                                                                        ( CFStringRef)self,
+                                                                                        CFSTR(""),
+                                                                                        kCFStringEncodingUTF8);
+	return [str autorelease];
 }
 - (BOOL) isEmail{
 	
@@ -271,7 +273,7 @@
 }
 
 + (NSString *)stringWithBase64String:(NSString *)base64String {
-	return [[NSString alloc] initWithData:[NSData dataFromBase64EncodedString:base64String] encoding:NSUTF8StringEncoding];
+	return [[[NSString alloc] initWithData:[NSData dataFromBase64EncodedString:base64String] encoding:NSUTF8StringEncoding] autorelease];
 }
 
 @end

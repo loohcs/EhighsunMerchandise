@@ -10,10 +10,10 @@
 
 @implementation SQLDataSearch
 
-+ (NSString *)getPlistPath
++ (NSString *)getPlistPath:(NSString *)fileName
 {
     NSString *str = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *path = [str stringByAppendingPathComponent:@"TitleInfo.plist"];
+    NSString *path = [str stringByAppendingPathComponent:fileName];
     
     return path;
 }
@@ -22,7 +22,7 @@
 {
     //TODO:根据titleKey我们可以从数据库中得到我们具体需要的各种不同title，比如说在结算的页面，我们传入“结算汇总”，这样我们就可以得到结算汇总页面需要的表头：供应商名次，本期应结，本期销售，上期结余，月末应付，费用累计
     
-    NSString *path = [SQLDataSearch getPlistPath];
+    NSString *path = [SQLDataSearch getPlistPath:@"TitleInfo.plist"];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:path]) {
@@ -54,9 +54,9 @@
 }
 
 //同步请求
-+ (NSDictionary *)SyncGetDataWith:(NSString *)ws_name andServiceNameSpace:(NSString *)ws_namespace andMethod:(NSString *)method andParams:(NSArray *)params
++ (NSDictionary *)SyncGetDataWith:(NSString *)ws_name andServiceNameSpace:(NSString *)ws_namespace andMethod:(NSString *)method andParams:(NSArray *)params andPageTitle:(NSString *)pageTitle
 {
-    ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_VipMember" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"TestConnectOracle" andParams:Nil];    
+    ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:ws_name andServiceNameSpace:ws_namespace andMethod:method andParams:params];
     ServiceResult *result=[ServiceHelper syncService:args];
     NSLog(@"同步请求xml=%@\n",result);
     NSLog(@"----------同步请求xml=%@\n",result.xmlString);
@@ -66,11 +66,15 @@
      [result.xmlParse setDataSource:xml];
      ****/
     
-    NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//SellHead"];
+    NSString *nodeStr = [NSString stringWithFormat:@"//%@", [method substringFromIndex:3]];
+    
+    NSArray *arr=[result.xmlParse soapXmlSelectNodes:nodeStr];
     NSLog(@"解析xml结果=%@\n",arr);
     
-    NSDictionary *dic = [DBDataHelper getData:arr];
+    NSDictionary *dic = [DBDataHelper getData:arr andValueArrName:pageTitle];
     NSLog(@"%@", dic);
+    
+    
     
     return dic;
 }

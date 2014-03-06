@@ -15,6 +15,9 @@
 		7596B6B4189743A0007D7E72 /* GetScreenSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 7596B6B3189743A0007D7E72 /* GetScreenSize.m */; };
 		759D453F1892027D005EA32E /* CustomTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 759D453E1892027D005EA32E /* CustomTableView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		759D4A061894AF9B00E26DF9 /* SQLDataSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 759D4A051894AF9B00E26DF9 /* SQLDataSearch.m */; };
+		759DEE9018BF101E00A557EB /* SaleCompareDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 759DEE8F18BF101E00A557EB /* SaleCompareDetailViewController.m */; };
+		759FE6E818BDC0AE00B323D5 /* NSDictionary+SortByValueArr.m in Sources */ = {isa = PBXBuildFile; fileRef = 759FE6E718BDC0AE00B323D5 /* NSDictionary+SortByValueArr.m */; };
+		759FE6EB18BDD14800B323D5 /* NSArray+SortArrayByOtherArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 759FE6EA18BDD14800B323D5 /* NSArray+SortArrayByOtherArray.m */; };
 		75A077C718B5964B002DCDDC /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 75A077C618B5964B002DCDDC /* libxml2.2.dylib */; };
 		75A077CA18B59DF2002DCDDC /* URLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A077C918B59DF2002DCDDC /* URLHelper.m */; };
 		75A306BF18BB3BC000316A57 /* SQLStr.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75A306BE18BB3BC000316A57 /* SQLStr.plist */; };
@@ -31,7 +34,7 @@
 		75A4C485188FCC3E0083C8AC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 75A4C483188FCC3E0083C8AC /* InfoPlist.strings */; };
 		75A4C487188FCC3E0083C8AC /* EhighsunMerchandiseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C486188FCC3E0083C8AC /* EhighsunMerchandiseTests.m */; };
 		75A4C496188FCCA90083C8AC /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C495188FCCA90083C8AC /* LoginViewController.m */; };
-		75A4C49A188FCCC90083C8AC /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C499188FCCC90083C8AC /* HomeViewController.m */; };
+		75A4C49A188FCCC90083C8AC /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C499188FCCC90083C8AC /* HomeViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		75A4C49E188FCD090083C8AC /* HighsunHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C49D188FCD090083C8AC /* HighsunHomeViewController.m */; };
 		75A4C4A2188FCD380083C8AC /* SaleCompareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C4A1188FCD380083C8AC /* SaleCompareViewController.m */; };
 		75A4C4A7188FCD6E0083C8AC /* SaleCustomsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4C4A6188FCD6E0083C8AC /* SaleCustomsListViewController.m */; };
@@ -94,6 +97,12 @@
 		759D453E1892027D005EA32E /* CustomTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableView.m; sourceTree = "<group>"; };
 		759D4A041894AF9B00E26DF9 /* SQLDataSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLDataSearch.h; sourceTree = "<group>"; };
 		759D4A051894AF9B00E26DF9 /* SQLDataSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLDataSearch.m; sourceTree = "<group>"; };
+		759DEE8E18BF101E00A557EB /* SaleCompareDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaleCompareDetailViewController.h; sourceTree = "<group>"; };
+		759DEE8F18BF101E00A557EB /* SaleCompareDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleCompareDetailViewController.m; sourceTree = "<group>"; };
+		759FE6E618BDC0AE00B323D5 /* NSDictionary+SortByValueArr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+SortByValueArr.h"; sourceTree = "<group>"; };
+		759FE6E718BDC0AE00B323D5 /* NSDictionary+SortByValueArr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+SortByValueArr.m"; sourceTree = "<group>"; };
+		759FE6E918BDD14800B323D5 /* NSArray+SortArrayByOtherArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+SortArrayByOtherArray.h"; sourceTree = "<group>"; };
+		759FE6EA18BDD14800B323D5 /* NSArray+SortArrayByOtherArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+SortArrayByOtherArray.m"; sourceTree = "<group>"; };
 		75A077C618B5964B002DCDDC /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		75A077C818B59DF2002DCDDC /* URLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLHelper.h; sourceTree = "<group>"; };
 		75A077C918B59DF2002DCDDC /* URLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLHelper.m; sourceTree = "<group>"; };
@@ -392,6 +401,8 @@
 			children = (
 				75A4C4A0188FCD380083C8AC /* SaleCompareViewController.h */,
 				75A4C4A1188FCD380083C8AC /* SaleCompareViewController.m */,
+				759DEE8E18BF101E00A557EB /* SaleCompareDetailViewController.h */,
+				759DEE8F18BF101E00A557EB /* SaleCompareDetailViewController.m */,
 			);
 			name = "销售对比";
 			sourceTree = "<group>";
@@ -459,6 +470,10 @@
 				75AB962E18B9DEBB00930371 /* NSString+TPCategory.m */,
 				75AB962F18B9DEBB00930371 /* UIColor+TPCategory.h */,
 				75AB963018B9DEBB00930371 /* UIColor+TPCategory.m */,
+				759FE6E618BDC0AE00B323D5 /* NSDictionary+SortByValueArr.h */,
+				759FE6E718BDC0AE00B323D5 /* NSDictionary+SortByValueArr.m */,
+				759FE6E918BDD14800B323D5 /* NSArray+SortArrayByOtherArray.h */,
+				759FE6EA18BDD14800B323D5 /* NSArray+SortArrayByOtherArray.m */,
 			);
 			path = "数据处理添加的类目";
 			sourceTree = "<group>";
@@ -639,6 +654,7 @@
 			files = (
 				7504525B1890B11700EEE1C5 /* SideTableViewController.m in Sources */,
 				75A756F018BC753300E28B61 /* DBDataHelper.m in Sources */,
+				759FE6EB18BDD14800B323D5 /* NSArray+SortArrayByOtherArray.m in Sources */,
 				75AB966018B9DEBB00930371 /* NSData+TPCategory.m in Sources */,
 				75AB966F18B9DEBB00930371 /* ServiceArgs.m in Sources */,
 				75A4C49E188FCD090083C8AC /* HighsunHomeViewController.m in Sources */,
@@ -652,6 +668,7 @@
 				75161C86189508D500E9BACB /* SingleDataViewController.m in Sources */,
 				75A077CA18B59DF2002DCDDC /* URLHelper.m in Sources */,
 				7596B6B4189743A0007D7E72 /* GetScreenSize.m in Sources */,
+				759DEE9018BF101E00A557EB /* SaleCompareDetailViewController.m in Sources */,
 				75AB966518B9DEBB00930371 /* ASIDataCompressor.m in Sources */,
 				75A4C472188FCC3D0083C8AC /* AppDelegate.mm in Sources */,
 				75A4C4A7188FCD6E0083C8AC /* SaleCustomsListViewController.m in Sources */,
@@ -661,6 +678,7 @@
 				75AB966D18B9DEBB00930371 /* XmlNode.m in Sources */,
 				75AB966A18B9DEBB00930371 /* ASINetworkQueue.m in Sources */,
 				75A4C46E188FCC3D0083C8AC /* main.m in Sources */,
+				759FE6E818BDC0AE00B323D5 /* NSDictionary+SortByValueArr.m in Sources */,
 				759D4A061894AF9B00E26DF9 /* SQLDataSearch.m in Sources */,
 				75A4C4A2188FCD380083C8AC /* SaleCompareViewController.m in Sources */,
 				759D453F1892027D005EA32E /* CustomTableView.m in Sources */,

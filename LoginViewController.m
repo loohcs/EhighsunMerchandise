@@ -90,6 +90,7 @@
         _isRememberPassward = YES;
     }
     [self.view addSubview:registerBtn];
+    
 }
 
 
@@ -142,7 +143,7 @@
         [successAlertView show];
 
         //跳转到主页，主要显示操作按钮，不需要请求数据
-//        /**(2)调用无参数的webservice**/
+        /**(2)调用无参数的webservice**/
 //        [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
 //
 //        /********[--如果无法解析，请启用以下两句--]**********
@@ -150,17 +151,14 @@
 //         [result.xmlParse setDataSource:xml];
 //         ****/
 //        
-//        ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_VipMember" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"TestConnectOracle" andParams:Nil];
+//        ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_ManaFrame" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetManaFrameData" andParams:Nil];
 //        ServiceResult *result=[ServiceHelper syncService:args];
 //        //    ServiceResult *result=[ServiceHelper syncMethodName:@"TestConnectOracle"];
 //        NSLog(@"同步请求xml=%@\n",result);
 //        NSLog(@"----------同步请求xml=%@\n",result.xmlString);
-//        NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//SellHead"];
+//        NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//ManaFrameData"];
 //        NSLog(@"解析xml结果=%@\n",arr);
 //        [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
-//        
-//        NSDictionary *dic = [DBDataHelper getData:arr];
-//        NSLog(@"%@", dic);
         
     }
     else
