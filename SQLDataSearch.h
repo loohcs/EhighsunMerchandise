@@ -14,6 +14,12 @@
 
 @property (nonatomic, strong) ServiceHelper *helper;
 
++ (NSMutableArray *)getUsrInfo;//获取用户信息
+
+//获取起始时间和截止时间
++ (void)getDateStr:(NSString *)startTime andEndTime:(NSString *)endTime;
+
+
 //获取存储关键字的文件地址
 + (NSString *)getPlistPath:(NSString *)fileName;
 

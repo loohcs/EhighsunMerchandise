@@ -86,6 +86,7 @@
         
         //表头的tableView，通过普通的tableView旋转90度之后得到的横向tableView
         UITableView *headTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, rightScrollWidth)];
+        headTableView.userInteractionEnabled = YES;
         headTableView.delegate = self;
         headTableView.dataSource = self;
         [headTableView.layer setAnchorPoint:CGPointMake(0.0, 0.0)];
@@ -93,7 +94,6 @@
         headTableView.frame = CGRectMake(kTableViewTitleWidth, 0, rightWidth, kTableViewTitleHeight);
         self.headTableView = headTableView;
         [headTableView release];
-        
         
         //scrollView 主要用来承载tableView，使左边和右边的tableView可以正常滑动
         UIScrollView *leftScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, leftScrollWidth, size.height)];
@@ -128,14 +128,16 @@
         
         [self.leftScrollView addSubview:_leftTableView];
         [self.leftScrollView setContentSize:_leftTableView.frame.size];
+        self.leftScrollView.bounces = NO;
         
         [self.rightScrollView addSubview:_rightTableView];
         [self.rightScrollView setContentSize:_rightTableView.frame.size];
         self.rightScrollView.bounces = NO;
+
         
         self.headTableView.showsVerticalScrollIndicator = NO;
         self.headTableView.bounces = NO;
-        
+
         [self addSubview:_leftScrollView];
         [self addSubview:_rightScrollView];
         [self addSubview:_headTableView];
@@ -222,6 +224,7 @@
     UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewTitleHeight)] autorelease];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewTitleHeight)];
     label.backgroundColor = [UIColor redColor];
+    
     @try {
         NSString *title = [self.headDataValues objectAtIndex:index+1];
         label.text = title;
@@ -230,6 +233,8 @@
         label.userInteractionEnabled = YES;
         [view addSubview:label];
         view.userInteractionEnabled = YES;
+        
+        
         [label release];
     }
     @catch (NSException *exception) {
@@ -269,6 +274,7 @@
     {
         view = [self viewWithHeadContent:indexPath.row];
         cell.contentView.transform = CGAffineTransformMakeRotation(M_PI/2);
+        cell.contentView.userInteractionEnabled = YES;
     }
     
     //释放每一行中的view，避免内存浪费

@@ -91,6 +91,9 @@
     }
     [self.view addSubview:registerBtn];
     
+    
+    [DateHelper getDateNow];
+    
 }
 
 
@@ -120,6 +123,7 @@
     _userName = _nameText.text;
     _passWard = _passwardText.text;
     
+    
     //TODO: 验证用户名与密码，如果成功则请求基础数据，否则提示输入错误
     if (self.isRememberPassward == YES) {
         //TODO: 进入记住密码状态，则需要将用户名与密码记录在本地数据中，方便下次登录
@@ -138,9 +142,15 @@
     
     if (isSuccessLog) {
         NSLog(@"登录成功！！！");
-        UIAlertView *successAlertView = [[UIAlertView alloc] initWithTitle:@"登录成功" message:@"欢迎光临海印集团" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        successAlertView.tag = 100;
-        [successAlertView show];
+//        UIAlertView *successAlertView = [[UIAlertView alloc] initWithTitle:@"登录成功" message:@"欢迎光临海印集团" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+//        successAlertView.tag = 100;
+        
+//        [successAlertView show];
+        
+        HomeViewController *homeVC = [[HomeViewController alloc] init];
+        UINavigationController *homeNavi = [[UINavigationController alloc] initWithRootViewController:homeVC];
+        PPRevealSideViewController *revealSideVC = [[PPRevealSideViewController alloc] initWithRootViewController:homeNavi];
+        [self presentViewController:revealSideVC animated:YES completion:nil];
 
         //跳转到主页，主要显示操作按钮，不需要请求数据
         /**(2)调用无参数的webservice**/
@@ -160,6 +170,8 @@
 //        NSLog(@"解析xml结果=%@\n",arr);
 //        [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
         
+        
+        
     }
     else
     {
@@ -171,20 +183,10 @@
 
 - (BOOL)isLogInDBWith:(NSString *)userID andPassword:(NSString *)password
 {
-    NSMutableArray *params=[NSMutableArray array];
-    [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:userID,@"userID", nil]];
-    [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:password,@"passWard", nil]];
-    
-    NSLog(@"%@", userID);
-    NSLog(@"%@", password);
-    
-    //[params addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"道道香食府",@"userName", nil]];
-    //[params addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"123456",@"passWord", nil]];
+    NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
+
     ServiceArgs *args1=[[ServiceArgs alloc] initWithWebServiceName:@"WS_LogIn" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"LogIn" andParams:params];
-//    args1.serviceURL=@"http://192.168.2.214:8000/WebServices/WS_LogIn.asmx";
-//    args1.serviceNameSpace=@"http://192.168.2.214:8000/WebServices";
-//    args1.methodName=@"LogIn";
-//    args1.soapParams=params;
+
     
     NSLog(@"soap=%@\n",args1.soapMessage);
     ServiceResult *result=[ServiceHelper syncService:args1];
@@ -255,6 +257,7 @@
 {
     self.size = [GetScreenSize getScreenSize:toInterfaceOrientation];
 }
+
 
 
 @end

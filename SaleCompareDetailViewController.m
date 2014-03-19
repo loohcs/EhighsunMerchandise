@@ -49,7 +49,8 @@
      ******************************/
     if (self.dataDic.count ==0) {
         [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
-        NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_SaleCompare" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCompareDataDetail" andParams:Nil andPageTitle:@"销售对比"]];
+        NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
+        NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_SaleCompare" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCompareDataDetail" andParams:params andPageTitle:@"销售对比"]];
         [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
         
         self.dataDic = dic;

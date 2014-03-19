@@ -8,6 +8,8 @@
 
 #import "HomeViewController.h"
 
+#import "JBViewController.h"
+
 @interface HomeViewController ()
 
 @end
@@ -56,13 +58,19 @@ static bool isLogin = NO;
 	// Do any additional setup after loading the view.
     
     self.navigationItem.title = @"海印百货通";
+//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
+//    NSString *naviBackImagePath = [[NSBundle mainBundle] pathForResource:@"yh_03" ofType:@"png"];
+//    UIImage *naviBackImage = [UIImage imageWithContentsOfFile:naviBackImagePath];
+//    imageView.image = naviBackImage;
+//    [self.navigationItem setTitleView:imageView];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBackSideTV)];
     self.navigationItem.leftBarButtonItem = leftBarBtn;
     [leftBarBtn release];
     
-    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"退出" style:UIBarButtonItemStyleDone target:self action:@selector(logOutSystem)];
+    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"日期" style:UIBarButtonItemStyleDone target:self action:@selector(selectDate)];
     self.navigationItem.rightBarButtonItem = rightBarBtn;
     [rightBarBtn release];
  
@@ -75,40 +83,62 @@ static bool isLogin = NO;
     [self.revealSideViewController preloadViewController:self.mySideTV forSide:PPRevealSideDirectionTop];
     [self.revealSideViewController preloadViewController:self.mySideTV forSide:PPRevealSideDirectionLeft];
     
-
+    
+    
     //添加屏幕按钮以及定义响应方法
     _highsunHomeVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     _highsunHomeVCBtn.backgroundColor = [UIColor cyanColor];
+    
     [_highsunHomeVCBtn setTitle:@"海印主页" forState:UIControlStateNormal];
     [_highsunHomeVCBtn addTarget:self action:@selector(highsunHomeVCAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_highsunHomeVCBtn];
     
     _shoppingCardVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     _shoppingCardVCBtn.backgroundColor = [UIColor cyanColor];
+//    NSString *shopCardIcon = [[NSBundle mainBundle] pathForResource:@"ico5" ofType:@"png"];
+//    UIImage *shopCardBtnImage = [UIImage imageWithContentsOfFile:shopCardIcon];
+//    [_shoppingCardVCBtn setBackgroundImage:shopCardBtnImage forState:UIControlStateNormal];
+//    [shopCardBtnImage release];
     [_shoppingCardVCBtn setTitle:@"购物卡销售" forState:UIControlStateNormal];
     [_shoppingCardVCBtn addTarget:self action:@selector(shoppingCardVCAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_shoppingCardVCBtn];
     
     _memberAnalyseVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     _memberAnalyseVCBtn.backgroundColor = [UIColor cyanColor];
+//    NSString *memberAnaIcon = [[NSBundle mainBundle] pathForResource:@"ico4" ofType:@"png"];
+//    UIImage *memberAnaBtnImage = [UIImage imageWithContentsOfFile:memberAnaIcon];
+//    [_memberAnalyseVCBtn setBackgroundImage:memberAnaBtnImage forState:UIControlStateNormal];
+//    [memberAnaBtnImage release];
     [_memberAnalyseVCBtn setTitle:@"会员分析" forState:UIControlStateNormal];
     [_memberAnalyseVCBtn addTarget:self action:@selector(memberAnalyseVCAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_memberAnalyseVCBtn];
     
     _finalSumVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     _finalSumVCBtn.backgroundColor = [UIColor cyanColor];
+//    NSString *finalSumIcon = [[NSBundle mainBundle] pathForResource:@"ico3" ofType:@"png"];
+//    UIImage *finalSumBtnImage = [UIImage imageWithContentsOfFile:finalSumIcon];
+//    [_finalSumVCBtn setBackgroundImage:finalSumBtnImage forState:UIControlStateNormal];
+//    [finalSumBtnImage release];
     [_finalSumVCBtn setTitle:@"结算汇总" forState:UIControlStateNormal];
     [_finalSumVCBtn addTarget:self action:@selector(finalSumVCAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_finalSumVCBtn];
     
     _saleCustomsListVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     _saleCustomsListVCBtn.backgroundColor = [UIColor cyanColor];
+//    NSString *saleCusListIcon = [[NSBundle mainBundle] pathForResource:@"ico2" ofType:@"png"];
+//    UIImage *saleCusListBtnImage = [UIImage imageWithContentsOfFile:saleCusListIcon];
+//    [_saleCustomsListVCBtn setBackgroundImage:saleCusListBtnImage forState:UIControlStateNormal];
+//    [saleCusListBtnImage release];
     [_saleCustomsListVCBtn setTitle:@"销售客单" forState:UIControlStateNormal];
     [_saleCustomsListVCBtn addTarget:self action:@selector(saleCustomsListVCAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_saleCustomsListVCBtn];
     
     _saleCompareVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     _saleCompareVCBtn.backgroundColor = [UIColor cyanColor];
+//    NSString *saleCompareIcon = [[NSBundle mainBundle] pathForResource:@"ico1" ofType:@"png"];
+//    UIImage *saleCompareBtnImage = [UIImage imageWithContentsOfFile:saleCompareIcon];
+//    [_saleCompareVCBtn setBackgroundImage:saleCompareBtnImage forState:UIControlStateNormal];
+//    [saleCompareBtnImage release];
     [_saleCompareVCBtn setTitle:@"销售对比" forState:UIControlStateNormal];
     [_saleCompareVCBtn addTarget:self action:@selector(saleCompareVCAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_saleCompareVCBtn];
@@ -143,16 +173,22 @@ static bool isLogin = NO;
     [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
 }
 
-- (void)logOutSystem
+- (void)selectDate
 {
     //崩溃测试，点击退出会马上使程序崩溃，但是不会出现闪退现象，会跳出警示框
 //    [self performSelector:@selector(aaaa)];
+    
+    JBViewController *JBVC = [[JBViewController alloc] init];
+    [self.navigationController pushViewController:JBVC animated:YES];
 }
 
 - (void)highsunHomeVCAction
 {
     [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
-    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_HighsunHome" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetHighsunHomeData" andParams:Nil andPageTitle:@"主页"]];
+    
+    NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_HighsunHome" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetHighsunHomeData" andParams:params andPageTitle:@"主页"]];
     [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
     
     
@@ -165,7 +201,9 @@ static bool isLogin = NO;
 - (void)shoppingCardVCAction
 {
     [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
-    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_ShoppingCard" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetShoppingCardData" andParams:Nil andPageTitle:@"购物卡销售"]];
+    NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_ShoppingCard" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetShoppingCardData" andParams:params andPageTitle:@"购物卡销售"]];
     [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
     
     ShoppingCardViewController *shoppingVC = [[ShoppingCardViewController alloc] initWithDataDic:dic andTitle:@"购物卡销售"];
@@ -176,8 +214,10 @@ static bool isLogin = NO;
 - (void)memberAnalyseVCAction
 {
     [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
-//    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_MemberAnalyse" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetMemberAnalyseData" andParams:Nil andPageTitle:@"会员分析"]];
-    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_VipMember" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetVipMemberData" andParams:Nil andPageTitle:@"会员分析"]];
+    
+    NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_VipMember" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetVipMemberData" andParams:params andPageTitle:@"会员分析"]];
     
     [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
     
@@ -189,7 +229,10 @@ static bool isLogin = NO;
 - (void)finalSumVCAction
 {
     [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
-    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_FinalSum" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetFinalSumData" andParams:Nil andPageTitle:@"结算汇总"]];
+    
+    NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_FinalSum" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetFinalSumData" andParams:params andPageTitle:@"结算汇总"]];
     [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
     
     FinalSumViewController *finalVC = [[FinalSumViewController alloc] initWithDataDic:dic andTitle:@"结算汇总"];
@@ -200,7 +243,10 @@ static bool isLogin = NO;
 - (void)saleCustomsListVCAction
 {
     [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
-    NSDictionary *dic = [SQLDataSearch SyncGetDataWith:@"WS_SaleCustomsList" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCustomsListData" andParams:nil andPageTitle:@"销售客单"];
+    
+    NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
+    
+    NSDictionary *dic = [SQLDataSearch SyncGetDataWith:@"WS_SaleCustomsList" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCustomsListData" andParams:params andPageTitle:@"销售客单"];
     [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
     
     SaleCustomsListViewController *saleCustomsVC = [[SaleCustomsListViewController alloc] initWithDataDic:dic andTitle:@"销售客单"];
@@ -211,7 +257,9 @@ static bool isLogin = NO;
 - (void)saleCompareVCAction
 {
     [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
-    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_SaleCompare" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCompareData" andParams:Nil andPageTitle:@"销售对比"]];
+    NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
+    
+    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_SaleCompare" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCompareData" andParams:params andPageTitle:@"销售对比"]];
     [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
     
     SaleCompareViewController *saleCompareVC = [[SaleCompareViewController alloc] initWithDataDic:dic andTitle:@"销售对比"];
@@ -243,10 +291,10 @@ static bool isLogin = NO;
     SaleCompareViewController *saleCompareVC = [[SaleCompareViewController alloc] init];
     UINavigationController *saleCompareNavi = [[UINavigationController alloc] initWithRootViewController:saleCompareVC];
     
-    NSArray *array = [[NSArray alloc] initWithObjects:@"首页", @"海印主页",@"购物卡销售", @"会员分析",@"结算汇总", @"销售客单", @"销售对比", nil];
+    NSArray *array = [[NSArray alloc] initWithObjects:@"首页", @"海印主页",@"销售客单", @"会员分析",@"销售对比", @"会员分析", @"结算汇总", nil];
     
     _mySideTV.titles = [NSMutableArray arrayWithArray:array];
-    _mySideTV.viewControllers = [[NSMutableArray alloc] initWithObjects:homeNavi, highsunNavi, shoppingNavi, memberNavi, finalNavi, saleCustomsNavi, saleCompareNavi, nil];
+    _mySideTV.viewControllers = [[[NSMutableArray alloc] initWithObjects:homeNavi, highsunNavi, saleCustomsNavi, memberNavi, saleCompareNavi, shoppingNavi, finalNavi, nil] autorelease];
     
     [homeVC release];
     [homeNavi release];
@@ -260,6 +308,8 @@ static bool isLogin = NO;
     [saleCompareNavi release];
     [saleCustomsVC release];
     [saleCustomsNavi release];
+    
+    [array release];
 }
 
 - (void)dealloc
@@ -307,24 +357,38 @@ static bool isLogin = NO;
         distanceX = (self.size.width-width*2)/3;
         distanceY = (self.size.height-20-44-height*0.618*3)/4;
         
+//        _highsunHomeVCBtn.frame = CGRectMake(distanceX, distanceY+32, width, height);
+//        _shoppingCardVCBtn.frame = CGRectMake(width+distanceX*2, distanceY+32, width, height);
+//        _memberAnalyseVCBtn.frame = CGRectMake(distanceX, height+distanceY*2+32, width, height);
+//        _finalSumVCBtn.frame = CGRectMake(width+distanceX*2, height+distanceY*2+32, width, height);
+//        _saleCustomsListVCBtn.frame = CGRectMake(distanceX, height*2+distanceY*3+32, width, height);
+//        _saleCompareVCBtn.frame = CGRectMake(width+distanceX*2, height*2+distanceY*3+32, width, height);
+        
         _highsunHomeVCBtn.frame = CGRectMake(distanceX, distanceY+32, width, height);
-        _shoppingCardVCBtn.frame = CGRectMake(width+distanceX*2, distanceY+32, width, height);
+        _saleCustomsListVCBtn.frame = CGRectMake(width+distanceX*2, distanceY+32, width, height);
         _memberAnalyseVCBtn.frame = CGRectMake(distanceX, height+distanceY*2+32, width, height);
-        _finalSumVCBtn.frame = CGRectMake(width+distanceX*2, height+distanceY*2+32, width, height);
-        _saleCustomsListVCBtn.frame = CGRectMake(distanceX, height*2+distanceY*3+32, width, height);
-        _saleCompareVCBtn.frame = CGRectMake(width+distanceX*2, height*2+distanceY*3+32, width, height);
+        _saleCompareVCBtn.frame = CGRectMake(width+distanceX*2, height+distanceY*2+32, width, height);
+        _shoppingCardVCBtn.frame = CGRectMake(distanceX, height*2+distanceY*3+32, width, height);
+        _finalSumVCBtn.frame = CGRectMake(width+distanceX*2, height*2+distanceY*3+32, width, height);
     }
     else if(UIDeviceOrientationIsLandscape(orientation))
     {
         distanceX = (self.size.width-width*3)/4;
         distanceY = (self.size.height-20-44-height*0.618*2)/3;
         
+//        _highsunHomeVCBtn.frame = CGRectMake(distanceX, distanceY+32, width, height);
+//        _shoppingCardVCBtn.frame = CGRectMake(width+distanceX*2, distanceY+32, width, height);
+//        _memberAnalyseVCBtn.frame = CGRectMake(width*2+distanceX*3, distanceY+32, width, height);
+//        _finalSumVCBtn.frame = CGRectMake(distanceX, height+distanceY*2+32, width, height);
+//        _saleCustomsListVCBtn.frame = CGRectMake(width+distanceX*2, height+distanceY*2+32, width, height);
+//        _saleCompareVCBtn.frame = CGRectMake(width*2+distanceX*3, height+distanceY*2+32, width, height);
+        
         _highsunHomeVCBtn.frame = CGRectMake(distanceX, distanceY+32, width, height);
-        _shoppingCardVCBtn.frame = CGRectMake(width+distanceX*2, distanceY+32, width, height);
+        _saleCustomsListVCBtn.frame = CGRectMake(width+distanceX*2, distanceY+32, width, height);
         _memberAnalyseVCBtn.frame = CGRectMake(width*2+distanceX*3, distanceY+32, width, height);
-        _finalSumVCBtn.frame = CGRectMake(distanceX, height+distanceY*2+32, width, height);
-        _saleCustomsListVCBtn.frame = CGRectMake(width+distanceX*2, height+distanceY*2+32, width, height);
-        _saleCompareVCBtn.frame = CGRectMake(width*2+distanceX*3, height+distanceY*2+32, width, height);
+        _saleCompareVCBtn.frame = CGRectMake(distanceX, height+distanceY*2+32, width, height);
+        _shoppingCardVCBtn.frame = CGRectMake(width+distanceX*2, height+distanceY*2+32, width, height);
+        _finalSumVCBtn.frame = CGRectMake(width*2+distanceX*3, height+distanceY*2+32, width, height);
     }
 
 }

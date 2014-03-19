@@ -10,6 +10,48 @@
 
 @implementation SQLDataSearch
 
+#warning mark -- 获取用户的信息字典，包括用户名，密码，以及一些特定属性，如表示浏览权限，职位等的属性
++ (NSMutableArray *)getUsrInfo
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *userID = [defaults objectForKey:@"userID"];
+    NSString *passward = [defaults objectForKey:@"passward"];
+    
+    NSString *startTime = [defaults objectForKey:@"startTime"];
+    NSString *endTime = [defaults objectForKey:@"endTime"];
+    
+    NSMutableArray *params = [[NSMutableArray alloc] init];
+    [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:userID,@"userID", nil]];
+    [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:passward,@"passWard", nil]];
+
+    if (startTime != nil & endTime != nil) {
+        [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:startTime,@"startTime", nil]];
+        [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:endTime,@"endTime", nil]];
+    }
+    
+    
+    return params;
+}
+
++ (void)getDateStr:(NSString *)startTime andEndTime:(NSString *)endTime
+{
+//    NSMutableArray *mArray = [[NSMutableArray alloc] init];
+//    
+//    [mArray addObject:[NSDictionary dictionaryWithObjectsAndKeys:startTime,@"startTime", nil]];
+//    [mArray addObject:[NSDictionary dictionaryWithObjectsAndKeys:endTime,@"endTime", nil]];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:startTime forKey:@"startTime"];
+    [defaults setObject:endTime forKey:@"endTime"];
+}
+
++ (NSDictionary *)getStartTime:(NSDate *)startTime andEndTime:(NSDate *)endTime
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    
+    return dic;
+}
+
 + (NSString *)getPlistPath:(NSString *)fileName
 {
     NSString *str = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];

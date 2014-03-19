@@ -24,6 +24,8 @@ typedef enum {
 
 @interface CustomTableView : UIView <UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, retain) UIScrollView *headScrollView;//标题滚动栏
+
 @property (nonatomic, retain) UITableView *headTableView;//标题的表格
 @property (nonatomic, retain) UITableView *leftTableView;//左边表格
 @property (nonatomic, retain) UITableView *rightTableView;//右边表格
