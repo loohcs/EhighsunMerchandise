@@ -124,15 +124,7 @@
     _passWard = _passwardText.text;
     
     
-    //TODO: 验证用户名与密码，如果成功则请求基础数据，否则提示输入错误
-    if (self.isRememberPassward == YES) {
-        //TODO: 进入记住密码状态，则需要将用户名与密码记录在本地数据中，方便下次登录
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        if ([[defaults objectForKey:@"isRememberPassward"] isEqualToString:@"YES"]) {
-            [defaults setObject:_nameText.text forKey:@"userID"];
-            [defaults setObject:_passwardText.text forKey:@"passward"];
-        }
-    }
+    
     
     //将用户名和密码以参数的形式传到服务器端，在服务器端监测是否是合法的用户名以及密码，合法返回字符串@“YES”，非法@“NO”
     //???: 在将用户名以及密码传送到服务器端时，是否应该加密？
@@ -146,6 +138,17 @@
 //        successAlertView.tag = 100;
         
 //        [successAlertView show];
+        
+        //TODO: 验证用户名与密码，如果成功则请求基础数据，否则提示输入错误
+        if (self.isRememberPassward == YES) {
+            //TODO: 进入记住密码状态，则需要将用户名与密码记录在本地数据中，方便下次登录
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            if ([[defaults objectForKey:@"isRememberPassward"] isEqualToString:@"YES"]) {
+                [defaults setObject:_nameText.text forKey:@"userID"];
+                [defaults setObject:_passwardText.text forKey:@"passward"];
+                [defaults setObject:@"VYbSBDuFOPVd" forKey:@"primaryUserKey"];
+            }
+        }
         
         HomeViewController *homeVC = [[HomeViewController alloc] init];
         UINavigationController *homeNavi = [[UINavigationController alloc] initWithRootViewController:homeVC];
@@ -183,7 +186,11 @@
 
 - (BOOL)isLogInDBWith:(NSString *)userID andPassword:(NSString *)password
 {
-    NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
+    NSMutableArray *params = [[NSMutableArray alloc] init];
+    
+    [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:userID,@"userID", nil]];
+    [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:password,@"passWard", nil]];
+    
 
     ServiceArgs *args1=[[ServiceArgs alloc] initWithWebServiceName:@"WS_LogIn" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"LogIn" andParams:params];
 

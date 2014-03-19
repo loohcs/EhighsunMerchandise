@@ -319,6 +319,67 @@
 			name = "自定义的表单";
 			sourceTree = "<group>";
 		};
+		7513FDD718D9979E00BDAE8D /* 第三方类库 */ = {
+			isa = PBXGroup;
+			children = (
+				750452551890B11700EEE1C5 /* 侧滑型tabBar */,
+				7526EDF618D94216004E4980 /* Calendar */,
+				7526EDEF18D94216004E4980 /* 下拉刷新 */,
+			);
+			name = "第三方类库";
+			sourceTree = "<group>";
+		};
+		7513FDD818D997D400BDAE8D /* 辅助类 */ = {
+			isa = PBXGroup;
+			children = (
+				7504525C1890D95B00EEE1C5 /* 自定义的表单 */,
+				75AB963318B9DEBB00930371 /* WebService相关类 */,
+				754BE18D18A5D94C0023F4E4 /* 崩溃处理 */,
+				75AB962A18B9DEBB00930371 /* 数据处理添加的类目 */,
+				7513FDDA18D9984000BDAE8D /* 缓存处理 */,
+				7513FDD918D9982900BDAE8D /* 时间辅助类 */,
+				759D4A071894AFAB00E26DF9 /* 数据请求 */,
+				75A756ED18BC74F400E28B61 /* 数据处理 */,
+			);
+			name = "辅助类";
+			sourceTree = "<group>";
+		};
+		7513FDD918D9982900BDAE8D /* 时间辅助类 */ = {
+			isa = PBXGroup;
+			children = (
+				7526EE2018D94217004E4980 /* DateHelper.h */,
+				7526EE2118D94217004E4980 /* DateHelper.m */,
+			);
+			name = "时间辅助类";
+			sourceTree = "<group>";
+		};
+		7513FDDA18D9984000BDAE8D /* 缓存处理 */ = {
+			isa = PBXGroup;
+			children = (
+				7526EE2318D94217004E4980 /* DeleteImageINBundle.m */,
+				7526EE2218D94217004E4980 /* DeleteImageINBundle.h */,
+			);
+			name = "缓存处理";
+			sourceTree = "<group>";
+		};
+		7513FDDB18D9986600BDAE8D /* 动画辅助 */ = {
+			isa = PBXGroup;
+			children = (
+				7513FDDC18D9990200BDAE8D /* 基础动画页 */,
+				75AB965B18B9DEBB00930371 /* UI动画 */,
+			);
+			name = "动画辅助";
+			sourceTree = "<group>";
+		};
+		7513FDDC18D9990200BDAE8D /* 基础动画页 */ = {
+			isa = PBXGroup;
+			children = (
+				75AB963118B9DEBB00930371 /* BasicViewController.h */,
+				75AB963218B9DEBB00930371 /* BasicViewController.m */,
+			);
+			name = "基础动画页";
+			sourceTree = "<group>";
+		};
 		7526EDEF18D94216004E4980 /* 下拉刷新 */ = {
 			isa = PBXGroup;
 			children = (
@@ -455,22 +516,11 @@
 		75A4C455188FCC3D0083C8AC = {
 			isa = PBXGroup;
 			children = (
-				7526EDEF18D94216004E4980 /* 下拉刷新 */,
-				7526EDF618D94216004E4980 /* Calendar */,
-				7526EE2018D94217004E4980 /* DateHelper.h */,
-				7526EE2118D94217004E4980 /* DateHelper.m */,
-				7526EE2218D94217004E4980 /* DeleteImageINBundle.h */,
-				7526EE2318D94217004E4980 /* DeleteImageINBundle.m */,
-				75AB962A18B9DEBB00930371 /* 数据处理添加的类目 */,
-				75AB963118B9DEBB00930371 /* BasicViewController.h */,
-				75AB963218B9DEBB00930371 /* BasicViewController.m */,
-				75AB963318B9DEBB00930371 /* Class */,
-				75AB965B18B9DEBB00930371 /* UI动画 */,
-				754BE18D18A5D94C0023F4E4 /* 崩溃处理 */,
-				7504525C1890D95B00EEE1C5 /* 自定义的表单 */,
+				7513FDDB18D9986600BDAE8D /* 动画辅助 */,
+				7513FDD818D997D400BDAE8D /* 辅助类 */,
+				7513FDD718D9979E00BDAE8D /* 第三方类库 */,
 				75A4C497188FCCB60083C8AC /* 主页 */,
 				75A4C490188FCC4E0083C8AC /* 登陆页面 */,
-				750452551890B11700EEE1C5 /* 侧滑型tabBar */,
 				75A4C49B188FCCCE0083C8AC /* 海印百货通主页 */,
 				75A4C467188FCC3D0083C8AC /* EhighsunMerchandise */,
 				75A4C480188FCC3E0083C8AC /* EhighsunMerchandiseTests */,
@@ -568,8 +618,6 @@
 		75A4C49B188FCCCE0083C8AC /* 海印百货通主页 */ = {
 			isa = PBXGroup;
 			children = (
-				75A756ED18BC74F400E28B61 /* 数据处理 */,
-				759D4A071894AFAB00E26DF9 /* 数据请求 */,
 				75A4C4A3188FCD3E0083C8AC /* 主页 */,
 				75A4C4B0188FCDF80083C8AC /* 购物卡销售 */,
 				75A4C4AC188FCDB00083C8AC /* 会员分析 */,
@@ -662,13 +710,14 @@
 			path = "数据处理添加的类目";
 			sourceTree = "<group>";
 		};
-		75AB963318B9DEBB00930371 /* Class */ = {
+		75AB963318B9DEBB00930371 /* WebService相关类 */ = {
 			isa = PBXGroup;
 			children = (
 				75AB963418B9DEBB00930371 /* ASIHttpRequest */,
 				75AB964918B9DEBB00930371 /* GDataXml */,
 				75AB965218B9DEBB00930371 /* WebService */,
 			);
+			name = "WebService相关类";
 			path = Class;
 			sourceTree = "<group>";
 		};

@@ -14,15 +14,13 @@
 + (NSMutableArray *)getUsrInfo
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *userID = [defaults objectForKey:@"userID"];
-    NSString *passward = [defaults objectForKey:@"passward"];
+    NSString *primaryUserKey = [defaults objectForKey:@"primaryUserKey"];
     
     NSString *startTime = [defaults objectForKey:@"startTime"];
     NSString *endTime = [defaults objectForKey:@"endTime"];
     
     NSMutableArray *params = [[NSMutableArray alloc] init];
-    [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:userID,@"userID", nil]];
-    [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:passward,@"passWard", nil]];
+    [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:primaryUserKey,@"primaryUserKey", nil]];
 
     if (startTime != nil & endTime != nil) {
         [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:startTime,@"startTime", nil]];

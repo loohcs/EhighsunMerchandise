@@ -27,13 +27,13 @@
 #define UIDeviceOrientationIsLandscape(orientation) ((orientation) == UIDeviceOrientationLandscapeLeft || (orientation) == UIDeviceOrientationLandscapeRight)
 
 #warning mark -- URL需要分为开发服务器地址和生产服务器地址
-//开发服务器地址
-#define DefaultWebServiceBaseUrl  @"http://192.168.2.214:8000/WebServices"
-#define DefaultWebServiceNamespace @"http://192.168.2.214:8000/WebServices"
+////开发服务器地址
+//#define DefaultWebServiceBaseUrl  @"http://192.168.2.214:8000/WebServices"
+//#define DefaultWebServiceNamespace @"http://192.168.2.214:8000/WebServices"
 
-////生产服务器地址
-//#define DefaultWebServiceBaseUrl  @"http://192.168.2.217:8000/WebServices"
-//#define DefaultWebServiceNamespace @"http://192.168.2.217:8000/WebServices"
+//生产服务器地址
+#define DefaultWebServiceBaseUrl  @"http://192.168.2.217:8200/WebServices"
+#define DefaultWebServiceNamespace @"http://192.168.2.217:8200/WebServices"
 
 #import "PPRevealSideViewController.h"//侧滑型tabBar
 #import "SideTableViewController.h"//侧边栏的tableView
