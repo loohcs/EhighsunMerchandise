@@ -83,7 +83,8 @@
 
 - (void)logOutSystem
 {
-    NSLog(@"退出");
+    JBViewController *JBVC = [[JBViewController alloc] init];
+    [self.navigationController pushViewController:JBVC animated:YES];
 }
 
 - (NSDictionary *)getData:(NSDictionary *)dic

@@ -57,7 +57,7 @@
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBackSideTV)];
     self.navigationItem.leftBarButtonItem = leftBarBtn;
     
-    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"退出" style:UIBarButtonItemStyleDone target:self action:@selector(logOutSystem)];
+    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"日期" style:UIBarButtonItemStyleDone target:self action:@selector(logOutSystem)];
     self.navigationItem.rightBarButtonItem = rightBarBtn;
 
     
@@ -82,7 +82,8 @@
 
 - (void)logOutSystem
 {
-    NSLog(@"退出");
+    JBViewController *JBVC = [[JBViewController alloc] init];
+    [self.navigationController pushViewController:JBVC animated:YES];
 }
 
 - (NSDictionary *)getData:(NSDictionary *)dic

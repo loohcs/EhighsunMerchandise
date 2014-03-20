@@ -39,6 +39,7 @@
 #import "SideTableViewController.h"//侧边栏的tableView
 
 #import "DateHelper.h"
+#import "JBViewController.h"
 
 #import "HTTPRequest.h"
 #import "URLHelper.h"
