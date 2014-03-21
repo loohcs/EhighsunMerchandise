@@ -322,6 +322,7 @@
 		7513FDD718D9979E00BDAE8D /* 第三方类库 */ = {
 			isa = PBXGroup;
 			children = (
+				75AB963318B9DEBB00930371 /* WebService相关类 */,
 				750452551890B11700EEE1C5 /* 侧滑型tabBar */,
 				7526EDF618D94216004E4980 /* Calendar */,
 				7526EDEF18D94216004E4980 /* 下拉刷新 */,
@@ -332,8 +333,8 @@
 		7513FDD818D997D400BDAE8D /* 辅助类 */ = {
 			isa = PBXGroup;
 			children = (
+				75AB965218B9DEBB00930371 /* WebService */,
 				7504525C1890D95B00EEE1C5 /* 自定义的表单 */,
-				75AB963318B9DEBB00930371 /* WebService相关类 */,
 				754BE18D18A5D94C0023F4E4 /* 崩溃处理 */,
 				75AB962A18B9DEBB00930371 /* 数据处理添加的类目 */,
 				7513FDDA18D9984000BDAE8D /* 缓存处理 */,
@@ -715,7 +716,6 @@
 			children = (
 				75AB963418B9DEBB00930371 /* ASIHttpRequest */,
 				75AB964918B9DEBB00930371 /* GDataXml */,
-				75AB965218B9DEBB00930371 /* WebService */,
 			);
 			name = "WebService相关类";
 			path = Class;
@@ -773,7 +773,8 @@
 				75AB965718B9DEBB00930371 /* ServiceResult.h */,
 				75AB965818B9DEBB00930371 /* ServiceResult.m */,
 			);
-			path = WebService;
+			name = WebService;
+			path = Class/WebService;
 			sourceTree = "<group>";
 		};
 		75AB965B18B9DEBB00930371 /* UI动画 */ = {

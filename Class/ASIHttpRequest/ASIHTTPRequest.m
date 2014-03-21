@@ -282,7 +282,12 @@ static NSOperationQueue *sharedQueue = nil;
 	[self setRequestMethod:@"GET"];
 
 	[self setRunLoopMode:NSDefaultRunLoopMode];
-	[self setShouldAttemptPersistentConnection:YES];
+#warning mark -- 连接公网的时候出错：Incorrect NSStringEncoding value 0x0000 detected. Assuming NSASCIIStringEncoding. Will stop this compatiblity mapping behavior in the near future.
+    //解决方法将网络复用给关掉
+//	[self setShouldAttemptPersistentConnection:YES];
+    
+    [self setShouldAttemptPersistentConnection:NO];
+    
 	[self setPersistentConnectionTimeoutSeconds:60.0];
 	[self setShouldPresentCredentialsBeforeChallenge:YES];
 	[self setShouldRedirect:YES];
