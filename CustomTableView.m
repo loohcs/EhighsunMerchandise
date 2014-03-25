@@ -22,19 +22,26 @@
 
 @synthesize rightDataDic = _rightDataDic;
 
-- (id)initWithHeadDataKeys:(NSArray *)headDataKeys andHeadDataTitle:(NSString *)headDataTitle andLeftDataKeys:(NSArray *)leftDataKeys andRightData:(NSDictionary *)rightDataDic andSize:(CGSize)size andScrollMethod:(ScrollMethod)sm
+- (id)initWithHeadDataKeys:(NSArray *)headDataKeys andHeadDataTitle:(NSString *)headDataTitle andLeftData:(NSDictionary *)leftDataDic andRightData:(NSDictionary *)rightDataDic andSize:(CGSize)size andScrollMethod:(ScrollMethod)sm
 {
     if (self = [super initWithFrame:CGRectMake(0, 0, size.width, size.height)]) {
         
         //data，以leftDataKeys的值作为对应的右边整行数据的键值，并且右边整行的数据以对应的headDataKeys作为键值，这样就可以准确的找到任何一个数据
         self.rightDataDic = rightDataDic;
         
-        //存放左边的数据，同时也是关键字，我们将通过左边的关键字，在dataArray中查找出同一行中右边的数据
-        self.leftDataKeys = [NSArray arrayWithArray:leftDataKeys];
+        //存放左边的数据，同时左边数据的字典的关键字也是这一行数据（包括右边）的关键字
+        self.leftDataKeys = [NSArray arrayWithArray:[leftDataDic allKeys]];
+        self.leftDataDic = leftDataDic;//存放左边所有数据
         
         //存放表头的文字信息，如果有必要，我们也将通过表头的关键字，查找这一列的所有数据
         self.headDataKeys = [NSArray arrayWithArray:headDataKeys];
-        NSString *path = [SQLDataSearch getPlistPath:@"TitleInfo.plist"];
+        
+        //获取document文件夹中文件
+//        NSString *path = [SQLDataSearch getPlistPath:@"TitleInfo.plist"];
+        
+        //获取沙盒即工程本身文件
+        NSString *path = [SQLDataSearch getPlistPath:@"TitleInfo" andType:@"plist"];
+        
         self.pageFlag = headDataTitle;
         self.headDataValues = [NSArray arrayWithArray:[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:headDataTitle]];
         
@@ -167,7 +174,10 @@
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewCellHeight)];
     label.contentMode = UIViewContentModeCenter;
     label.textAlignment = NSTextAlignmentCenter;
-    label.text = [DBDataHelper getChineseWithCode:[_leftDataKeys objectAtIndex:index]];
+    NSString *key = [_leftDataKeys objectAtIndex:index];
+    NSDictionary *dic = [_leftDataDic objectForKey:key];
+    NSString *key2 = [_headDataKeys objectAtIndex:0];
+    label.text = [DBDataHelper getChineseWithCode:[dic objectForKey:key2]];
     label.font = [UIFont systemFontOfSize:10.0];
     [view addSubview:label];
     [label release];
@@ -201,11 +211,11 @@
             label.textAlignment = NSTextAlignmentCenter;
             
             //???: 在销售客单中，第一列是楼层，而第二列则为店铺，这两者都需要进行中英文映射
-//            if (i == 1 && [_pageFlag isEqualToString:@"销售客单"]) {
-//                    label.text = [DBDataHelper getChineseWithCode:value];
-//            }
-//            else label.text = value;
-            label.text = value;
+            if ([_pageFlag isEqualToString:@"会员分析"] && i == 1) {
+                    label.text = [DBDataHelper getChineseWithCode:value];
+            }
+            else label.text = value;
+            //label.text = value;
             label.font = [UIFont systemFontOfSize:10.0];
             [view addSubview:label];
             [label release];
@@ -335,7 +345,12 @@
         
         [self.rightTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
         
-        NSString *path = [SQLDataSearch getPlistPath:@"TitleInfo.plist"];
+        //获取document中的plist文件
+//        NSString *path = [SQLDataSearch getPlistPath:@"TitleInfo.plist"];
+        
+        //获取沙盒中的plist文件
+        NSString *path = [SQLDataSearch getPlistPath:@"TitleInfo" andType:@"plist"];
+        
         NSDictionary *pageTitle = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"组织结构"];
         NSDictionary *pageTitle2 = [pageTitle objectForKey:@"海印又一城"];
         NSString *pageTitle3 = [pageTitle2 objectForKey:self.pageFlag];

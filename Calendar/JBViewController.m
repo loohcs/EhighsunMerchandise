@@ -67,7 +67,7 @@
     
     
     JBCalendarDate *JBCalDate = [JBCalendarDate dateFromNSDate:[NSDate date]];
-    NSLog(@"%d-%d-%d", JBCalDate.year, JBCalDate.month, JBCalDate.day);
+    NSLog(@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day);
     
     //  Example 1.1:
     self.unitView = [[JBUnitView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) UnitType:UnitTypeMonth SelectedDate:[NSDate date] AlignmentRule:JBAlignmentRuleTop Delegate:self DataSource:self];
@@ -78,15 +78,28 @@
     startLabel.text = @"开始日期:";
     [self.view addSubview:startLabel];
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    //开始日期
     _startTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, self.unitView.bounds.size.height+80, 200, 40)];
-    _startTimeLabel.backgroundColor = [UIColor blueColor];
+    _startTimeLabel.backgroundColor = [UIColor grayColor];
     _startTimeLabel.tag = 1000;
     _startTimeLabel.userInteractionEnabled = YES;
-    _startTimeLabel.text = [NSString stringWithFormat:@"%d-%d-%d", JBCalDate.year, JBCalDate.month, JBCalDate.day];
+    
+    
+    NSString *startTime = [defaults objectForKey:@"startTime"];
+    if (startTime != Nil) {
+        _startTimeLabel.text = startTime;
+    }
+    else _startTimeLabel.text = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
+    
+    
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(getTypeOfDate:)];
     [_startTimeLabel addGestureRecognizer:tapGR];
     [self.view addSubview:_startTimeLabel];
     
+    
+    //截止日期
     UILabel *endLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, self.unitView.bounds.size.height+80+45, 80, 40)];
     endLabel.text = @"截止日期:";
     [self.view addSubview:endLabel];
@@ -94,8 +107,14 @@
     _endTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, self.unitView.bounds.size.height+80+45, 200, 40)];
     _endTimeLabel.tag = 1001;
     _endTimeLabel.userInteractionEnabled = YES;
-    _endTimeLabel.backgroundColor = [UIColor blueColor];
-    _endTimeLabel.text = [NSString stringWithFormat:@"%d-%d-%d", JBCalDate.year, JBCalDate.month, JBCalDate.day];
+    _endTimeLabel.backgroundColor = [UIColor grayColor];
+    
+    NSString *endTime = [defaults objectForKey:@"endTime"];
+    if (endTime != Nil) {
+        _endTimeLabel.text = endTime;
+    }
+    else _endTimeLabel.text = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
+
     UITapGestureRecognizer *tapGR2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(getTypeOfDate:)];
     [_endTimeLabel addGestureRecognizer:tapGR2];
     [self.view addSubview:_endTimeLabel];
@@ -109,7 +128,12 @@
     
     [SQLDataSearch getDateStr:_startTimeLabel.text andEndTime:_endTimeLabel.text];
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:_startTimeLabel.text forKey:@"startTime"];
+    [defaults setObject:_endTimeLabel.text forKey:@"endTime"];
+    [defaults setObject:@"YES" forKey:@"isTimeChanged"];
+    
+    [self.navigationController popViewControllerAnimated:YES];
     
 }
 
@@ -314,14 +338,16 @@
  **************************************************************/
 - (void)unitView:(JBUnitView *)unitView SelectedDate:(NSDate *)date
 {
-    //NSLog(@"selected date:%@", date);
-    
+
+    //TODO: 加入日期判断，使截止日期大于初始日期，且小于今天
     if (_dateType == StartDateSelect) {
-        _startTimeLabel.text = [NSString stringWithFormat:@"%d-%d-%d", date.year, date.month, date.day];
+        
+        _startTimeLabel.text = [NSString stringWithFormat:@"%lu-%lu-%lu", (unsigned long)date.year, (unsigned long)date.month, (unsigned long)date.day];
+        
     }
     else if (_dateType == EndDateSelect)
     {
-        _endTimeLabel.text = [NSString stringWithFormat:@"%d-%d-%d", date.year, date.month, date.day];
+        _endTimeLabel.text = [NSString stringWithFormat:@"%lu-%lu-%lu", (unsigned long)date.year, (unsigned long)date.month, (unsigned long)date.day];
     }
     
 }
@@ -333,13 +359,13 @@
         _dateType = StartDateSelect;
         
         _startTimeLabel.backgroundColor = [UIColor redColor];
-        _endTimeLabel.backgroundColor = [UIColor blueColor];
+        _endTimeLabel.backgroundColor = [UIColor grayColor];
     }
     else if(tapGR.view.tag == 1001)
     {
         _dateType = EndDateSelect;
         
-        _startTimeLabel.backgroundColor = [UIColor blueColor];
+        _startTimeLabel.backgroundColor = [UIColor grayColor];
         _endTimeLabel.backgroundColor = [UIColor redColor];
     }
 }

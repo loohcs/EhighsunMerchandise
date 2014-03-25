@@ -32,6 +32,26 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //判断是否时间进行了修改，如果修改了，则我们需要重新下载数据，并同时将isTimeChanged复原成NO
+    NSString *isTimeChanged = [defaults objectForKey:@"isTimeChanged"];
+    
+    if ([isTimeChanged isEqualToString:@"YES"]) {
+        [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
+        NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
+        NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_VipMember" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetVipMemberData" andParams:params andPageTitle:@"会员分析"]];
+        [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+        
+        self.dataDic = dic;
+        self.pageTitle = @"会员分析";
+        
+        [defaults setObject:@"NO" forKey:@"isTimeChanged"];
+    }
+    
+}
+
 #pragma mark -- 一些按钮的初始化
 - (void)viewDidLoad
 {
@@ -62,10 +82,11 @@
 
     
     NSArray *headArr = [NSArray arrayWithArray:[self.dataDic objectForKey:@"headTitleKey"]];
-    NSMutableArray *leftKeys = [NSMutableArray arrayWithArray:[self.dataDic objectForKey:@"leftTable"]];
+    NSMutableDictionary *leftDic = [NSMutableDictionary dictionaryWithDictionary:[self.dataDic objectForKey:@"leftTable"]];
+//    NSMutableArray *leftKeys = [NSMutableArray arrayWithArray:[leftDic allKeys]];
     NSDictionary *rightDic = [NSDictionary dictionaryWithDictionary:[self.dataDic objectForKey:@"rightTable"]];
     
-    _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"会员分析" andLeftDataKeys:leftKeys andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
+    _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"会员分析" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
     CGRect frame = _customTableView.frame;
     frame.origin = CGPointMake(0, 84);
     _customTableView.frame = frame;
@@ -110,5 +131,39 @@
     
     [_customTableView fitWithScreenRotation:toInterfaceOrientation];
 }
+
+//下拉刷新跟加载的方法
+#pragma mark -
+#pragma mark UIScrollView PullDelegate
+- (void)scrollView:(UIScrollView*)scrollView loadWithState:(LoadState)state
+{
+    if (state == PullDownLoadState)
+    {
+        [self performSelector:@selector(PullDownLoadEnd) withObject:nil afterDelay:3];
+    }
+    else
+    {
+        [self performSelector:@selector(PullUpLoadEnd) withObject:nil afterDelay:3];
+    }
+}
+
+//下拉
+- (void)PullDownLoadEnd
+{
+    [self.activityView startAnimating];
+    
+    rightFlag = 0;
+    middleFlag = 0;
+
+}
+
+//加载
+- (void)PullUpLoadEnd
+{
+    [self.activityView startAnimating];
+    
+
+}
+
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "SQLDataSearch.h"
-
+#import "JBCalendarDate.h"
 @implementation SQLDataSearch
 
 #warning mark -- 获取用户的信息字典，包括用户名，密码，以及一些特定属性，如表示浏览权限，职位等的属性
@@ -25,6 +25,17 @@
     if (startTime != nil & endTime != nil) {
         [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:startTime,@"startTime", nil]];
         [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:endTime,@"endTime", nil]];
+    }
+    else
+    {
+        JBCalendarDate *JBCalDate = [JBCalendarDate dateFromNSDate:[NSDate date]];
+        NSString *date = [NSString stringWithFormat:@"%d-%d-%d", JBCalDate.year, JBCalDate.month, JBCalDate.day];
+        [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:date,@"startTime", nil]];
+        [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:date,@"endTime", nil]];
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:date forKey:@"startTime"];
+        [defaults setObject:date forKey:@"endTime"];
     }
     
     
@@ -52,8 +63,19 @@
 
 + (NSString *)getPlistPath:(NSString *)fileName
 {
+    //获取沙盒中文件的路径
     NSString *str = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSString *path = [str stringByAppendingPathComponent:fileName];
+
+    
+    return path;
+}
+
+
++ (NSString *)getPlistPath:(NSString *)fileName andType:(NSString *)type
+{
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:type];
     
     return path;
 }

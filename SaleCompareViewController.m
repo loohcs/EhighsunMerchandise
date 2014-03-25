@@ -60,10 +60,10 @@
     self.navigationItem.rightBarButtonItem = rightBarBtn;
     
     NSArray *headArr = [NSArray arrayWithArray:[self.dataDic objectForKey:@"headTitleKey"]];
-    NSMutableArray *leftKeys = [NSMutableArray arrayWithArray:[self.dataDic objectForKey:@"leftTable"]];
+    NSDictionary *leftDic = [NSDictionary dictionaryWithDictionary:[self.dataDic objectForKey:@"leftTable"]];
     NSDictionary *rightDic = [NSDictionary dictionaryWithDictionary:[self.dataDic objectForKey:@"rightTable"]];
     
-    _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:self.pageTitle andLeftDataKeys:leftKeys andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
+    _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:self.pageTitle andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
 
     CGRect frame = _customTableView.frame;
     frame.origin = CGPointMake(0, 84);
@@ -72,7 +72,12 @@
     
     //1,通知，注册监听者
     NSNotificationCenter *notiCenter=[NSNotificationCenter defaultCenter];//拿到通知中心的对象，然后去注册
-    NSString *path = [SQLDataSearch getPlistPath:@"TitleInfo.plist"];
+    //获取document文件夹中的plist
+//    NSString *path = [SQLDataSearch getPlistPath:@"TitleInfo.plist"];
+    
+    //获取沙盒中的plist文件
+    NSString *path = [SQLDataSearch getPlistPath:@"TitleInfo" andType:@"plist"];
+    
     NSDictionary *pageTitle = [[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:@"组织结构"];
     NSDictionary *pageTitle2 = [pageTitle objectForKey:@"海印又一城"];
     NSString *pageTitle3 = [pageTitle2 objectForKey:self.pageTitle];

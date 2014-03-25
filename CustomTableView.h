@@ -37,7 +37,9 @@ typedef enum {
 
 @property (nonatomic, retain) NSArray *dataArray;//存放所有数据的数组
 @property (nonatomic, retain) NSDictionary *trDictionary;//用来存放数据的字典
+
 @property (nonatomic, retain) NSArray *leftDataKeys;//存放左边的表格关键字，即表头关键字的第一个
+@property (nonatomic, retain) NSDictionary *leftDataDic;//存放左边表格的所有数据
 
 //存放右边表格的关键字，与表头的关键字相同（第一列为左边表格的关键字）
 @property (nonatomic, retain) NSArray *rightDataKeys;
@@ -68,7 +70,7 @@ typedef enum {
  **********************************************************/
 - (id)initWithHeadDataKeys:(NSArray *)headDataKeys
           andHeadDataTitle:(NSString *)headDataTitle
-           andLeftDataKeys:(NSArray *)leftDataKeys
+           andLeftData:(NSDictionary *)leftDataDic
               andRightData:(NSDictionary *)rightDataDic
                    andSize:(CGSize)size
            andScrollMethod:(ScrollMethod)sm;

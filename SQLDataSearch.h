@@ -20,8 +20,11 @@
 + (void)getDateStr:(NSString *)startTime andEndTime:(NSString *)endTime;
 
 
-//获取存储关键字的文件地址
+//获取存储关键字的文件地址,沙盒中docment文件夹
 + (NSString *)getPlistPath:(NSString *)fileName;
+
+//获取存储关键字的文件地址，直接在工程中
++ (NSString *)getPlistPath:(NSString *)fileName andType:(NSString *)type;
 
 + (NSArray *)getTitle:(NSString *)titleKey;
 

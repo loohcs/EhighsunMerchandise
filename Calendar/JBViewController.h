@@ -32,11 +32,13 @@ typedef enum {
     EndDateSelect = 1,    //截止日期
 } DateTypeSelect;
 
-@interface JBViewController : UIViewController
+@interface JBViewController : UIViewController<UIAlertViewDelegate>
 
 @property (nonatomic, assign) DateTypeSelect dateType;
 
 @property (nonatomic, strong) UILabel *startTimeLabel;
 @property (nonatomic, strong) UILabel *endTimeLabel;
+
+@property (nonatomic, strong) UIAlertView *alertView;
 
 @end

@@ -51,20 +51,39 @@
     }
 
     
-    self.navigationItem.title = @"主页";
+    self.navigationItem.title = self.pageTitle;
     self.view.backgroundColor = [UIColor cyanColor];
     
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBackSideTV)];
     self.navigationItem.leftBarButtonItem = leftBarBtn;
     
-    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"日期" style:UIBarButtonItemStyleDone target:self action:@selector(logOutSystem)];
+    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"日期" style:UIBarButtonItemStyleDone target:self action:@selector(getSearchDate)];
     self.navigationItem.rightBarButtonItem = rightBarBtn;
     
+    //middle
+    UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 150, 44)];
+    UIButton *middleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    middleButton.frame = CGRectMake(0, 0, 155, 43);
+    [middleButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [middleButton addTarget:self action:@selector(middleButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [titleView addSubview:middleButton];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 155-34, 44)];
+    label.font = [UIFont fontWithName:@"Helvetica-Bold" size:21];
+    label.text = @"好友圈";
+    label.textColor = [UIColor grayColor];
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment =1;
+    [middleButton addSubview:label];
+    self.navigationItem.titleView = titleView;
+    
     NSArray *headArr = [NSArray arrayWithArray:[self.dataDic objectForKey:@"headTitleKey"]];
-    NSMutableArray *leftKeys = [NSMutableArray arrayWithArray:[self.dataDic objectForKey:@"leftTable"]];
+//    NSMutableArray *leftKeys = [NSMutableArray arrayWithArray:[self.dataDic objectForKey:@"leftTable"]];
+    NSDictionary *leftDic = [NSDictionary dictionaryWithDictionary:[self.dataDic objectForKey:@"leftTable"]];
     NSDictionary *rightDic = [NSDictionary dictionaryWithDictionary:[self.dataDic objectForKey:@"rightTable"]];
     
-    _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"主页" andLeftDataKeys:leftKeys andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
+    _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"主页" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
+    
+    
     CGRect frame = _customTableView.frame;
     frame.origin = CGPointMake(0, 84);
     _customTableView.frame = frame;
@@ -79,7 +98,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)logOutSystem
+- (void)getSearchDate
 {
     JBViewController *JBVC = [[JBViewController alloc] init];
     [self.navigationController pushViewController:JBVC animated:YES];
@@ -88,39 +107,8 @@
 //TODO: 中间按钮响应的方法
 -(void)middleButtonAction
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"popover_background_os7@2x" ofType:@"png"];
-    UIImage *image = [UIImage imageWithContentsOfFile:path];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 0, 100, 120)];
-    imageView.image = image;
-    [middleView setBackgroundView:imageView];
+    UITableView *sortTableView = [[UITableView alloc] initWithFrame:CGRectMake(110, 0, 100, 120) style:UITableViewStylePlain];
     
-    UIButton *homePage = [UIButton buttonWithType:UIButtonTypeCustom];
-    homePage.frame = CGRectMake(5, 20, 100, 20);
-    homePage.titleLabel.font = [UIFont systemFontOfSize:12.0f];
-    [homePage setTitle:@"按照时间排序" forState:UIControlStateNormal];
-    [homePage addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    [middleView addSubview:homePage];
-    
-    UIButton *eachOther = [UIButton buttonWithType:UIButtonTypeCustom];
-    eachOther.frame = CGRectMake(5, 45, 100, 20);
-    eachOther.titleLabel.font = [UIFont systemFontOfSize:12.0f];
-    [eachOther setTitle:@"按照" forState:UIControlStateNormal];
-    [eachOther addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    [middleView addSubview:eachOther];
-    
-    UIButton *myWeibo = [UIButton buttonWithType:UIButtonTypeCustom];
-    myWeibo.frame = CGRectMake(5, 70, 100, 20);
-    myWeibo.titleLabel.font = [UIFont systemFontOfSize:12.0f];
-    [myWeibo setTitle:@"我的微博" forState:UIControlStateNormal];
-    [myWeibo addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    [middleView addSubview:myWeibo];
-    
-    UIButton *aroundWeibo = [UIButton buttonWithType:UIButtonTypeCustom];
-    aroundWeibo.frame = CGRectMake(5, 95, 100, 20);
-    aroundWeibo.titleLabel.font = [UIFont systemFontOfSize:12.0f];
-    [aroundWeibo setTitle:@"公共微博" forState:UIControlStateNormal];
-    [aroundWeibo addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    [middleView addSubview:aroundWeibo];
     
     
     //中间的弹出框与右边的弹出框相互斥

@@ -147,6 +147,12 @@
                 [defaults setObject:_nameText.text forKey:@"userID"];
                 [defaults setObject:_passwardText.text forKey:@"passward"];
                 [defaults setObject:@"VYbSBDuFOPVd" forKey:@"primaryUserKey"];
+                
+                JBCalendarDate *JBCalDate = [JBCalendarDate dateFromNSDate:[NSDate date]];
+                NSString *date = [NSString stringWithFormat:@"%ld-%ld-%ld", JBCalDate.year, JBCalDate.month, JBCalDate.day];
+                [defaults setObject:date forKey:@"startTime"];
+                [defaults setObject:date forKey:@"endTime"];
+                
             }
         }
         
@@ -200,7 +206,7 @@
     NSLog(@"xml=%@\n",[result.request responseString]);
     NSArray *arr=[result.xmlParse childNodesToArray];
     NSLog(@"解析xml结果=%@\n",arr);
-    [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+//    [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
     
     NSDictionary *dic = [arr lastObject];
     NSString *strTemp = [dic objectForKey:@"LogInResponse"];

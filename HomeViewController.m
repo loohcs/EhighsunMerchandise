@@ -50,6 +50,7 @@ static bool isLogin = NO;
             NSLog(@"网络连接异常2222222222");//执行网络异常时的代码
         }
     }
+    
 }
 
 - (void)viewDidLoad
