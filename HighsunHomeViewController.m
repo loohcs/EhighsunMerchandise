@@ -14,6 +14,8 @@
 
 @implementation HighsunHomeViewController
 
+@synthesize flag = _flag;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -31,6 +33,18 @@
     }
     return self;
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 
 #pragma mark -- 一些按钮的初始化
 - (void)viewDidLoad
@@ -51,7 +65,7 @@
     }
 
     
-    self.navigationItem.title = self.pageTitle;
+//    self.navigationItem.title = self.pageTitle;
     self.view.backgroundColor = [UIColor cyanColor];
     
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBackSideTV)];
@@ -59,6 +73,8 @@
     
     UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"日期" style:UIBarButtonItemStyleDone target:self action:@selector(getSearchDate)];
     self.navigationItem.rightBarButtonItem = rightBarBtn;
+    
+    _flag = 0;
     
     //middle
     UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 150, 44)];
@@ -69,12 +85,18 @@
     [titleView addSubview:middleButton];
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 155-34, 44)];
     label.font = [UIFont fontWithName:@"Helvetica-Bold" size:21];
-    label.text = @"好友圈";
+    label.text = @"商场";
     label.textColor = [UIColor grayColor];
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment =1;
     [middleButton addSubview:label];
     self.navigationItem.titleView = titleView;
+    
+    _sortTableView = [[UITableView alloc] initWithFrame:CGRectMake(110, 70, 100, 120) style:UITableViewStylePlain];
+    _sortTableView.delegate = self;
+    _sortTableView.dataSource = self;
+    _sortTableView.hidden = YES;
+    [self.view addSubview:_sortTableView];
     
     NSArray *headArr = [NSArray arrayWithArray:[self.dataDic objectForKey:@"headTitleKey"]];
 //    NSMutableArray *leftKeys = [NSMutableArray arrayWithArray:[self.dataDic objectForKey:@"leftTable"]];
@@ -104,41 +126,6 @@
     [self.navigationController pushViewController:JBVC animated:YES];
 }
 
-//TODO: 中间按钮响应的方法
--(void)middleButtonAction
-{
-    UITableView *sortTableView = [[UITableView alloc] initWithFrame:CGRectMake(110, 0, 100, 120) style:UITableViewStylePlain];
-    
-    
-    
-    //中间的弹出框与右边的弹出框相互斥
-    if (middleFlag == 0 && flag == 0) {
-        [self.view addSubview:middleView];
-        middleView.hidden = NO;
-        middleFlag = 1;
-        flag = 1;
-    }
-    else
-        if (middleFlag == 0 && flag == 1)
-        {
-            [rightView removeFromSuperview];
-            rightFlag = 0;
-            [self.view addSubview:middleView];
-            middleView.hidden = NO;
-            middleFlag = 1;
-            
-        }
-        else
-            if(middleFlag == 1)
-            {
-                [middleView removeFromSuperview];
-                middleView.hidden = YES;
-                middleFlag = 0;
-                flag = 0;
-            }
-    
-}
-
 
 - (NSDictionary *)getData:(NSDictionary *)dic
 {
@@ -165,6 +152,68 @@
     [_customTableView fitWithScreenRotation:toInterfaceOrientation];
 //    [self.view setNeedsDisplay];
 }
+
+//TODO: 中间按钮响应的方法
+-(void)middleButtonAction
+{
+    _flag = (_flag + 1)%2;
+    if (_flag == 1) {
+        _sortTableView.hidden = NO;
+    }
+    else
+    {
+        _sortTableView.hidden = YES;
+    }
+    
+}
+
+#pragma mark -- TableView的代理方法
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    NSArray *arr = [_dataDic objectForKey:@"headTitleValue"];
+    return arr.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    return 60.0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    //    NSLog(@"%s", __func__);
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *identify = @"CellIdentify";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
+    }
+    NSArray *arr = [_dataDic objectForKey:@"headTitleValue"];
+    cell.textLabel.text = [arr objectAtIndex:indexPath.row];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSArray *arr = [_dataDic objectForKey:@"headTitleKey"];
+    NSString *key = [arr objectAtIndex:indexPath.row];
+    
+    NSDictionary *leftData = [_dataDic objectForKey:@"leftTable"];
+    NSMutableArray *leftDataArr = [NSMutableArray arrayWithArray:[leftData allKeys]];
+    
+    NSArray *sortArr = [DBDataHelper QuickSort:_dataDic andKeyArr:leftDataArr andSortKey:key StartIndex:0 EndIndex:arr.count];
+    [_customTableView changeDataWithSortArr:sortArr];
+    [_customTableView.leftTableView reloadData];
+    [_customTableView.rightTableView reloadData];
+    
+
+}
+
 
 
 @end

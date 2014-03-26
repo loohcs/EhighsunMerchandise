@@ -85,6 +85,28 @@
                    selector:@selector(didReceiveNotification:)
                        name:pageTitle3
                      object:nil];//注册监听者完毕
+    
+    _flag = 0;
+    
+    //middle
+    UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 150, 44)];
+    UIButton *middleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    middleButton.frame = CGRectMake(0, 0, 155, 43);
+    [middleButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [middleButton addTarget:self action:@selector(middleButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [titleView addSubview:middleButton];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 155-34, 44)];
+    label.font = [UIFont fontWithName:@"Helvetica-Bold" size:21];
+    label.text = self.pageTitle;
+    label.textColor = [UIColor grayColor];
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment =1;
+    [middleButton addSubview:label];
+    self.navigationItem.titleView = titleView;
+    
+    _sortTableView = [[UITableView alloc] initWithFrame:CGRectMake(90, 60, 140, 120) style:UITableViewStylePlain];
+    _sortTableView.delegate = self;
+    _sortTableView.dataSource = self;
 }
 
 //收到通知的时候要触发的方法
@@ -149,6 +171,70 @@
     [_customTableView fitWithScreenRotation:toInterfaceOrientation];
 }
 
+//TODO: 中间按钮响应的方法
+-(void)middleButtonAction
+{
+    _flag = (_flag + 1)%2;
+    if (_flag == 1) {
+        [self.view addSubview:_sortTableView];
+    }
+    else
+    {
+        [_sortTableView removeFromSuperview];
+    }
+    
+}
+
+#pragma mark -- TableView的代理方法
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    NSArray *arr = [_dataDic objectForKey:@"headTitleKey"];
+    return arr.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    return 30.0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    //    NSLog(@"%s", __func__);
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *identify = @"CellIdentify";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
+    }
+    NSArray *arr = [_dataDic objectForKey:@"headTitleValue"];
+    cell.textLabel.text = [arr objectAtIndex:indexPath.section];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSArray *arr = [_dataDic objectForKey:@"headTitleKey"];
+    NSString *key = [arr objectAtIndex:indexPath.section];
+    
+    NSDictionary *leftData = [_dataDic objectForKey:@"leftTable"];
+    NSMutableArray *leftDataArr = [NSMutableArray arrayWithArray:[leftData allKeys]];
+    
+    NSArray *sortArr = [DBDataHelper QuickSort:_dataDic andKeyArr:leftDataArr andSortKey:key StartIndex:0 EndIndex:leftDataArr.count-1];
+    [_customTableView changeDataWithSortArr:sortArr];
+    [_customTableView.leftTableView reloadData];
+    [_customTableView.rightTableView reloadData];
+    
+    [_customTableView reloadInputViews];
+    
+    [_sortTableView removeFromSuperview];
+    
+    _flag = _flag++%2;
+}
 
 
 

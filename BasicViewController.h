@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AnimateLoadView.h"
 #import "AnimateErrorView.h"
-@interface BasicViewController : UIViewController
+@interface BasicViewController : UIViewController<UIAlertViewDelegate>
 {
     UITableView *middleView;
     int middleFlag;//标志中间的弹出框是否存在
@@ -18,6 +18,8 @@
     NSMutableArray *_array;
     int flag;//标志是否有弹出框存在
 }
+
+@property (nonatomic, retain) UIAlertView *alertView;
 
 @property (nonatomic, retain) UIActivityIndicatorView *activityView;
 

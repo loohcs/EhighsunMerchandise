@@ -27,4 +27,11 @@
 @property (nonatomic, strong) UIButton *saleCustomsListVCBtn;
 @property (nonatomic, strong) UIButton *saleCompareVCBtn;
 
+@property (nonatomic, strong) UILabel *highsunHomeLabel;
+@property (nonatomic, strong) UILabel *shoppingCardLabel;
+@property (nonatomic, strong) UILabel *memberAnalyseLabel;
+@property (nonatomic, strong) UILabel *finalSumLabel;
+@property (nonatomic, strong) UILabel *saleCustomsListLabel;
+@property (nonatomic, strong) UILabel *saleCompareLabel;
+
 @end

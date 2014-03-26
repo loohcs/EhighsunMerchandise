@@ -75,6 +75,9 @@ typedef enum {
                    andSize:(CGSize)size
            andScrollMethod:(ScrollMethod)sm;
 
+//加入排序
+- (void)changeDataWithSortArr:(NSArray *)sortArr;
+
 - (void)fitWithScreenRotation:(UIInterfaceOrientation)toInterfaceOrientation;
 
 @end

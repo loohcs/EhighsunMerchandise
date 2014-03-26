@@ -16,4 +16,6 @@
 
 + (NSString *)getChineseWithCode:(NSString *)mfCode;
 
++ (NSArray *)QuickSort:(NSDictionary *)dic andKeyArr:(NSMutableArray *)list andSortKey:(NSString *)key StartIndex:(NSInteger)startIndex EndIndex:(NSInteger)endIndex;
+
 @end

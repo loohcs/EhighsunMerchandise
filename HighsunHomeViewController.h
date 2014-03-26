@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HighsunHomeViewController : BasicViewController
+@interface HighsunHomeViewController : BasicViewController<UITableViewDataSource,UITableViewDelegate>
 
 
 @property (nonatomic, strong) CustomTableView *customTableView;
 @property (nonatomic, strong) NSDictionary *dataDic;
 @property (nonatomic, strong) NSString *pageTitle;
+@property (nonatomic, strong) UITableView *sortTableView;
+@property (nonatomic, assign) int flag;
+
 
 
 

@@ -43,7 +43,7 @@
     
     [super viewDidLoad];
     
-    
+    _alertView = [[UIAlertView alloc] initWithTitle:@"很抱歉。。。" message:@"数据中暂时没有数据，敬请期待下一版本" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancle", nil];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -190,4 +190,8 @@
         [self performSelector:@selector(hideSuccessViewAnimated:) withObject:complete afterDelay:2.0f];
     }];
 }
+
+
+
+
 @end

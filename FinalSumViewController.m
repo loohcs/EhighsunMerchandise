@@ -33,6 +33,16 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark -- 一些按钮的初始化
 - (void)viewDidLoad
 {

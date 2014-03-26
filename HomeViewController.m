@@ -87,60 +87,109 @@ static bool isLogin = NO;
     
     
     //添加屏幕按钮以及定义响应方法
+    //海印主页，跳转到商场选择界面
     _highsunHomeVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    _highsunHomeVCBtn.backgroundColor = [UIColor cyanColor];
-    
+//    _highsunHomeVCBtn.backgroundColor = [UIColor cyanColor];
+    _highsunHomeVCBtn.backgroundColor = [UIColor clearColor];
+//    NSString *highsunHomeIcon = [[NSBundle mainBundle] pathForResource:@"yh_03" ofType:@"png"];
+//    UIImage *highsunHomeImage = [UIImage imageWithContentsOfFile:highsunHomeIcon];
+//    [_shoppingCardVCBtn setBackgroundImage:highsunHomeImage forState:UIControlStateNormal];
+//    [highsunHomeImage release];
     [_highsunHomeVCBtn setTitle:@"海印主页" forState:UIControlStateNormal];
+//
+//    _highsunHomeLabel = [[UILabel alloc] init];
+//    _highsunHomeLabel.text = @"海印主页";
+//    [self.view addSubview:_highsunHomeLabel];
+    
     [_highsunHomeVCBtn addTarget:self action:@selector(highsunHomeVCAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_highsunHomeVCBtn];
     
+    
+    
+    //购物卡销售界面按钮
     _shoppingCardVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    _shoppingCardVCBtn.backgroundColor = [UIColor cyanColor];
-//    NSString *shopCardIcon = [[NSBundle mainBundle] pathForResource:@"ico5" ofType:@"png"];
-//    UIImage *shopCardBtnImage = [UIImage imageWithContentsOfFile:shopCardIcon];
-//    [_shoppingCardVCBtn setBackgroundImage:shopCardBtnImage forState:UIControlStateNormal];
-//    [shopCardBtnImage release];
-    [_shoppingCardVCBtn setTitle:@"购物卡销售" forState:UIControlStateNormal];
+//    _shoppingCardVCBtn.backgroundColor = [UIColor cyanColor];
+    _shoppingCardVCBtn.backgroundColor = [UIColor clearColor];
+    NSString *shopCardIcon = [[NSBundle mainBundle] pathForResource:@"ico5" ofType:@"png"];
+    UIImage *shopCardBtnImage = [UIImage imageWithContentsOfFile:shopCardIcon];
+    [_shoppingCardVCBtn setBackgroundImage:shopCardBtnImage forState:UIControlStateNormal];
+    [shopCardBtnImage release];
+//    [_shoppingCardVCBtn setTitle:@"购物卡销售" forState:UIControlStateNormal];
+    
+    _shoppingCardLabel = [[UILabel alloc] init];
+    _shoppingCardLabel.text = @"购物卡销售";
+    [self.view addSubview:_shoppingCardLabel];
+    
     [_shoppingCardVCBtn addTarget:self action:@selector(shoppingCardVCAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_shoppingCardVCBtn];
     
+    
+    
+    //会员分析界面按钮
     _memberAnalyseVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    _memberAnalyseVCBtn.backgroundColor = [UIColor cyanColor];
-//    NSString *memberAnaIcon = [[NSBundle mainBundle] pathForResource:@"ico4" ofType:@"png"];
-//    UIImage *memberAnaBtnImage = [UIImage imageWithContentsOfFile:memberAnaIcon];
-//    [_memberAnalyseVCBtn setBackgroundImage:memberAnaBtnImage forState:UIControlStateNormal];
-//    [memberAnaBtnImage release];
-    [_memberAnalyseVCBtn setTitle:@"会员分析" forState:UIControlStateNormal];
+//    _memberAnalyseVCBtn.backgroundColor = [UIColor cyanColor];
+    _memberAnalyseVCBtn.backgroundColor = [UIColor clearColor];
+    NSString *memberAnaIcon = [[NSBundle mainBundle] pathForResource:@"ico4" ofType:@"png"];
+    UIImage *memberAnaBtnImage = [UIImage imageWithContentsOfFile:memberAnaIcon];
+    [_memberAnalyseVCBtn setBackgroundImage:memberAnaBtnImage forState:UIControlStateNormal];
+    [memberAnaBtnImage release];
+//    [_memberAnalyseVCBtn setTitle:@"会员分析" forState:UIControlStateNormal];
+    
+    _memberAnalyseLabel = [[UILabel alloc] init];
+    _memberAnalyseLabel.text = @"会员分析";
+    [self.view addSubview:_memberAnalyseLabel];
+    
     [_memberAnalyseVCBtn addTarget:self action:@selector(memberAnalyseVCAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_memberAnalyseVCBtn];
     
+    //结算汇总界面按钮
     _finalSumVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    _finalSumVCBtn.backgroundColor = [UIColor cyanColor];
-//    NSString *finalSumIcon = [[NSBundle mainBundle] pathForResource:@"ico3" ofType:@"png"];
-//    UIImage *finalSumBtnImage = [UIImage imageWithContentsOfFile:finalSumIcon];
-//    [_finalSumVCBtn setBackgroundImage:finalSumBtnImage forState:UIControlStateNormal];
-//    [finalSumBtnImage release];
-    [_finalSumVCBtn setTitle:@"结算汇总" forState:UIControlStateNormal];
+//    _finalSumVCBtn.backgroundColor = [UIColor cyanColor];
+    _finalSumVCBtn.backgroundColor = [UIColor clearColor];
+    NSString *finalSumIcon = [[NSBundle mainBundle] pathForResource:@"ico3" ofType:@"png"];
+    UIImage *finalSumBtnImage = [UIImage imageWithContentsOfFile:finalSumIcon];
+    [_finalSumVCBtn setBackgroundImage:finalSumBtnImage forState:UIControlStateNormal];
+    [finalSumBtnImage release];
+//    [_finalSumVCBtn setTitle:@"结算汇总" forState:UIControlStateNormal];
+    
+    _finalSumLabel = [[UILabel alloc] init];
+    _finalSumLabel.text = @"结算汇总";
+    [self.view addSubview:_finalSumLabel];
+    
     [_finalSumVCBtn addTarget:self action:@selector(finalSumVCAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_finalSumVCBtn];
     
+    //销售客单
     _saleCustomsListVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    _saleCustomsListVCBtn.backgroundColor = [UIColor cyanColor];
-//    NSString *saleCusListIcon = [[NSBundle mainBundle] pathForResource:@"ico2" ofType:@"png"];
-//    UIImage *saleCusListBtnImage = [UIImage imageWithContentsOfFile:saleCusListIcon];
-//    [_saleCustomsListVCBtn setBackgroundImage:saleCusListBtnImage forState:UIControlStateNormal];
-//    [saleCusListBtnImage release];
-    [_saleCustomsListVCBtn setTitle:@"销售客单" forState:UIControlStateNormal];
+//    _saleCustomsListVCBtn.backgroundColor = [UIColor cyanColor];
+    _saleCustomsListVCBtn.backgroundColor = [UIColor clearColor];
+    NSString *saleCusListIcon = [[NSBundle mainBundle] pathForResource:@"ico2" ofType:@"png"];
+    UIImage *saleCusListBtnImage = [UIImage imageWithContentsOfFile:saleCusListIcon];
+    [_saleCustomsListVCBtn setBackgroundImage:saleCusListBtnImage forState:UIControlStateNormal];
+    [saleCusListBtnImage release];
+//    [_saleCustomsListVCBtn setTitle:@"销售客单" forState:UIControlStateNormal];
+    
+    _saleCustomsListLabel = [[UILabel alloc] init];
+    _saleCustomsListLabel.text = @"销售客单";
+    [self.view addSubview:_saleCustomsListLabel];
+    
     [_saleCustomsListVCBtn addTarget:self action:@selector(saleCustomsListVCAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_saleCustomsListVCBtn];
     
+    //销售对比
     _saleCompareVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    _saleCompareVCBtn.backgroundColor = [UIColor cyanColor];
-//    NSString *saleCompareIcon = [[NSBundle mainBundle] pathForResource:@"ico1" ofType:@"png"];
-//    UIImage *saleCompareBtnImage = [UIImage imageWithContentsOfFile:saleCompareIcon];
-//    [_saleCompareVCBtn setBackgroundImage:saleCompareBtnImage forState:UIControlStateNormal];
-//    [saleCompareBtnImage release];
-    [_saleCompareVCBtn setTitle:@"销售对比" forState:UIControlStateNormal];
+//    _saleCompareVCBtn.backgroundColor = [UIColor cyanColor];
+    _saleCompareVCBtn.backgroundColor = [UIColor clearColor];
+    NSString *saleCompareIcon = [[NSBundle mainBundle] pathForResource:@"ico1" ofType:@"png"];
+    UIImage *saleCompareBtnImage = [UIImage imageWithContentsOfFile:saleCompareIcon];
+    [_saleCompareVCBtn setBackgroundImage:saleCompareBtnImage forState:UIControlStateNormal];
+    [saleCompareBtnImage release];
+//    [_saleCompareVCBtn setTitle:@"销售对比" forState:UIControlStateNormal];
+    
+    _saleCompareLabel = [[UILabel alloc] init];
+    _saleCompareLabel.text = @"销售对比";
+    [self.view addSubview:_saleCompareLabel];
+    
     [_saleCompareVCBtn addTarget:self action:@selector(saleCompareVCAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_saleCompareVCBtn];
     
@@ -365,12 +414,27 @@ static bool isLogin = NO;
 //        _saleCustomsListVCBtn.frame = CGRectMake(distanceX, height*2+distanceY*3+32, width, height);
 //        _saleCompareVCBtn.frame = CGRectMake(width+distanceX*2, height*2+distanceY*3+32, width, height);
         
-        _highsunHomeVCBtn.frame = CGRectMake(distanceX, distanceY+32, width, height);
-        _saleCustomsListVCBtn.frame = CGRectMake(width+distanceX*2, distanceY+32, width, height);
-        _memberAnalyseVCBtn.frame = CGRectMake(distanceX, height+distanceY*2+32, width, height);
-        _saleCompareVCBtn.frame = CGRectMake(width+distanceX*2, height+distanceY*2+32, width, height);
-        _shoppingCardVCBtn.frame = CGRectMake(distanceX, height*2+distanceY*3+32, width, height);
-        _finalSumVCBtn.frame = CGRectMake(width+distanceX*2, height*2+distanceY*3+32, width, height);
+//        _highsunHomeVCBtn.frame = CGRectMake(distanceX, distanceY+32, height, height);
+//        _saleCustomsListVCBtn.frame = CGRectMake(width+distanceX*2, distanceY+32, height, height);
+//        _memberAnalyseVCBtn.frame = CGRectMake(distanceX, height+distanceY*2+32, height, height);
+//        _saleCompareVCBtn.frame = CGRectMake(width+distanceX*2, height+distanceY*2+32, height, height);
+//        _shoppingCardVCBtn.frame = CGRectMake(distanceX, height*2+distanceY*3+32, height, height);
+//        _finalSumVCBtn.frame = CGRectMake(width+distanceX*2, height*2+distanceY*3+32, height, height);
+        
+        _highsunHomeVCBtn.frame = CGRectMake(distanceX, distanceY, height, height);
+        _saleCustomsListVCBtn.frame = CGRectMake(width+distanceX*2, distanceY, height, height);
+        _memberAnalyseVCBtn.frame = CGRectMake(distanceX, height+distanceY*2, height, height);
+        _saleCompareVCBtn.frame = CGRectMake(width+distanceX*2, height+distanceY*2, height, height);
+        _shoppingCardVCBtn.frame = CGRectMake(distanceX, height*2+distanceY*3, height, height);
+        _finalSumVCBtn.frame = CGRectMake(width+distanceX*2, height*2+distanceY*3, height, height);
+        
+        _highsunHomeLabel.frame = CGRectMake(distanceX, distanceY+60, 80, 30);
+        _saleCustomsListLabel.frame = CGRectMake(width+distanceX*2, distanceY+60, 80, 30);
+        _memberAnalyseLabel.frame = CGRectMake(distanceX, height+distanceY*2+60, 80, 30);
+        _saleCompareLabel.frame = CGRectMake(width+distanceX*2, height+distanceY*2+60, 80, 30);
+        _shoppingCardLabel.frame = CGRectMake(distanceX, height*2+distanceY*3+60, 80, 30);
+        _finalSumLabel.frame = CGRectMake(width+distanceX*2, height*2+distanceY*3+60, 80, 30);
+        
     }
     else if(UIDeviceOrientationIsLandscape(orientation))
     {

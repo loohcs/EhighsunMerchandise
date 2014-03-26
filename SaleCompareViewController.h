@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SaleCompareViewController : BasicViewController
+@interface SaleCompareViewController : BasicViewController<UITableViewDataSource,UITableViewDelegate>
+
 
 @property (nonatomic, strong) CustomTableView *customTableView;
 @property (nonatomic, strong) NSDictionary *dataDic;
 @property (nonatomic, strong) NSString *pageTitle;
+@property (nonatomic, strong) UITableView *sortTableView;
+@property (nonatomic, assign) int flag;
 
 - (id)initWithDataDic:(NSDictionary *)dic andTitle:(NSString *)title;
 

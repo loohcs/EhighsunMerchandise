@@ -144,61 +144,76 @@
     return chinese;
 }
 
-+ (NSArray *)BubbleSort:(NSDictionary *)dataDic andSortKey:(NSString *)sortKey
-{
-    NSMutableArray *sortArray = [NSMutableArray array];
-    
-    NSMutableDictionary *leftDataDic = [NSMutableDictionary dictionaryWithDictionary:[dataDic objectForKey:@"leftTable"]];
-    NSMutableDictionary *rightDataDic = [NSMutableDictionary dictionaryWithDictionary:[dataDic objectForKey:@"rightTable"]];
-    
-    NSMutableArray *list = [NSMutableArray arrayWithArray:[leftDataDic allKeys]];
-    
-    for (int j = 1; j<= [list count]; j++) {
-        
-        for(int i = 0 ;i < j ; i++){
-            
-            if(i == [list count]-1) return list;
-            
-            NSInteger a1 = [[list objectAtIndex:i] intValue];
-            NSInteger a2 = [[list objectAtIndex:i+1] intValue];
-            
-            if(a1 > a2){
-                [list exchangeObjectAtIndex:i withObjectAtIndex:i+1];
-            }
-            
-        }
-        
-    }
-    
-    return  sortArray;
-}
+//+ (NSArray *)BubbleSort:(NSDictionary *)dataDic andSortKey:(NSString *)sortKey
+//{
+//    NSMutableArray *sortArray = [NSMutableArray array];
+//    
+//    NSMutableDictionary *leftDataDic = [NSMutableDictionary dictionaryWithDictionary:[dataDic objectForKey:@"leftTable"]];
+//    NSMutableDictionary *rightDataDic = [NSMutableDictionary dictionaryWithDictionary:[dataDic objectForKey:@"rightTable"]];
+//    
+//    NSMutableArray *list = [NSMutableArray arrayWithArray:[leftDataDic allKeys]];
+//    
+//    for (int j = 1; j<= [list count]; j++) {
+//        
+//        for(int i = 0 ;i < j ; i++){
+//            
+//            if(i == [list count]-1) return list;
+//            
+//            NSInteger a1 = [[list objectAtIndex:i] intValue];
+//            NSInteger a2 = [[list objectAtIndex:i+1] intValue];
+//            
+//            if(a1 > a2){
+//                [list exchangeObjectAtIndex:i withObjectAtIndex:i+1];
+//            }
+//            
+//        }
+//        
+//    }
+//    
+//    return  sortArray;
+//}
 
 
 + (NSArray *)QuickSort:(NSDictionary *)dic andKeyArr:(NSMutableArray *)list andSortKey:(NSString *)key StartIndex:(NSInteger)startIndex EndIndex:(NSInteger)endIndex
 {
-    //NSMutableDictionary *leftDataDic = [NSMutableDictionary dictionaryWithDictionary:[dic objectForKey:@"leftTable"]];
+    NSMutableDictionary *leftDataDic = [NSMutableDictionary dictionaryWithDictionary:[dic objectForKey:@"leftTable"]];
     NSMutableDictionary *rightDataDic = [NSMutableDictionary dictionaryWithDictionary:[dic objectForKey:@"rightTable"]];
+    
+    NSArray *headTitleKey = [NSArray arrayWithArray:[dic objectForKey:@"headTitleKey"]];
+    NSString *firstHeadKey = [headTitleKey objectAtIndex:0];
+    
+    NSDictionary *sortDic;
+    if ([firstHeadKey isEqualToString:key]) {
+        sortDic = [NSDictionary dictionaryWithDictionary:leftDataDic];
+    }
+    else
+    {
+        sortDic = [NSDictionary dictionaryWithDictionary:rightDataDic];
+    }
     
     if(startIndex >= endIndex) return list;
     
     //获取在当前startIndex下，获取对应的同一行中，我们想要排序所依赖的关键值
     NSString *tempKey = [list objectAtIndex:startIndex];//获取当前同一行的关键值
-    //获取当前同一行中右边表对应的数据字典
-    NSDictionary *tempDic = [NSDictionary dictionaryWithDictionary:[rightDataDic objectForKey:tempKey]];
+    //获取当前同一行中，关键值对应所在的表所映射的数据字典
+    NSDictionary *tempDic = [NSDictionary dictionaryWithDictionary:[sortDic objectForKey:tempKey]];
     //获取所需要排序的关键字对应的值
     NSString *tempStr = [tempDic objectForKey:key];
     float tempFloat = [tempStr floatValue];
     
     NSInteger tempIndex = startIndex; //临时索引 处理交换位置(即下一个交换的对象的位置)
     
+    
+    
     for(NSInteger i = startIndex + 1 ; i <= endIndex ; i++){
         
         NSString *tempKey2 = [list objectAtIndex:i];
-        NSDictionary *tempDic2 = [NSDictionary dictionaryWithDictionary:[rightDataDic objectForKey:tempKey2]];
+        NSDictionary *tempDic2 = [NSDictionary dictionaryWithDictionary:[sortDic objectForKey:tempKey2]];
         NSString *tempStr2 = [tempDic2 objectForKey:key];
         float tempFloat2 = [tempStr2 floatValue];
         
-        if(tempFloat > tempFloat2){
+        //按照从大到小排序
+        if(tempFloat < tempFloat2){
             
             tempIndex = tempIndex + 1;
             

@@ -152,6 +152,11 @@
     return self;
 }
 
+- (void)changeDataWithSortArr:(NSArray *)sortArr
+{
+    self.leftDataKeys = sortArr;
+}
+
 - (void)dealloc {
     [_headTableView release];
     [_leftTableView release];

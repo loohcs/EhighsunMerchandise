@@ -338,7 +338,24 @@
  **************************************************************/
 - (void)unitView:(JBUnitView *)unitView SelectedDate:(NSDate *)date
 {
+    JBCalendarDate *JBCalDate = [JBCalendarDate dateFromNSDate:date];
+    
+    NSLog(@"JBCalDate: %@", JBCalDate);
 
+    NSDate *today = [NSDate date];
+    
+    NSDate *earlierDay = [date earlierDate:today];
+    
+    NSDate *laterDay = [date laterDate:today];
+    
+    NSLog(@"earlierDay: %@", earlierDay);
+    
+    NSLog(@"laterDay: %@", laterDay);
+    
+    NSLog(@"select date:%@", date);
+    
+    NSLog(@"today: %@", today);
+    
     //TODO: 加入日期判断，使截止日期大于初始日期，且小于今天
     if (_dateType == StartDateSelect) {
         
