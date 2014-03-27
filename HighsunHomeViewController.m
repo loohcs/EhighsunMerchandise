@@ -41,7 +41,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 
@@ -116,8 +116,10 @@
 - (void)goBackSideTV
 {
     NSLog(@"返回");
+//    self.tabBarController
+//    [self.navigationController popViewControllerAnimated:YES];
     
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
 }
 
 - (void)getSearchDate

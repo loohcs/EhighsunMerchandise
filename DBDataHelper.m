@@ -231,4 +231,9 @@
     return list;
 }
 
+- (NSArray *)getSumNum:(NSArray *)arr
+{
+    return arr;
+}
+
 @end

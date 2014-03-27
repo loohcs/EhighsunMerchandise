@@ -31,6 +31,7 @@
         
         //存放左边的数据，同时左边数据的字典的关键字也是这一行数据（包括右边）的关键字
         self.leftDataKeys = [NSArray arrayWithArray:[leftDataDic allKeys]];
+        
         self.leftDataDic = leftDataDic;//存放左边所有数据
         
         //存放表头的文字信息，如果有必要，我们也将通过表头的关键字，查找这一列的所有数据
@@ -167,6 +168,8 @@
     [_trDictionary release];
     [_leftDataKeys release];
     [_rightDataKeys release];
+    [_leftDataDic release];
+    [_rightDataDic release];
     [super dealloc];
 }
 
@@ -389,8 +392,9 @@
     }
     else {
         //在右边rightTableView在左右移动的时候，同时headTableView也需要出现左右移动的效果，但是headTableView实际是初始的tableView旋转了90度之后得到的，因此要左右滑动，实际上是上下移动
-        self.headTableView.contentOffset = CGPointMake(0, _rightScrollView.contentOffset.x);
+        
         self.leftTableView.contentOffset = _rightTableView.contentOffset;
+        self.headTableView.contentOffset = CGPointMake(0, _rightScrollView.contentOffset.x);
     }
 }
 

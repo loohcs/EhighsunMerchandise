@@ -51,7 +51,7 @@
                   symbolName = "-[HomeViewController saleCustomsListVCAction]"
                   moduleName = "EhighsunMerchandise"
                   urlString = "file:///Users/loohcs/Desktop/Projects/EhighsunMerchandise/HomeViewController.m"
-                  timestampString = "417498912.833661"
+                  timestampString = "417520710.733911"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "299"
@@ -65,7 +65,7 @@
                   symbolName = "-[HomeViewController saleCustomsListVCAction]"
                   moduleName = "EhighsunMerchandise"
                   urlString = "file:///Users/loohcs/Desktop/Projects/EhighsunMerchandise/HomeViewController.m"
-                  timestampString = "417498912.833916"
+                  timestampString = "417520710.734181"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "299"
@@ -97,7 +97,7 @@
                   symbolName = "-[HomeViewController saleCompareVCAction]"
                   moduleName = "EhighsunMerchandise"
                   urlString = "file:///Users/loohcs/Desktop/Projects/EhighsunMerchandise/HomeViewController.m"
-                  timestampString = "417498912.834251"
+                  timestampString = "417520710.734487"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "312"
@@ -111,7 +111,7 @@
                   symbolName = "-[HomeViewController saleCompareVCAction]"
                   moduleName = "EhighsunMerchandise"
                   urlString = "file:///Users/loohcs/Desktop/Projects/EhighsunMerchandise/HomeViewController.m"
-                  timestampString = "417498912.834586"
+                  timestampString = "417520710.734878"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "312"
@@ -128,11 +128,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MemberAnalyseViewController.m"
-            timestampString = "417433991.633609"
+            timestampString = "417517660.495483"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "-PullDownLoadEnd"
             landmarkType = "5">
          </BreakpointContent>
@@ -144,11 +144,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MemberAnalyseViewController.m"
-            timestampString = "417433991.633609"
+            timestampString = "417517660.495483"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
             landmarkName = "-PullUpLoadEnd"
             landmarkType = "5">
          </BreakpointContent>
@@ -160,11 +160,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CustomTableView.m"
-            timestampString = "417431085.784653"
+            timestampString = "417524027.771054"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
+            startingLineNumber = "225"
+            endingLineNumber = "225"
             landmarkName = "-viewWithRightContent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -252,11 +252,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CustomTableView.m"
-            timestampString = "417431085.784653"
+            timestampString = "417524027.771054"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
             landmarkName = "-viewWithRightContent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -300,11 +300,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CustomTableView.m"
-            timestampString = "417431085.784653"
+            timestampString = "417524027.771054"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "-viewWithLeftContent:"
             landmarkType = "5">
          </BreakpointContent>
@@ -394,11 +394,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SaleCompareViewController.m"
-            timestampString = "417434395.56509"
+            timestampString = "417524027.771054"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "-didReceiveNotification:"
             landmarkType = "5">
          </BreakpointContent>
@@ -410,11 +410,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SaleCompareViewController.m"
-            timestampString = "417325265.447218"
+            timestampString = "417524027.771054"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -486,7 +486,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Calendar/Library/JustBen/JBCalendar/JBUnitView.m"
@@ -502,7 +502,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Calendar/Library/JustBen/JBCalendar/JBUnitView.m"
@@ -522,11 +522,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CustomTableView.m"
-            timestampString = "417430748.84638"
+            timestampString = "417524027.771054"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
             landmarkName = "-changeDataWithSortArr:"
             landmarkType = "5">
          </BreakpointContent>
@@ -538,11 +538,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HighsunHomeViewController.m"
-            timestampString = "417492764.394602"
+            timestampString = "417517614.152325"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -554,11 +554,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MemberAnalyseViewController.m"
-            timestampString = "417433991.633609"
+            timestampString = "417517660.495483"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -570,11 +570,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MemberAnalyseViewController.m"
-            timestampString = "417433991.633609"
+            timestampString = "417517660.495483"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -617,7 +617,7 @@
                   symbolName = "-[MemberAnalyseViewController viewDidLoad]"
                   moduleName = "EhighsunMerchandise"
                   urlString = "file:///Users/loohcs/Desktop/Projects/EhighsunMerchandise/MemberAnalyseViewController.m"
-                  timestampString = "417498912.836977"
+                  timestampString = "417520710.737123"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "67"
@@ -631,7 +631,7 @@
                   symbolName = "-[MemberAnalyseViewController viewDidLoad]"
                   moduleName = "EhighsunMerchandise"
                   urlString = "file:///Users/loohcs/Desktop/Projects/EhighsunMerchandise/MemberAnalyseViewController.m"
-                  timestampString = "417498912.837241"
+                  timestampString = "417520710.7374"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "67"
@@ -664,11 +664,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MemberAnalyseViewController.m"
-            timestampString = "417433991.633609"
+            timestampString = "417517660.495483"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -680,11 +680,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MemberAnalyseViewController.m"
-            timestampString = "417433991.633609"
+            timestampString = "417517660.495483"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
             landmarkName = "-middleButtonAction"
             landmarkType = "5">
          </BreakpointContent>
@@ -718,6 +718,22 @@
             startingLineNumber = "341"
             endingLineNumber = "341"
             landmarkName = "-unitView:SelectedDate:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MemberAnalyseViewController.m"
+            timestampString = "417517686.458889"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "-goBackSideTV"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

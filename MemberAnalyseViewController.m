@@ -121,7 +121,9 @@
 {
     NSLog(@"返回");
     
-    [self.navigationController popViewControllerAnimated:YES];
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
 }
 
 - (void)logOutSystem

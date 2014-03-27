@@ -63,12 +63,16 @@
     NSDictionary *leftDic = [NSDictionary dictionaryWithDictionary:[self.dataDic objectForKey:@"leftTable"]];
     NSDictionary *rightDic = [NSDictionary dictionaryWithDictionary:[self.dataDic objectForKey:@"rightTable"]];
     
+    
+    
     _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:self.pageTitle andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
 
     CGRect frame = _customTableView.frame;
     frame.origin = CGPointMake(0, 84);
     _customTableView.frame = frame;
     [self.view addSubview:_customTableView];
+    
+    
     
     //1,通知，注册监听者
     NSNotificationCenter *notiCenter=[NSNotificationCenter defaultCenter];//拿到通知中心的对象，然后去注册
@@ -138,7 +142,8 @@
 {
     NSLog(@"返回");
     
-    [self.navigationController popViewControllerAnimated:YES];
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
 }
 
 - (void)logOutSystem
