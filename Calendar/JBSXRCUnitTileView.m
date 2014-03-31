@@ -82,7 +82,7 @@
     if (eventsCount == 0) {
         self.eventCountLabel.text = @"";
     } else {
-        self.eventCountLabel.text = [NSString stringWithFormat:@"%i", eventsCount];
+        self.eventCountLabel.text = [NSString stringWithFormat:@"%li", (long)eventsCount];
     }
 }
 

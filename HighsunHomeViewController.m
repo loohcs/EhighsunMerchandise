@@ -41,7 +41,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.revealSideViewController popViewControllerAnimated:YES];
 }
 
 
@@ -66,13 +66,29 @@
 
     
 //    self.navigationItem.title = self.pageTitle;
-    self.view.backgroundColor = [UIColor cyanColor];
+    self.view.backgroundColor = [UIColor clearColor];
+//
+//    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBackSideTV)];
+//    self.navigationItem.leftBarButtonItem = leftBarBtn;
+//    
+//    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"日期" style:UIBarButtonItemStyleDone target:self action:@selector(getSearchDate)];
+//    self.navigationItem.rightBarButtonItem = rightBarBtn;
     
-    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBackSideTV)];
-    self.navigationItem.leftBarButtonItem = leftBarBtn;
-    
-    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"日期" style:UIBarButtonItemStyleDone target:self action:@selector(getSearchDate)];
-    self.navigationItem.rightBarButtonItem = rightBarBtn;
+//    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    leftBtn.frame = CGRectMake(0, 0, 60, 30);
+//    [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
+//    [leftBtn addTarget:self action:@selector(goBackSideTV) forControlEvents:UIControlEventTouchUpInside];
+//    [leftBtn setBackgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"back" ofType:@"png"]] forState:UIControlStateNormal];
+//    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+//    self.navigationItem.leftBarButtonItem = leftBarBtn;
+//    
+//    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    rightBtn.frame = CGRectMake(0, 0, 60, 30);
+//    [rightBtn setTitle:@"日期" forState:UIControlStateNormal];
+//    [rightBtn addTarget:self action:@selector(goBackSideTV) forControlEvents:UIControlEventTouchUpInside];
+//    [rightBtn setBackgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"date" ofType:@"png"]] forState:UIControlStateNormal];
+//    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+//    self.navigationItem.rightBarButtonItem = rightBarBtn;
     
     _flag = 0;
     
@@ -208,7 +224,7 @@
     NSDictionary *leftData = [_dataDic objectForKey:@"leftTable"];
     NSMutableArray *leftDataArr = [NSMutableArray arrayWithArray:[leftData allKeys]];
     
-    NSArray *sortArr = [DBDataHelper QuickSort:_dataDic andKeyArr:leftDataArr andSortKey:key StartIndex:0 EndIndex:arr.count];
+    NSArray *sortArr = [DBDataHelper QuickSort:_dataDic andKeyArr:leftDataArr andSortKey:key StartIndex:0 EndIndex:arr.count-1];
     [_customTableView changeDataWithSortArr:sortArr];
     [_customTableView.leftTableView reloadData];
     [_customTableView.rightTableView reloadData];

@@ -8,7 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    numSmallToBig = 0,//左边滚动
+    numBigToSmall//右边滚动
+}SortMethodType;
+
 @interface DBDataHelper : NSObject
+
+@property (nonatomic, assign) SortMethodType *sortType;
 
 + (NSDictionary *)getData:(NSArray *)arr andValueArrName:(NSString *)name;
 
@@ -17,5 +24,7 @@
 + (NSString *)getChineseWithCode:(NSString *)mfCode;
 
 + (NSArray *)QuickSort:(NSDictionary *)dic andKeyArr:(NSMutableArray *)list andSortKey:(NSString *)key StartIndex:(NSInteger)startIndex EndIndex:(NSInteger)endIndex;
+
++ (NSMutableDictionary *)getSumNum:(NSDictionary *)dic;
 
 @end

@@ -18,11 +18,25 @@
 @interface LoginViewController : BasicViewController<UITextFieldDelegate, ServiceHelperDelegate>
 
 @property (nonatomic, strong) ServiceHelper *helper;
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIImageView *userNameImageView;
 @property (nonatomic, strong) UITextField *nameText;
+@property (nonatomic, strong) UIImageView *passwordImageView;
 @property (nonatomic, strong) UITextField *passwardText;
+
 @property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *passWard;
+
+@property (nonatomic, strong) UIButton *loginBtn;
+
+@property (nonatomic, strong) UIImageView *registePassword;
+@property (nonatomic, strong) UIButton *registerBtn;
+@property (nonatomic, strong) UIImageView *autoLogIn;
+@property (nonatomic, strong) UIButton *autoLogBtn;
+
 @property (nonatomic, assign) BOOL isRememberPassward;
+@property (nonatomic, assign) BOOL isAutoLogIn;
+
 @property (nonatomic, assign) CGSize size;
 
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>pngName</key>
+	<dict>
+		<key>首页</key>
+		<string>home</string>
+		<key>海印主页</key>
+		<string>highsun</string>
+		<key>销售客单</key>
+		<string>saleCusList</string>
+		<key>销售对比</key>
+		<string>saleComp</string>
+		<key>会员分析</key>
+		<string>memAna</string>
+		<key>购物卡销售</key>
+		<string>shopCard</string>
+		<key>结算汇总</key>
+		<string>finalSum</string>
+	</dict>
+	<key>value</key>
+	<array>
+		<string>首页</string>
+		<string>海印主页</string>
+		<string>销售客单</string>
+		<string>销售对比</string>
+		<string>会员分析</string>
+		<string>购物卡销售</string>
+		<string>结算汇总</string>
+	</array>
+</dict>
+</plist>

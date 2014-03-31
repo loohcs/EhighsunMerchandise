@@ -8,6 +8,8 @@
 
 #import "SideTableViewController.h"
 
+#import "CustomCell.h"
+
 @interface SideTableViewController ()
 
 @end
@@ -67,6 +69,11 @@
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 40.0;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
@@ -89,15 +96,22 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     // Configure the cell...
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[CustomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    cell.textLabel.text = [_titles objectAtIndex:indexPath.row];
+    cell.VCNameLabel.text = [_titles objectAtIndex:indexPath.row];
     
+    NSString *pngName = [CustomCell getPngName:[_titles objectAtIndex:indexPath.row]];
+    cell.imageViewVC.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:pngName ofType:@"png"]];
+    
+    if (cell.selected) {
+        cell.shadowView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"select1" ofType:@"png"]];
+        cell.selectView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"select2" ofType:@"png"]];
+    }
     
     return cell;
 }
@@ -153,6 +167,8 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      [detailViewController release];
      */
+    
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     
     UIViewController *viewController = [_viewControllers objectAtIndex:indexPath.row];
     [self.revealSideViewController popViewControllerWithNewCenterController:viewController animated:YES];

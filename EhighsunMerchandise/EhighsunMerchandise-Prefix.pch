@@ -14,6 +14,10 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 
+#define IOS7 [[[UIDevice currentDevice]systemVersion] floatValue] >= 7.0
+
+#define iPhoneVersion [[[UIDevice currentDevice] systemVersion] floatValue]
+
 //宏定义屏幕的大小，便于进行不同手机的兼容
 #ifndef SCREEN_WIDTH
     #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width

@@ -109,7 +109,7 @@
 #pragma mark -
 #pragma mark 异步请求
 -(ASIHTTPRequest*)requestWithServerArgs:(ServiceArgs*)args{
-    NSString *msgLength = [NSString stringWithFormat:@"%d", [args.soapMessage length]];
+    NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[args.soapMessage length]];
     ASIHTTPRequest *request=[ASIHTTPRequest requestWithURL:args.webURL];
     //以下对请求信息添加属性前四句是必有的，第五句是soap信息。
     [request addRequestHeader:@"Host" value:[args.webURL host]];

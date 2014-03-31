@@ -69,14 +69,10 @@
 			<string>同期销售</string>
 			<key>TQML</key>
 			<string>同期毛利</string>
-			<key>TQ</key>
-			<string>同期增长率</string>
 			<key>HBSR</key>
 			<string>环比销售</string>
 			<key>HBML</key>
 			<string>环比毛利</string>
-			<key>HB</key>
-			<string>环比增长率</string>
 		</dict>
 		<key>结算汇总</key>
 		<dict>
@@ -109,14 +105,10 @@
 			<string>同期销售</string>
 			<key>TQML</key>
 			<string>同期毛利</string>
-			<key>TQ</key>
-			<string>同期利率</string>
 			<key>HBSR</key>
 			<string>环比销售</string>
 			<key>HBML</key>
 			<string>环比毛利</string>
-			<key>HB</key>
-			<string>环比利率</string>
 		</dict>
 		<key>会员分析</key>
 		<dict>
@@ -151,14 +143,6 @@
 			<string>部门</string>
 			<key>CLASS2</key>
 			<string>楼层</string>
-			<key>MFYYMJ</key>
-			<string>营业面积</string>
-			<key>PX</key>
-			<string>坪效</string>
-			<key>THL</key>
-			<string>退货率</string>
-			<key>MLL</key>
-			<string>毛利率</string>
 			<key>XSSR</key>
 			<string>销售金额</string>
 			<key>XSSL</key>
@@ -169,14 +153,22 @@
 			<string>毛利</string>
 			<key>JYDS</key>
 			<string>交易单数</string>
-			<key>JYSL</key>
-			<string>交易数量</string>
+			<key>JYBS</key>
+			<string>交易笔数</string>
 			<key>KDJ</key>
 			<string>客单价</string>
 			<key>BDJ</key>
 			<string>笔单价</string>
 			<key>YLJXSSR</key>
 			<string>月累计销售</string>
+			<key>MFYYMJ</key>
+			<string>营业面积</string>
+			<key>PX</key>
+			<string>坪效</string>
+			<key>THL</key>
+			<string>退货率</string>
+			<key>MLL</key>
+			<string>毛利率</string>
 		</dict>
 		<key>组织机构</key>
 		<dict>
@@ -277,19 +269,19 @@
 	<key>销售客单</key>
 	<array>
 		<string>部门</string>
-		<string>营业面积</string>
-		<string>坪效</string>
-		<string>退货率</string>
-		<string>毛利率</string>
 		<string>销售金额</string>
 		<string>销售数量</string>
 		<string>退货数量</string>
 		<string>毛利</string>
 		<string>交易单数</string>
-		<string>交易数量</string>
+		<string>交易笔数</string>
 		<string>客单价</string>
 		<string>笔单价</string>
 		<string>月累计销售</string>
+		<string>营业面积</string>
+		<string>坪效</string>
+		<string>退货率</string>
+		<string>毛利率</string>
 	</array>
 	<key>销售对比</key>
 	<array>
@@ -298,10 +290,8 @@
 		<string>本期毛利</string>
 		<string>同期销售</string>
 		<string>同期毛利</string>
-		<string>同期增长率</string>
 		<string>环比销售</string>
 		<string>环比毛利</string>
-		<string>环比增长率</string>
 	</array>
 	<key>柜组销售分析</key>
 	<array>
@@ -310,10 +300,8 @@
 		<string>本期毛利</string>
 		<string>同期销售</string>
 		<string>同期毛利</string>
-		<string>同期增长率</string>
 		<string>环比销售</string>
 		<string>环比毛利</string>
-		<string>环比增长率</string>
 	</array>
 </dict>
 </plist>

@@ -118,9 +118,23 @@
         self.selectedUnitGridView.dataSource = self;
         self.selectedUnitGridView.selectedDate = [JBCalendarDate dateFromNSDate:self.selectedDate];
         
-        
+#warning mark -- 处理日历的位置
         //TODO: 将整个日历的视图向下移动64，因为导航栏以及状态栏的高度没有减去
-        self.frame = CGRectMake(0, 64, self.selectedUnitGridView.frame.size.width, self.selectedUnitGridView.frame.size.height);
+        //self.frame = CGRectMake(0, 64, self.selectedUnitGridView.frame.size.width, self.selectedUnitGridView.frame.size.height);
+        
+        float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+        if(version >= 7.0){
+            
+            self.frame = CGRectMake(0, 64, self.selectedUnitGridView.frame.size.width, self.selectedUnitGridView.frame.size.height);
+            
+        }else if (version >= 5.0) {
+            
+            self.frame = CGRectMake(0, 0, self.selectedUnitGridView.frame.size.width, self.selectedUnitGridView.frame.size.height);
+            
+        }else{
+            //调用这个方法，就会异步去调用DrawRac方法
+            
+        }
         
         self.followingUnitGridView = [[JBUnitGridView alloc] initWithFrame:CGRectMake(self.bounds.size.width, 0.0f, self.bounds.size.width, self.bounds.size.height) UnitType:unitType];
         self.followingUnitGridView.delegate = self;

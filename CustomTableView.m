@@ -22,20 +22,29 @@
 
 @synthesize rightDataDic = _rightDataDic;
 
+
+
 - (id)initWithHeadDataKeys:(NSArray *)headDataKeys andHeadDataTitle:(NSString *)headDataTitle andLeftData:(NSDictionary *)leftDataDic andRightData:(NSDictionary *)rightDataDic andSize:(CGSize)size andScrollMethod:(ScrollMethod)sm
 {
     if (self = [super initWithFrame:CGRectMake(0, 0, size.width, size.height)]) {
+        
+        if (leftDataDic.count == 0) {
+            return nil;
+        }
         
         //data，以leftDataKeys的值作为对应的右边整行数据的键值，并且右边整行的数据以对应的headDataKeys作为键值，这样就可以准确的找到任何一个数据
         self.rightDataDic = rightDataDic;
         
         //存放左边的数据，同时左边数据的字典的关键字也是这一行数据（包括右边）的关键字
-        self.leftDataKeys = [NSArray arrayWithArray:[leftDataDic allKeys]];
+        //self.leftDataKeys = [NSArray arrayWithArray:[leftDataDic allKeys]];
+        
         
         self.leftDataDic = leftDataDic;//存放左边所有数据
         
         //存放表头的文字信息，如果有必要，我们也将通过表头的关键字，查找这一列的所有数据
         self.headDataKeys = [NSArray arrayWithArray:headDataKeys];
+        
+        
         
         //获取document文件夹中文件
 //        NSString *path = [SQLDataSearch getPlistPath:@"TitleInfo.plist"];
@@ -45,6 +54,15 @@
         
         self.pageFlag = headDataTitle;
         self.headDataValues = [NSArray arrayWithArray:[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:headDataTitle]];
+        
+        NSMutableArray *keyMutableArr = [NSMutableArray arrayWithArray:[leftDataDic allKeys]];
+        
+        NSDictionary *dataDic = [NSDictionary dictionaryWithObjectsAndKeys:leftDataDic,@"leftTable",rightDataDic,@"rightTable",headDataKeys,@"headTitleKey",self.headDataValues, @"headTitleValue", nil];
+        
+        self.leftDataKeys = [DBDataHelper QuickSort:dataDic andKeyArr:keyMutableArr andSortKey:[headDataKeys objectAtIndex:0] StartIndex:0 EndIndex:leftDataDic.count-1];
+        
+        
+        self.sumDataDic = [DBDataHelper getSumNum:dataDic];
         
         self.size = size;
         float leftWidth = 0;//左边tableview的宽度
@@ -85,12 +103,20 @@
         }
         
         //TODO: 建立3种tableView，以及2个scrollView
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -20, kTableViewTitleWidth, kTableViewTitleHeight)];
-        titleLabel.backgroundColor = [UIColor yellowColor];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -20, kTableViewTitleWidth, kTableViewTitleHeight)];
+        UIImage *image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"title_left" ofType:@"png"]];
+        imageView.image = image;
+        
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewTitleHeight)];
+//        titleLabel.backgroundColor = [UIColor yellowColor];
         titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.text = [_headDataValues objectAtIndex:0];
         titleLabel.font = [UIFont systemFontOfSize:10];
-        [self addSubview:titleLabel];
+        titleLabel.textColor = [UIColor whiteColor];
+        titleLabel.backgroundColor = [UIColor clearColor];
+        [imageView addSubview:titleLabel];
+        [self addSubview:imageView];
+
         
         //表头的tableView，通过普通的tableView旋转90度之后得到的横向tableView
         UITableView *headTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, rightScrollWidth)];
@@ -100,17 +126,43 @@
         [headTableView.layer setAnchorPoint:CGPointMake(0.0, 0.0)];
         headTableView.transform = CGAffineTransformMakeRotation(M_PI/-2);//旋转90度
         headTableView.frame = CGRectMake(kTableViewTitleWidth, 0, rightWidth, kTableViewTitleHeight);
+        [headTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         self.headTableView = headTableView;
         [headTableView release];
         
+        UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewCellHeight)];
+        UIImage *image2 = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"title_left" ofType:@"png"]];
+        imageView2.image = image2;
+        
+        UILabel *sumLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewCellHeight)];
+        sumLabel.backgroundColor = [UIColor clearColor];
+        sumLabel.textAlignment = NSTextAlignmentCenter;
+        sumLabel.text = @"合计";
+        sumLabel.font = [UIFont systemFontOfSize:10];
+        sumLabel.textColor = [UIColor whiteColor];
+        [imageView2 addSubview:sumLabel];
+        [self addSubview:imageView2];
+        
+        UITableView *sumTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, rightScrollWidth)];
+        sumTableView.userInteractionEnabled = YES;
+        sumTableView.delegate = self;
+        sumTableView.dataSource = self;
+        [sumTableView.layer setAnchorPoint:CGPointMake(0.0, 0.0)];
+        sumTableView.transform = CGAffineTransformMakeRotation(M_PI/-2);//旋转90度
+        sumTableView.frame = CGRectMake(kTableViewTitleWidth, kTableViewCellHeight, rightWidth, kTableViewCellHeight);
+        [sumTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        sumTableView.backgroundColor = [UIColor cyanColor];
+        self.sumTableView = sumTableView;
+        [sumTableView release];
+        
         //scrollView 主要用来承载tableView，使左边和右边的tableView可以正常滑动
-        UIScrollView *leftScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, leftScrollWidth, size.height)];
+        UIScrollView *leftScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, kTableViewCellHeight, leftScrollWidth, size.height)];
         [leftScrollView setShowsHorizontalScrollIndicator:FALSE];
         [leftScrollView setShowsVerticalScrollIndicator:FALSE];
         self.leftScrollView = leftScrollView;
         [leftScrollView release];
         
-        UIScrollView *rightScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(leftScrollWidth, 0, rightScrollWidth, size.height)];
+        UIScrollView *rightScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(leftScrollWidth, kTableViewCellHeight, rightScrollWidth, size.height)];
         [rightScrollView setShowsHorizontalScrollIndicator:FALSE];
         [rightScrollView setShowsVerticalScrollIndicator:FALSE];
         rightScrollView.delegate = self;
@@ -123,6 +175,7 @@
         leftTableView.dataSource = self;
         [leftTableView setShowsHorizontalScrollIndicator:NO];
         [leftTableView setShowsVerticalScrollIndicator:NO];
+        [leftTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         self.leftTableView = leftTableView;
         [leftTableView release];
         
@@ -131,6 +184,7 @@
         rightTableView.dataSource = self;
         [rightTableView setShowsHorizontalScrollIndicator:NO];
         [rightTableView setShowsVerticalScrollIndicator:NO];
+        [rightTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         self.rightTableView = rightTableView;
         [rightTableView release];
         
@@ -145,10 +199,32 @@
         
         self.headTableView.showsVerticalScrollIndicator = NO;
         self.headTableView.bounces = NO;
+        
+        
+        float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+        if(version >= 7.0)
+        {
+            
+            
+        }
+        else if (version >= 5.0)
+        {
+//            imageView.frame = CGRectMake(0, -20, 60, 20);
+            
+            
+            
+        }else{
+            //调用这个方法，就会异步去调用DrawRac方法
+            
+        }
+        
 
         [self addSubview:_leftScrollView];
         [self addSubview:_rightScrollView];
+        [self addSubview:_sumTableView];
         [self addSubview:_headTableView];
+        
+        
     }
     return self;
 }
@@ -158,14 +234,31 @@
     self.leftDataKeys = sortArr;
 }
 
+- (void)changeSumData:(NSDictionary *)dic
+{
+    self.sumDataDic = [NSDictionary dictionaryWithDictionary:dic];
+    
+    NSLog(@"%@", dic);
+}
+
+- (void)changeDataWithNewTime:(NSDictionary *)dic
+{
+    self.leftDataDic = [dic objectForKey:@"leftTable"];
+    self.rightDataDic = [dic objectForKey:@"rightTable"];
+    //self.sumDataDic = [dic objectForKey:@"sum"];
+}
+
 - (void)dealloc {
     [_headTableView release];
+    [_sumTableView release];
     [_leftTableView release];
     [_leftScrollView release];
     [_rightTableView release];
     [_rightScrollView release];
     [_dataArray release];
     [_trDictionary release];
+    [_headDataKeys release];
+    [_headDataValues release];
     [_leftDataKeys release];
     [_rightDataKeys release];
     [_leftDataDic release];
@@ -177,7 +270,11 @@
 
 - (UIView *)viewWithLeftContent:(NSInteger)index {
     UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _leftTableView.frame.size.width, kTableViewCellHeight)] autorelease];
-    view.backgroundColor = [UIColor cyanColor];
+    view.backgroundColor = [UIColor clearColor];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:view.frame];
+    UIImage *image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"leftTableCell" ofType:@"png"]];
+    imageView.image = image;
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewCellHeight)];
     label.contentMode = UIViewContentModeCenter;
@@ -186,15 +283,25 @@
     NSDictionary *dic = [_leftDataDic objectForKey:key];
     NSString *key2 = [_headDataKeys objectAtIndex:0];
     label.text = [DBDataHelper getChineseWithCode:[dic objectForKey:key2]];
+    label.textColor = [UIColor whiteColor];
+    label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont systemFontOfSize:10.0];
-    [view addSubview:label];
+    [imageView addSubview:label];
+    [view addSubview:imageView];
     [label release];
+//    [image release];
+//    [imageView release];
     
     return view;
 }
 
+
 - (UIView *)viewWithRightContent:(NSInteger)index {
     UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _rightTableView.frame.size.width, kTableViewCellHeight)] autorelease];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:view.frame];
+    UIImage *image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"rightTableCell" ofType:@"png"]];
+    imageView.image = image;
     
     NSString *key = [_leftDataKeys objectAtIndex:index];
     NSDictionary *rowDict = [_rightDataDic objectForKey:key];
@@ -225,8 +332,11 @@
             else label.text = value;
             //label.text = value;
             label.font = [UIFont systemFontOfSize:10.0];
-            [view addSubview:label];
+            [imageView addSubview:label];
+            [view addSubview:imageView];
             [label release];
+//            [image release];
+//            [imageView release];
             
             x += kTableViewTitleWidth;
         }
@@ -241,19 +351,27 @@
 {
     UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewTitleHeight)] autorelease];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewTitleHeight)];
-    label.backgroundColor = [UIColor redColor];
+    label.backgroundColor = [UIColor clearColor];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:view.frame];
+    UIImage *image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"title_right" ofType:@"png"]];
+    imageView.image = image;
     
     @try {
         NSString *title = [self.headDataValues objectAtIndex:index+1];
         label.text = title;
         label.textAlignment = NSTextAlignmentCenter;
+        label.textColor = [UIColor whiteColor];
         label.font = [UIFont systemFontOfSize:10];
         label.userInteractionEnabled = YES;
-        [view addSubview:label];
+        imageView.userInteractionEnabled = YES;
         view.userInteractionEnabled = YES;
-        
-        
+        [imageView addSubview:label];
+        [view addSubview:imageView];
         [label release];
+//        [image release];
+//        [imageView release];
+        
     }
     @catch (NSException *exception) {
         
@@ -264,6 +382,33 @@
 
     return view;
 }
+
+- (UIView *)viewWithSumContent:(NSInteger)index
+{
+    UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewCellHeight)] autorelease];
+    view.backgroundColor = [UIColor clearColor];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:view.frame];
+    UIImage *image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"title_left" ofType:@"png"]];
+    imageView.image = image;
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewCellHeight)];
+    label.contentMode = UIViewContentModeCenter;
+    label.textAlignment = NSTextAlignmentCenter;
+    NSString *key = [_headDataKeys objectAtIndex:index+1];
+    label.text = [_sumDataDic objectForKey:key];
+    label.textColor = [UIColor whiteColor];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont systemFontOfSize:10.0];
+    [imageView addSubview:label];
+    [view addSubview:imageView];
+    [label release];
+    //    [image release];
+    //    [imageView release];
+    
+    return view;
+}
+
 
 #pragma mark - TableView DataSource Methods
 
@@ -294,16 +439,23 @@
         cell.contentView.transform = CGAffineTransformMakeRotation(M_PI/2);
         cell.contentView.userInteractionEnabled = YES;
     }
+    else
+    {
+        view = [self viewWithSumContent:indexPath.row];
+        cell.contentView.transform = CGAffineTransformMakeRotation(M_PI/2);
+    }
     
     //释放每一行中的view，避免内存浪费
     while ([cell.contentView.subviews lastObject] != nil) {
         [(UIView*)[cell.contentView.subviews lastObject] removeFromSuperview];
     }
-    
+    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"leftTableCell.png"]];
     [cell.contentView addSubview:view];
     CGRect frame = cell.frame;
     frame.size = view.frame.size;
     cell.frame = frame;
+    cell.backgroundColor = [UIColor lightGrayColor];
+
     
     return cell;
 }
@@ -311,7 +463,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     @try {
-        if ([tableView isEqual:_headTableView ]||[tableView isEqual:_rightDataKeys]) {
+        if ([tableView isEqual:_headTableView ]||[tableView isEqual:_sumTableView]) {
             return _headDataKeys.count-1;
         }
     }
@@ -331,7 +483,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     @try {
-        if ([tableView isEqual:_headTableView]) {
+        if ([tableView isEqual:_headTableView]||[tableView isEqual:_sumTableView]) {
             return kTableViewTitleWidth;
         }
     }
@@ -372,12 +524,17 @@
     }
     else if([tableView isEqual:_rightTableView]){
         [self.leftTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+        
     }
     else if([tableView isEqual:_headTableView])
     {
         [self.headTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
+    
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    
 }
+
 
 #pragma mark - ScrollView Delegate
 
@@ -388,13 +545,18 @@
         self.rightTableView.contentOffset = _leftTableView.contentOffset;
         
         //在右边rightTableView移动的时候，上方headTableView需要保持与右边的tableView位置的一致，此时_rightScrollView.contentOffset.x=0
-        self.headTableView.contentOffset = CGPointMake(0, _rightScrollView.contentOffset.x);
+        //self.headTableView.contentOffset = CGPointMake(0, _rightScrollView.contentOffset.x);
     }
-    else {
+    else if([scrollView isEqual:_rightScrollView]){
         //在右边rightTableView在左右移动的时候，同时headTableView也需要出现左右移动的效果，但是headTableView实际是初始的tableView旋转了90度之后得到的，因此要左右滑动，实际上是上下移动
         
-        self.leftTableView.contentOffset = _rightTableView.contentOffset;
+//        self.leftTableView.contentOffset = _rightScrollView.contentOffset;
         self.headTableView.contentOffset = CGPointMake(0, _rightScrollView.contentOffset.x);
+        self.sumTableView.contentOffset = CGPointMake(0, _rightScrollView.contentOffset.x);
+    }
+    else if([scrollView isEqual:_rightTableView])
+    {
+        self.leftTableView.contentOffset = _rightTableView.contentOffset;
     }
 }
 
@@ -420,7 +582,8 @@
     
     self.headTableView.frame = CGRectMake(kTableViewTitleWidth, 0, self.rightScrollView.contentSize.width, kTableViewTitleHeight);
     
-    
 }
+
+
 
 @end

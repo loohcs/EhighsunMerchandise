@@ -17,6 +17,8 @@
 @property (nonatomic, strong) UITableView *sortTableView;
 @property (nonatomic, assign) int flag;
 
+@property (nonatomic, strong) NSString *primaryKey;//用来标记获得的楼层id
+
 - (id)initWithDataDic:(NSDictionary *)dic andTitle:(NSString *)title;
 
 @end

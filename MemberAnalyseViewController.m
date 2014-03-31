@@ -75,11 +75,27 @@
     self.view.backgroundColor = [UIColor cyanColor];
 
     
-    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBackSideTV)];
-    self.navigationItem.leftBarButtonItem = leftBarBtn;
+//    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBackSideTV)];
+//    self.navigationItem.leftBarButtonItem = leftBarBtn;
+//    
+//    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"日期" style:UIBarButtonItemStyleDone target:self action:@selector(logOutSystem)];
+//    self.navigationItem.rightBarButtonItem = rightBarBtn;
     
-    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"日期" style:UIBarButtonItemStyleDone target:self action:@selector(logOutSystem)];
-    self.navigationItem.rightBarButtonItem = rightBarBtn;
+//    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    leftBtn.frame = CGRectMake(0, 0, 60, 30);
+//    [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
+//    [leftBtn addTarget:self action:@selector(goBackSideTV) forControlEvents:UIControlEventTouchUpInside];
+//    [leftBtn setBackgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"back" ofType:@"png"]] forState:UIControlStateNormal];
+//    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+//    self.navigationItem.leftBarButtonItem = leftBarBtn;
+//    
+//    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    rightBtn.frame = CGRectMake(0, 0, 60, 30);
+//    [rightBtn setTitle:@"日期" forState:UIControlStateNormal];
+//    [rightBtn addTarget:self action:@selector(goBackSideTV) forControlEvents:UIControlEventTouchUpInside];
+//    [rightBtn setBackgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"date" ofType:@"png"]] forState:UIControlStateNormal];
+//    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+//    self.navigationItem.rightBarButtonItem = rightBarBtn;
 
     
     NSArray *headArr = [NSArray arrayWithArray:[self.dataDic objectForKey:@"headTitleKey"]];
@@ -87,6 +103,8 @@
 //    NSMutableArray *leftKeys = [NSMutableArray arrayWithArray:[leftDic allKeys]];
     NSDictionary *rightDic = [NSDictionary dictionaryWithDictionary:[self.dataDic objectForKey:@"rightTable"]];
     
+    
+#warning mark -- 在添加结算汇总的表单时，此处将会关系到结算行的位置
     _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"会员分析" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
     CGRect frame = _customTableView.frame;
     frame.origin = CGPointMake(0, 84);
@@ -102,35 +120,38 @@
     [middleButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [middleButton addTarget:self action:@selector(middleButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:middleButton];
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 155-34, 44)];
-//    label.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 150-34, 44)];
+    label.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
     label.text = self.pageTitle;
-    label.textColor = [UIColor grayColor];
+    label.textColor = [UIColor blackColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.tintColor = [UIColor grayColor];
     label.backgroundColor = [UIColor clearColor];
     label.textAlignment =1;
     [middleButton addSubview:label];
     self.navigationItem.titleView = titleView;
     
     _sortTableView = [[UITableView alloc] initWithFrame:CGRectMake(90, 60, 140, 120) style:UITableViewStylePlain];
+//    _sortTableView.backgroundColor = [UIColor grayColor];
     _sortTableView.delegate = self;
     _sortTableView.dataSource = self;
 }
 
 //TODO: 导航栏上左右两边的动作响应
-- (void)goBackSideTV
-{
-    NSLog(@"返回");
-    
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-    
-    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
-}
-
-- (void)logOutSystem
-{
-    JBViewController *JBVC = [[JBViewController alloc] init];
-    [self.navigationController pushViewController:JBVC animated:YES];
-}
+//- (void)goBackSideTV
+//{
+//    NSLog(@"返回");
+//    
+////    [self.navigationController popToRootViewControllerAnimated:YES];
+//    
+//    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
+//}
+//
+//- (void)logOutSystem
+//{
+//    JBViewController *JBVC = [[JBViewController alloc] init];
+//    [self.navigationController pushViewController:JBVC animated:YES];
+//}
 
 - (NSDictionary *)getData:(NSDictionary *)dic
 {
@@ -231,7 +252,7 @@
     }
     NSArray *arr = [_dataDic objectForKey:@"headTitleValue"];
     cell.textLabel.text = [arr objectAtIndex:indexPath.section];
-    
+    cell.backgroundColor = [UIColor lightGrayColor];
     return cell;
 }
 
@@ -256,5 +277,10 @@
     _flag = _flag++%2;
 }
 
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [_customTableView removeFromSuperview];
+}
 
 @end

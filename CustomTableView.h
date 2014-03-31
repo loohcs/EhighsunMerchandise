@@ -25,8 +25,11 @@ typedef enum {
 @interface CustomTableView : UIView <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, retain) UIScrollView *headScrollView;//标题滚动栏
-
 @property (nonatomic, retain) UITableView *headTableView;//标题的表格
+
+@property (nonatomic, retain) UIScrollView *sumScrollView;
+@property (nonatomic, retain) UITableView *sumTableView;
+
 @property (nonatomic, retain) UITableView *leftTableView;//左边表格
 @property (nonatomic, retain) UITableView *rightTableView;//右边表格
 @property (nonatomic, retain) UIScrollView *leftScrollView;//左边的滚动页
@@ -47,6 +50,8 @@ typedef enum {
 
 @property (nonatomic, retain) NSArray *headDataKeys;//存放表头的关键字
 @property (nonatomic, retain) NSArray *headDataValues;//存放表头的名字，用来显示以及确定每列数据的顺序
+
+@property (nonatomic, retain) NSDictionary *sumDataDic;
 
 @property (nonatomic, assign) CGFloat startDragContentOffsetX;//确定滚动页的起始位置
 @property (nonatomic, assign) CGFloat endDragContentOffsetX;//确定滚动页的最终位置
@@ -77,6 +82,11 @@ typedef enum {
 
 //加入排序
 - (void)changeDataWithSortArr:(NSArray *)sortArr;
+
+//改变时间后需要刷新数据
+- (void)changeDataWithNewTime:(NSDictionary *)dic;
+
+- (void)changeSumData:(NSDictionary *)dic;
 
 - (void)fitWithScreenRotation:(UIInterfaceOrientation)toInterfaceOrientation;
 

@@ -21,6 +21,27 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
+//#warning mark -- 下面的是获取店名的方法
+//        [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
+//        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:@"primaryUserKey",@"VYbSBDuFOPVd", nil];
+//        NSArray *params = [NSArray arrayWithObjects:dic, nil];
+//        ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_ManaFrame" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetManaFrameData" andParams:params];
+//        ServiceResult *result=[ServiceHelper syncService:args];
+//        //    ServiceResult *result=[ServiceHelper syncMethodName:@"TestConnectOracle"];
+//        NSLog(@"同步请求xml=%@\n",result);
+//        NSLog(@"----------同步请求xml=%@\n",result.xmlString);
+//        NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//ManaFrameData"];
+//        
+//        NSLog(@"%@", arr);
+//        
+//        NSDictionary *dicTest = [DBDataHelper getChineseName:arr];
+//        
+//        NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射.plist"];
+//        NSFileManager *file = [NSFileManager defaultManager];
+//        if (![file fileExistsAtPath:path]) {
+//            [dicTest writeToFile:path atomically:YES];
+//        }
     }
     return self;
 }
@@ -59,6 +80,8 @@ static bool isLogin = NO;
 	// Do any additional setup after loading the view.
     
     self.navigationItem.title = @"海印百货通";
+    
+    
 //    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
 //    NSString *naviBackImagePath = [[NSBundle mainBundle] pathForResource:@"yh_03" ofType:@"png"];
 //    UIImage *naviBackImage = [UIImage imageWithContentsOfFile:naviBackImagePath];
@@ -67,13 +90,23 @@ static bool isLogin = NO;
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(goBackSideTV)];
-    self.navigationItem.leftBarButtonItem = leftBarBtn;
-    [leftBarBtn release];
-    
-    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithTitle:@"日期" style:UIBarButtonItemStyleDone target:self action:@selector(selectDate)];
-    self.navigationItem.rightBarButtonItem = rightBarBtn;
-    [rightBarBtn release];
+//    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    leftBtn.frame = CGRectMake(0, 0, 60, 30);
+//    [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
+//    [leftBtn addTarget:self action:@selector(goBackSideTV) forControlEvents:UIControlEventTouchUpInside];
+//    [leftBtn setBackgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"back" ofType:@"png"]] forState:UIControlStateNormal];
+//    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+//    self.navigationItem.leftBarButtonItem = leftBarBtn;
+//    [leftBarBtn release];
+//    
+//    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    rightBtn.frame = CGRectMake(0, 0, 60, 30);
+//    [rightBtn setTitle:@"日期" forState:UIControlStateNormal];
+//    [rightBtn addTarget:self action:@selector(selectDate) forControlEvents:UIControlEventTouchUpInside];
+//    [rightBtn setBackgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"date" ofType:@"png"]] forState:UIControlStateNormal];
+//    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+//    self.navigationItem.rightBarButtonItem = rightBarBtn;
+//    [rightBarBtn release];
  
     self.revealSideViewController.panInteractionsWhenClosed = PPRevealSideInteractionNavigationBar|PPRevealSideInteractionNone;
     
@@ -88,82 +121,81 @@ static bool isLogin = NO;
     
     //添加屏幕按钮以及定义响应方法
     //海印主页，跳转到商场选择界面
-    _highsunHomeVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    _highsunHomeVCBtn.backgroundColor = [UIColor cyanColor];
-    _highsunHomeVCBtn.backgroundColor = [UIColor clearColor];
-//    NSString *highsunHomeIcon = [[NSBundle mainBundle] pathForResource:@"yh_03" ofType:@"png"];
+//    _highsunHomeVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    _highsunHomeVCBtn.backgroundColor = [UIColor clearColor];
+//    NSString *highsunHomeIcon = [[NSBundle mainBundle] pathForResource:@"shoppingCard" ofType:@"png"];
 //    UIImage *highsunHomeImage = [UIImage imageWithContentsOfFile:highsunHomeIcon];
-//    [_shoppingCardVCBtn setBackgroundImage:highsunHomeImage forState:UIControlStateNormal];
+//    [_highsunHomeVCBtn setBackgroundImage:highsunHomeImage forState:UIControlStateNormal];
 //    [highsunHomeImage release];
-    [_highsunHomeVCBtn setTitle:@"海印主页" forState:UIControlStateNormal];
-//
-//    _highsunHomeLabel = [[UILabel alloc] init];
-//    _highsunHomeLabel.text = @"海印主页";
-//    [self.view addSubview:_highsunHomeLabel];
-    
-    [_highsunHomeVCBtn addTarget:self action:@selector(highsunHomeVCAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_highsunHomeVCBtn];
+//    //    [_shoppingCardVCBtn setTitle:@"购物卡销售" forState:UIControlStateNormal];
+//    
+//    _shoppingCardLabel = [[UILabel alloc] init];
+//    _shoppingCardLabel.text = @"购物卡销售";
+//    [self.view addSubview:_shoppingCardLabel];
+//    
+//    [_shoppingCardVCBtn addTarget:self action:@selector(shoppingCardVCAction) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:_shoppingCardVCBtn];
     
     
     
     //购物卡销售界面按钮
-    _shoppingCardVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    _shoppingCardVCBtn.backgroundColor = [UIColor cyanColor];
-    _shoppingCardVCBtn.backgroundColor = [UIColor clearColor];
-    NSString *shopCardIcon = [[NSBundle mainBundle] pathForResource:@"ico5" ofType:@"png"];
-    UIImage *shopCardBtnImage = [UIImage imageWithContentsOfFile:shopCardIcon];
-    [_shoppingCardVCBtn setBackgroundImage:shopCardBtnImage forState:UIControlStateNormal];
-    [shopCardBtnImage release];
-//    [_shoppingCardVCBtn setTitle:@"购物卡销售" forState:UIControlStateNormal];
-    
-    _shoppingCardLabel = [[UILabel alloc] init];
-    _shoppingCardLabel.text = @"购物卡销售";
-    [self.view addSubview:_shoppingCardLabel];
-    
-    [_shoppingCardVCBtn addTarget:self action:@selector(shoppingCardVCAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_shoppingCardVCBtn];
+//    _shoppingCardVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+////    _shoppingCardVCBtn.backgroundColor = [UIColor cyanColor];
+//    _shoppingCardVCBtn.backgroundColor = [UIColor clearColor];
+//    NSString *shopCardIcon = [[NSBundle mainBundle] pathForResource:@"shoppingCard" ofType:@"png"];
+//    UIImage *shopCardBtnImage = [UIImage imageWithContentsOfFile:shopCardIcon];
+//    [_shoppingCardVCBtn setBackgroundImage:shopCardBtnImage forState:UIControlStateNormal];
+//    [shopCardBtnImage release];
+////    [_shoppingCardVCBtn setTitle:@"购物卡销售" forState:UIControlStateNormal];
+//    
+//    _shoppingCardLabel = [[UILabel alloc] init];
+//    _shoppingCardLabel.text = @"购物卡销售";
+//    [self.view addSubview:_shoppingCardLabel];
+//    
+//    [_shoppingCardVCBtn addTarget:self action:@selector(shoppingCardVCAction) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:_shoppingCardVCBtn];
     
     
     
     //会员分析界面按钮
-    _memberAnalyseVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    _memberAnalyseVCBtn.backgroundColor = [UIColor cyanColor];
-    _memberAnalyseVCBtn.backgroundColor = [UIColor clearColor];
-    NSString *memberAnaIcon = [[NSBundle mainBundle] pathForResource:@"ico4" ofType:@"png"];
-    UIImage *memberAnaBtnImage = [UIImage imageWithContentsOfFile:memberAnaIcon];
-    [_memberAnalyseVCBtn setBackgroundImage:memberAnaBtnImage forState:UIControlStateNormal];
-    [memberAnaBtnImage release];
-//    [_memberAnalyseVCBtn setTitle:@"会员分析" forState:UIControlStateNormal];
-    
-    _memberAnalyseLabel = [[UILabel alloc] init];
-    _memberAnalyseLabel.text = @"会员分析";
-    [self.view addSubview:_memberAnalyseLabel];
-    
-    [_memberAnalyseVCBtn addTarget:self action:@selector(memberAnalyseVCAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_memberAnalyseVCBtn];
+//    _memberAnalyseVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+////    _memberAnalyseVCBtn.backgroundColor = [UIColor cyanColor];
+//    _memberAnalyseVCBtn.backgroundColor = [UIColor clearColor];
+//    NSString *memberAnaIcon = [[NSBundle mainBundle] pathForResource:@"memberAnalyse" ofType:@"png"];
+//    UIImage *memberAnaBtnImage = [UIImage imageWithContentsOfFile:memberAnaIcon];
+//    [_memberAnalyseVCBtn setBackgroundImage:memberAnaBtnImage forState:UIControlStateNormal];
+//    [memberAnaBtnImage release];
+////    [_memberAnalyseVCBtn setTitle:@"会员分析" forState:UIControlStateNormal];
+//    
+//    _memberAnalyseLabel = [[UILabel alloc] init];
+//    _memberAnalyseLabel.text = @"会员分析";
+//    [self.view addSubview:_memberAnalyseLabel];
+//    
+//    [_memberAnalyseVCBtn addTarget:self action:@selector(memberAnalyseVCAction) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:_memberAnalyseVCBtn];
     
     //结算汇总界面按钮
-    _finalSumVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    _finalSumVCBtn.backgroundColor = [UIColor cyanColor];
-    _finalSumVCBtn.backgroundColor = [UIColor clearColor];
-    NSString *finalSumIcon = [[NSBundle mainBundle] pathForResource:@"ico3" ofType:@"png"];
-    UIImage *finalSumBtnImage = [UIImage imageWithContentsOfFile:finalSumIcon];
-    [_finalSumVCBtn setBackgroundImage:finalSumBtnImage forState:UIControlStateNormal];
-    [finalSumBtnImage release];
-//    [_finalSumVCBtn setTitle:@"结算汇总" forState:UIControlStateNormal];
-    
-    _finalSumLabel = [[UILabel alloc] init];
-    _finalSumLabel.text = @"结算汇总";
-    [self.view addSubview:_finalSumLabel];
-    
-    [_finalSumVCBtn addTarget:self action:@selector(finalSumVCAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_finalSumVCBtn];
+//    _finalSumVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+////    _finalSumVCBtn.backgroundColor = [UIColor cyanColor];
+//    _finalSumVCBtn.backgroundColor = [UIColor clearColor];
+//    NSString *finalSumIcon = [[NSBundle mainBundle] pathForResource:@"finalSumVC" ofType:@"png"];
+//    UIImage *finalSumBtnImage = [UIImage imageWithContentsOfFile:finalSumIcon];
+//    [_finalSumVCBtn setBackgroundImage:finalSumBtnImage forState:UIControlStateNormal];
+//    [finalSumBtnImage release];
+////    [_finalSumVCBtn setTitle:@"结算汇总" forState:UIControlStateNormal];
+//    
+//    _finalSumLabel = [[UILabel alloc] init];
+//    _finalSumLabel.text = @"结算汇总";
+//    [self.view addSubview:_finalSumLabel];
+//    
+//    [_finalSumVCBtn addTarget:self action:@selector(finalSumVCAction) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:_finalSumVCBtn];
     
     //销售客单
     _saleCustomsListVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 //    _saleCustomsListVCBtn.backgroundColor = [UIColor cyanColor];
     _saleCustomsListVCBtn.backgroundColor = [UIColor clearColor];
-    NSString *saleCusListIcon = [[NSBundle mainBundle] pathForResource:@"ico2" ofType:@"png"];
+    NSString *saleCusListIcon = [[NSBundle mainBundle] pathForResource:@"saleCustomList" ofType:@"png"];
     UIImage *saleCusListBtnImage = [UIImage imageWithContentsOfFile:saleCusListIcon];
     [_saleCustomsListVCBtn setBackgroundImage:saleCusListBtnImage forState:UIControlStateNormal];
     [saleCusListBtnImage release];
@@ -180,7 +212,7 @@ static bool isLogin = NO;
     _saleCompareVCBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 //    _saleCompareVCBtn.backgroundColor = [UIColor cyanColor];
     _saleCompareVCBtn.backgroundColor = [UIColor clearColor];
-    NSString *saleCompareIcon = [[NSBundle mainBundle] pathForResource:@"ico1" ofType:@"png"];
+    NSString *saleCompareIcon = [[NSBundle mainBundle] pathForResource:@"saleCompare" ofType:@"png"];
     UIImage *saleCompareBtnImage = [UIImage imageWithContentsOfFile:saleCompareIcon];
     [_saleCompareVCBtn setBackgroundImage:saleCompareBtnImage forState:UIControlStateNormal];
     [saleCompareBtnImage release];
@@ -197,40 +229,23 @@ static bool isLogin = NO;
     //获取当前的屏幕大小，即确定屏幕方向
     [self resignBtnFram:self.interfaceOrientation];
     
-#warning mark -- 下面的是获取店名的方法
-//    [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
-//    ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_ManaFrame" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetManaFrameData" andParams:Nil];
-//    ServiceResult *result=[ServiceHelper syncService:args];
-//    //    ServiceResult *result=[ServiceHelper syncMethodName:@"TestConnectOracle"];
-//    NSLog(@"同步请求xml=%@\n",result);
-//    NSLog(@"----------同步请求xml=%@\n",result.xmlString);
-//    NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//ManaFrameData"];
+
+}
+
+////TODO: 导航栏上左右两边的动作响应
+//- (void)goBackSideTV
+//{
+//    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
+//}
 //
-//    NSLog(@"%@", arr);
-//
-//    NSDictionary *dicTest = [DBDataHelper getChineseName:arr];
+//- (void)selectDate
+//{
+//    //崩溃测试，点击退出会马上使程序崩溃，但是不会出现闪退现象，会跳出警示框
+////    [self performSelector:@selector(aaaa)];
 //    
-//    NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射-4.plist"];
-//    NSFileManager *file = [NSFileManager defaultManager];
-//    if (![file fileExistsAtPath:path]) {
-//        [dicTest writeToFile:path atomically:YES];
-//    }
-}
-
-//TODO: 导航栏上左右两边的动作响应
-- (void)goBackSideTV
-{
-    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
-}
-
-- (void)selectDate
-{
-    //崩溃测试，点击退出会马上使程序崩溃，但是不会出现闪退现象，会跳出警示框
-//    [self performSelector:@selector(aaaa)];
-    
-    JBViewController *JBVC = [[JBViewController alloc] init];
-    [self.navigationController pushViewController:JBVC animated:YES];
-}
+//    JBViewController *JBVC = [[JBViewController alloc] init];
+//    [self.navigationController pushViewController:JBVC animated:YES];
+//}
 
 - (void)highsunHomeVCAction
 {
@@ -341,7 +356,7 @@ static bool isLogin = NO;
     SaleCompareViewController *saleCompareVC = [[SaleCompareViewController alloc] init];
     UINavigationController *saleCompareNavi = [[UINavigationController alloc] initWithRootViewController:saleCompareVC];
     
-    NSArray *array = [[NSArray alloc] initWithObjects:@"首页", @"海印主页",@"销售客单", @"会员分析",@"销售对比", @"会员分析", @"结算汇总", nil];
+    NSArray *array = [[NSArray alloc] initWithObjects:@"首页", @"海印主页",@"销售客单", @"会员分析",@"销售对比", @"购物卡销售", @"结算汇总", nil];
     
     _mySideTV.titles = [NSMutableArray arrayWithArray:array];
     _mySideTV.viewControllers = [[[NSMutableArray alloc] initWithObjects:homeNavi, highsunNavi, saleCustomsNavi, memberNavi, saleCompareNavi, shoppingNavi, finalNavi, nil] autorelease];
@@ -421,19 +436,33 @@ static bool isLogin = NO;
 //        _shoppingCardVCBtn.frame = CGRectMake(distanceX, height*2+distanceY*3+32, height, height);
 //        _finalSumVCBtn.frame = CGRectMake(width+distanceX*2, height*2+distanceY*3+32, height, height);
         
-        _highsunHomeVCBtn.frame = CGRectMake(distanceX, distanceY, height, height);
-        _saleCustomsListVCBtn.frame = CGRectMake(width+distanceX*2, distanceY, height, height);
-        _memberAnalyseVCBtn.frame = CGRectMake(distanceX, height+distanceY*2, height, height);
-        _saleCompareVCBtn.frame = CGRectMake(width+distanceX*2, height+distanceY*2, height, height);
-        _shoppingCardVCBtn.frame = CGRectMake(distanceX, height*2+distanceY*3, height, height);
-        _finalSumVCBtn.frame = CGRectMake(width+distanceX*2, height*2+distanceY*3, height, height);
+        /********************************************/
+        /***********下面的是6个按钮都存在时的坐标*********/
+//        _highsunHomeVCBtn.frame = CGRectMake(distanceX, distanceY, height, height);
+//        _saleCustomsListVCBtn.frame = CGRectMake(width+distanceX*2, distanceY, height, height);
+//        _memberAnalyseVCBtn.frame = CGRectMake(distanceX, height+distanceY*2, height, height);
+//        _saleCompareVCBtn.frame = CGRectMake(width+distanceX*2, height+distanceY*2, height, height);
+//        _shoppingCardVCBtn.frame = CGRectMake(distanceX, height*2+distanceY*3, height, height);
+//        _finalSumVCBtn.frame = CGRectMake(width+distanceX*2, height*2+distanceY*3, height, height);
+//        
+//        _highsunHomeLabel.frame = CGRectMake(distanceX, distanceY+60, 80, 30);
+//        _saleCustomsListLabel.frame = CGRectMake(width+distanceX*2, distanceY+60, 80, 30);
+//        _memberAnalyseLabel.frame = CGRectMake(distanceX, height+distanceY*2+60, 80, 30);
+//        _saleCompareLabel.frame = CGRectMake(width+distanceX*2, height+distanceY*2+60, 80, 30);
+//        _shoppingCardLabel.frame = CGRectMake(distanceX, height*2+distanceY*3+60, 100, 30);
+//        _finalSumLabel.frame = CGRectMake(width+distanceX*2, height*2+distanceY*3+60, 80, 30);
         
-        _highsunHomeLabel.frame = CGRectMake(distanceX, distanceY+60, 80, 30);
-        _saleCustomsListLabel.frame = CGRectMake(width+distanceX*2, distanceY+60, 80, 30);
-        _memberAnalyseLabel.frame = CGRectMake(distanceX, height+distanceY*2+60, 80, 30);
-        _saleCompareLabel.frame = CGRectMake(width+distanceX*2, height+distanceY*2+60, 80, 30);
-        _shoppingCardLabel.frame = CGRectMake(distanceX, height*2+distanceY*3+60, 80, 30);
-        _finalSumLabel.frame = CGRectMake(width+distanceX*2, height*2+distanceY*3+60, 80, 30);
+        //****************************************/
+        //下面是只有三个有数据的按钮存在
+        _saleCustomsListVCBtn.frame = CGRectMake(60, distanceY, height, height);
+        //_memberAnalyseVCBtn.frame = CGRectMake(120, distanceY, height, height);
+        _saleCompareVCBtn.frame = CGRectMake(180, distanceY, height, height);
+
+
+        _saleCustomsListLabel.frame = CGRectMake(60, distanceY+60, 80, 30);
+        //_memberAnalyseLabel.frame = CGRectMake(120, distanceY+60, 80, 30);
+        _saleCompareLabel.frame = CGRectMake(180, distanceY+60, 80, 30);
+
         
     }
     else if(UIDeviceOrientationIsLandscape(orientation))

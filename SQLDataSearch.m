@@ -29,7 +29,7 @@
     else
     {
         JBCalendarDate *JBCalDate = [JBCalendarDate dateFromNSDate:[NSDate date]];
-        NSString *date = [NSString stringWithFormat:@"%d-%d-%d", JBCalDate.year, JBCalDate.month, JBCalDate.day];
+        NSString *date = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
         [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:date,@"startTime", nil]];
         [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:date,@"endTime", nil]];
         

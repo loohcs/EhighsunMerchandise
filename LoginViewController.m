@@ -32,8 +32,16 @@
 	// Do any additional setup after loading the view.
     self.isRememberPassward = NO;
     
+    
     self.navigationItem.title = @"欢迎进入海印百货通";
-    self.view.backgroundColor = [UIColor whiteColor];
+    
+    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    UIImage *bgImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"bg" ofType:@"png"]];
+    _imageView.image = bgImage;
+    [self.view addSubview:_imageView];
+
+    
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"bg" ofType:@"png"]]];
     
     self.size = [GetScreenSize getScreenSize:self.interfaceOrientation];
     
@@ -44,53 +52,102 @@
     NSLog(@"default passward = %@", [defaults objectForKey:@"passward"]);
     
     //用户名
-    UILabel *nameLable = [[UILabel alloc] initWithFrame:CGRectMake(60, 100, 50, 30)];
-    nameLable.font = [UIFont systemFontOfSize:13];
-    nameLable.text = @"用户名:";
-    nameLable.backgroundColor = [UIColor cyanColor];
-    [self.view addSubview:nameLable];
+//    UILabel *nameLable = [[UILabel alloc] initWithFrame:CGRectMake(60, 100, 50, 30)];
+//    nameLable.font = [UIFont systemFontOfSize:13];
+//    nameLable.text = @"用户名:";
+//    nameLable.backgroundColor = [UIColor cyanColor];
+//    [self.view addSubview:nameLable];
+    _userNameImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, SCREEN_HEIGHT/2, 290, 40)];
+    UIImage *nameImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"user" ofType:@"png"]];
+    _userNameImageView.image = nameImage;
+    _userNameImageView.userInteractionEnabled = YES;
     
-    _nameText = [[UITextField alloc] initWithFrame:CGRectMake(120, 100, 150, 30)];
+    _nameText = [[UITextField alloc] initWithFrame:CGRectMake(60, 5, 200, 30)];
     _nameText.font = [UIFont systemFontOfSize:13];
-    _nameText.backgroundColor = [UIColor cyanColor];
+    _nameText.placeholder = @"请输入用户名";
     _nameText.delegate = self;
-    [self.view addSubview:_nameText];
+    _nameText.userInteractionEnabled = YES;
+    [_userNameImageView addSubview:_nameText];
+    
+    [self.view addSubview:_userNameImageView];
 
     //密码
-    UILabel *passwardLable = [[UILabel alloc] initWithFrame:CGRectMake(60, 160, 50, 30)];
-    passwardLable.font = [UIFont systemFontOfSize:13];
-    passwardLable.text = @"密  码:";
-    passwardLable.backgroundColor = [UIColor cyanColor];
-    [self.view addSubview:passwardLable];
+//    UILabel *passwardLable = [[UILabel alloc] initWithFrame:CGRectMake(60, 160, 50, 30)];
+//    passwardLable.font = [UIFont systemFontOfSize:13];
+//    passwardLable.text = @"密  码:";
+//    passwardLable.backgroundColor = [UIColor cyanColor];
+//    [self.view addSubview:passwardLable];
     
+    _passwordImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, SCREEN_HEIGHT/2+50, 290, 40)];
+    UIImage *passwordImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"password" ofType:@"png"]];
+    _passwordImageView.image = passwordImage;
+    _passwordImageView.userInteractionEnabled = YES;
     
-    _passwardText = [[UITextField alloc] initWithFrame:CGRectMake(120, 160, 150, 30)];
+    _passwardText = [[UITextField alloc] initWithFrame:CGRectMake(60, 5, 200, 30)];
     _passwardText.font = [UIFont systemFontOfSize:13];
-    _passwardText.backgroundColor = [UIColor cyanColor];
+    _passwardText.placeholder = @"请输入您的密码";
     _passwardText.secureTextEntry = YES;
     _passwardText.delegate = self;
-    [self.view addSubview:_passwardText];
+    _passwardText.userInteractionEnabled = YES;
+    [_passwordImageView addSubview:_passwardText];
+    [self.view addSubview:_passwordImageView];
     
+    _loginBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _loginBtn.frame = CGRectMake(15, SCREEN_HEIGHT/2+100, 290, 40);
+    [_loginBtn setBackgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"logIn" ofType:@"png"]]forState:UIControlStateNormal];
+    [_loginBtn addTarget:self action:@selector(loginBtnAction) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    loginBtn.frame = CGRectMake(60, 220, 50, 30);
-    [loginBtn setTitle:@"登陆" forState:UIControlStateNormal];
-    [loginBtn addTarget:self action:@selector(loginBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_loginBtn];
     
-    [self.view addSubview:loginBtn];
-    
-    UIButton *registerBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    registerBtn.frame = CGRectMake(120, 220, 80, 30);
-    [registerBtn setTitle:@"记住密码" forState:UIControlStateNormal];
-    [registerBtn addTarget:self action:@selector(registerBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    _registePassword = [[UIImageView alloc] initWithFrame:CGRectMake(30, SCREEN_HEIGHT/2+150, 30, 30)];
     if ([[defaults objectForKey:@"isRememberPassward"] isEqualToString:@"YES"]) {
-        registerBtn.backgroundColor = [UIColor cyanColor];
+        _registePassword.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"select" ofType:@"png"]];
         _passwardText.text = [defaults objectForKey:@"passward"];
         _nameText.text = [defaults objectForKey:@"userID"];
         _isRememberPassward = YES;
     }
-    [self.view addSubview:registerBtn];
+    else
+    {
+        _registePassword.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"disSelect" ofType:@"png"]];
+    }
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(registerBtnAction)];
+    [_registePassword addGestureRecognizer:tapGR];
+    _registePassword.userInteractionEnabled = YES;
+    [self.view addSubview:_registePassword];
     
+    _registerBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _registerBtn.frame = CGRectMake(60, SCREEN_HEIGHT/2+150, 80, 30);
+    [_registerBtn setTitle:@"记住密码" forState:UIControlStateNormal];
+    [_registerBtn addTarget:self action:@selector(registerBtnAction) forControlEvents:UIControlEventTouchUpInside];
+//    if ([[defaults objectForKey:@"isAutoLogIn"] isEqualToString:@"YES"]) {
+////        _registerBtn.backgroundColor = [UIColor cyanColor];
+//        _passwardText.text = [defaults objectForKey:@"passward"];
+//        _nameText.text = [defaults objectForKey:@"userID"];
+//        _isAutoLogIn = YES;
+//    }
+    [self.view addSubview:_registerBtn];
+    
+    _autoLogIn = [[UIImageView alloc] initWithFrame:CGRectMake(160, SCREEN_HEIGHT/2+150, 30, 30)];
+    if ([[defaults objectForKey:@"isAutoLogIn"] isEqualToString:@"YES"]) {
+        _autoLogIn.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"select" ofType:@"png"]];
+    }
+    else
+    {
+        _autoLogIn.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"disSelect" ofType:@"png"]];
+    }
+    UITapGestureRecognizer *tapGR2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(autoLogInAction)];
+    [_autoLogIn addGestureRecognizer:tapGR2];
+    _autoLogIn.userInteractionEnabled = YES;
+    [self.view addSubview:_autoLogIn];
+    
+    _autoLogBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    _autoLogBtn.frame = CGRectMake(190, SCREEN_HEIGHT/2+150, 80, 30);
+    [_autoLogBtn setTitle:@"自动登录" forState:UIControlStateNormal];
+    [_autoLogBtn addTarget:self action:@selector(autoLogInAction) forControlEvents:UIControlEventTouchUpInside];
+    if ([[defaults objectForKey:@"isAutoLogIn"] isEqualToString:@"YES"]) {
+        
+    }
+    [self.view addSubview:_autoLogBtn];
     
     [DateHelper getDateNow];
     
@@ -98,8 +155,35 @@
 
 
 #pragma mark -- 屏幕中一些按钮的响应动作
+//点击输入框，弹出键盘，同时将用户名，密码输入框上移
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    _userNameImageView.frame = CGRectMake(15, SCREEN_HEIGHT/2-130, 290, 40);
+    _passwordImageView.frame = CGRectMake(15, SCREEN_HEIGHT/2-80, 290, 40);
+    _loginBtn.frame = CGRectMake(15, SCREEN_HEIGHT/2-30, 290, 40);
+    _registerBtn.frame = CGRectMake(60, SCREEN_HEIGHT/2+20, 80, 30);
+    _registePassword.frame = CGRectMake(30, SCREEN_HEIGHT/2+20, 30, 30);
+    _autoLogBtn.frame = CGRectMake(190, SCREEN_HEIGHT/2+20, 80, 30);
+    _autoLogIn.frame = CGRectMake(160, SCREEN_HEIGHT/2+20, 30, 30);
+    
+    _imageView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"bg2" ofType:@"jpg"]];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    _userNameImageView.frame = CGRectMake(15, SCREEN_HEIGHT/2, 290, 40);
+    _passwordImageView.frame = CGRectMake(15, SCREEN_HEIGHT/2+50, 290, 40);
+    _loginBtn.frame = CGRectMake(15, SCREEN_HEIGHT/2+100, 290, 40);
+    _registerBtn.frame = CGRectMake(60, SCREEN_HEIGHT/2+150, 80, 30);
+    _registePassword.frame = CGRectMake(30, SCREEN_HEIGHT/2+150, 30, 30);
+    _autoLogBtn.frame = CGRectMake(190, SCREEN_HEIGHT/2+150, 80, 30);
+    _autoLogIn.frame = CGRectMake(160, SCREEN_HEIGHT/2+150, 30, 30);
+    
+    _imageView.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"bg" ofType:@"png"]];
+}
+
 //点击空白处回收键盘
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 
 {
     [super touchesBegan:touches withEvent:event];
@@ -123,7 +207,12 @@
     _userName = _nameText.text;
     _passWard = _passwardText.text;
     
-    
+//#warning --park 进行加入合算表格的测试
+//    FinalSumViewController *finalSumVC = [[FinalSumViewController alloc] init];
+//    UINavigationController *finalSumNavi = [[UINavigationController alloc] initWithRootViewController:finalSumVC];
+//    [self presentViewController:finalSumNavi animated:YES completion:^{
+//        
+//    }];
     
     
     //将用户名和密码以参数的形式传到服务器端，在服务器端监测是否是合法的用户名以及密码，合法返回字符串@“YES”，非法@“NO”
@@ -148,10 +237,10 @@
                 [defaults setObject:_passwardText.text forKey:@"passward"];
                 [defaults setObject:@"VYbSBDuFOPVd" forKey:@"primaryUserKey"];
                 
-                JBCalendarDate *JBCalDate = [JBCalendarDate dateFromNSDate:[NSDate date]];
-                NSString *date = [NSString stringWithFormat:@"%ld-%ld-%ld", JBCalDate.year, JBCalDate.month, JBCalDate.day];
-                [defaults setObject:date forKey:@"startTime"];
-                [defaults setObject:date forKey:@"endTime"];
+//                JBCalendarDate *JBCalDate = [JBCalendarDate dateFromNSDate:[NSDate date]];
+//                NSString *date = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
+//                [defaults setObject:date forKey:@"startTime"];
+//                [defaults setObject:date forKey:@"endTime"];
                 
             }
         }
@@ -184,9 +273,14 @@
     }
     else
     {
-        UIAlertView *failAlertView = [[UIAlertView alloc] initWithTitle:@"登录失败" message:@"您的密码输入错误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [failAlertView show];
-        failAlertView.tag = 200;
+//        UIAlertView *failAlertView = [[UIAlertView alloc] initWithTitle:@"登录失败" message:@"您的密码输入错误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+//        [failAlertView show];
+//        failAlertView.tag = 200;
+        
+        
+        MemberAnalyseViewController *memberVC = [[MemberAnalyseViewController alloc] init];
+        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:memberVC];
+        [self presentViewController:navi animated:YES completion:Nil];
     }
 }
 
@@ -229,14 +323,14 @@
     }
 }
 
-- (void)registerBtnAction:(UIButton *)sender
+- (void)registerBtnAction
 {
     //通过isRemberPassward来判断是否需要记住密码
     //如果已经是记住密码了，点击时取消记住密码状态
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if (_isRememberPassward) {
-        sender.backgroundColor = [UIColor clearColor];
+        _registePassword.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"disSelect" ofType:@"png"]];
         _isRememberPassward = NO;
         [defaults setObject:@"NO" forKey:@"isRememberPassward"];
     }
@@ -246,11 +340,32 @@
         //TODO: 进入记住密码状态，则需要将用户名与密码记录在本地数据中，方便下次登录
         
         [defaults setObject:@"YES" forKey:@"isRememberPassward"];
-        
-        sender.backgroundColor = [UIColor cyanColor];
+        _registePassword.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"select" ofType:@"png"]];
         _isRememberPassward = YES;
     }
     
+}
+
+- (void)autoLogInAction
+{
+    //通过isAutoLog来判断是否需要自动登录
+    //如果已经是自动登录了，点击时取消自动登录状态
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (_isAutoLogIn) {
+        _autoLogIn.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"disSelect" ofType:@"png"]];
+        _isAutoLogIn = NO;
+        [defaults setObject:@"NO" forKey:@"isAutoLogIn"];
+    }
+    //如果不是自动登录了，点击时启动自动登录状态
+    else
+    {
+        //TODO: 进入自动登录了
+        
+        [defaults setObject:@"YES" forKey:@"isAutoLogIn"];
+        _autoLogIn.image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"select" ofType:@"png"]];
+        _isAutoLogIn = YES;
+    }
     
 }
 

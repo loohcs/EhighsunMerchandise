@@ -17,7 +17,11 @@
 }
 @end
 
+
 @implementation BasicViewController
+
+
+
 -(void)dealloc{
     [super dealloc];
     if(_loadView){
@@ -42,9 +46,101 @@
 {
     
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor clearColor];
+    
+//    if (IOS7)
+//    {
+//        self.edgesForExtendedLayout = UIRectEdgeNone;               //视图控制器，四条边不指定
+//        self.extendedLayoutIncludesOpaqueBars = YES;                 //不透明的操作栏
+//        self.modalPresentationCapturesStatusBarAppearance = YES;
+//        self.modalPresentationCapturesStatusBarAppearance = YES;
+//        self.automaticallyAdjustsScrollViewInsets = YES;
+//        self.navigationController.navigationBar.translucent = YES;
+//        self.tabBarController.tabBar.translucent = YES;
+//        
+//    }
+//    else
+//    {
+//        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+//    }
+//    
+//    self.navigationController.navigationBar.translucent = NO;
+    
+    float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+    if(version >= 7.0){
+        
+        UIImage *image =[UIImage imageNamed:@"navi.png"];
+        image = [image stretchableImageWithLeftCapWidth:2 topCapHeight:20];
+        
+        
+        //        UIImage *image = [UIImage imageNamed:@"navigationbar_background.png"];
+        [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+        
+    }else if (version >= 5.0) {
+        UIImage *image =[UIImage imageNamed:@"navi-320.jpg"];
+//        image = [image stretchableImageWithLeftCapWidth:2 topCapHeight:20];
+        
+        [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+    }else{
+        //调用这个方法，就会异步去调用DrawRac方法
+        [self.navigationController.navigationBar setNeedsDisplay];
+    }
+
+    
+    
+    //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"navi" ofType:@"png"]] forBarMetrics:UIBarMetricsDefault];
+    
+
+    
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftBtn.frame = CGRectMake(0, 0, 60, 30);
+    [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(goBackSideTV) forControlEvents:UIControlEventTouchUpInside];
+    [leftBtn setBackgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"back" ofType:@"png"]] forState:UIControlStateNormal];
+    UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    self.navigationItem.leftBarButtonItem = leftBarBtn;
+    
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBtn.frame = CGRectMake(0, 0, 60, 30);
+    [rightBtn setTitle:@"日期" forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(getSearchDate) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn setBackgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"date" ofType:@"png"]] forState:UIControlStateNormal];
+    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+    self.navigationItem.rightBarButtonItem = rightBarBtn;
     
     _alertView = [[UIAlertView alloc] initWithTitle:@"很抱歉。。。" message:@"数据中暂时没有数据，敬请期待下一版本" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancle", nil];
 }
+
+- (void)goBackSideTV
+{
+    NSLog(@"返回");
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+//    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
+}
+
+- (void)getSearchDate
+{
+    NSLog(@"********************************%@", self.navigationItem.title);
+    
+    if ([self.navigationItem.title isEqualToString:@"日期选择"]) {
+//        [self.navigationItem.rightBarButtonItem setTitle:@"确定"];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:@"YES" forKey:@"isTimeChanged"];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else
+    {
+        
+        JBViewController *JBVC = [[JBViewController alloc] init];
+        [self.navigationController pushViewController:JBVC animated:YES];
+    }
+    
+    
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

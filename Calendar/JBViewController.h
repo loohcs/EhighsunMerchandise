@@ -27,12 +27,14 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+#import "BasicViewController.h"
+
 typedef enum {
     StartDateSelect = 0,  //开始日期
     EndDateSelect = 1,    //截止日期
 } DateTypeSelect;
 
-@interface JBViewController : UIViewController<UIAlertViewDelegate>
+@interface JBViewController : BasicViewController<UIAlertViewDelegate>
 
 @property (nonatomic, assign) DateTypeSelect dateType;
 
