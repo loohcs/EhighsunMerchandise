@@ -84,7 +84,7 @@
 {
     //TODO:根据titleKey我们可以从数据库中得到我们具体需要的各种不同title，比如说在结算的页面，我们传入“结算汇总”，这样我们就可以得到结算汇总页面需要的表头：供应商名次，本期应结，本期销售，上期结余，月末应付，费用累计
     
-    NSString *path = [SQLDataSearch getPlistPath:@"TitleInfo.plist"];
+    NSString *path = [SQLDataSearch getPlistPath:@"TitleInfo" andType:@"plist"];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([fileManager fileExistsAtPath:path]) {

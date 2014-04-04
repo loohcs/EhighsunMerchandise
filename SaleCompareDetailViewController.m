@@ -124,14 +124,14 @@
     float version = [[[UIDevice currentDevice] systemVersion] floatValue];
     if(version >= 7.0)
     {
-        _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"销售客单" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
+        _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"柜组销售分析" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
         CGRect frame = _customTableView.frame;
         frame.origin = CGPointMake(0, 84);
         _customTableView.frame = frame;
     }
     else if (version >= 5.0)
     {
-        _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"销售客单" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-44) andScrollMethod:kScrollMethodWithRight];
+        _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"柜组销售分析" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-44) andScrollMethod:kScrollMethodWithRight];
         CGRect frame = _customTableView.frame;
         frame.origin = CGPointMake(0, 20);
         _customTableView.frame = frame;

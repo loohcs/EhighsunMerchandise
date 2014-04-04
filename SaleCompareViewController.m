@@ -105,14 +105,14 @@
     float version = [[[UIDevice currentDevice] systemVersion] floatValue];
     if(version >= 7.0)
     {
-        _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"销售客单" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
+        _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"销售对比" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
         CGRect frame = _customTableView.frame;
         frame.origin = CGPointMake(0, 84);
         _customTableView.frame = frame;
     }
     else if (version >= 5.0)
     {
-        _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"销售客单" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-44) andScrollMethod:kScrollMethodWithRight];
+        _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"销售对比" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-44) andScrollMethod:kScrollMethodWithRight];
         CGRect frame = _customTableView.frame;
         frame.origin = CGPointMake(0, 20);
         _customTableView.frame = frame;
@@ -169,25 +169,52 @@
 //收到通知的时候要触发的方法
 -(void)didReceiveNotification:(id)sender
 {
-    NSNotification *noti=(NSNotification *)sender;
-    NSDictionary *notiInfo = [noti userInfo];
-    NSLog(@"%@", notiInfo);
-    NSLog(@"------------- 收到通知");
+    [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
     
-    NSString *pageTitleNext = [notiInfo objectForKey:@"pageTitle"];
-    NSString *str = [NSString stringWithString:[notiInfo objectForKey:@"leftTableKey"]];
+    @try {
+        NSNotification *noti=(NSNotification *)sender;
+        NSDictionary *notiInfo = [noti userInfo];
+        NSLog(@"%@", notiInfo);
+        NSLog(@"------------- 收到通知");
+        
+        NSString *pageTitleNext = [notiInfo objectForKey:@"pageTitle"];
+        NSString *str = [NSString stringWithString:[notiInfo objectForKey:@"leftTableKey"]];
+        
+        
+        NSMutableArray *params = [[NSMutableArray alloc] initWithArray:[SQLDataSearch getUsrInfo]];
+        NSDictionary *key = [NSDictionary dictionaryWithObjectsAndKeys:str,@"primaryKey", nil];
+        self.primaryKey = str;
+        [params addObject:key];
+        
+        NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_SaleCompare" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCompareDataDetail" andParams:params andPageTitle:pageTitleNext]];
+        
+        NSDictionary *leftTable = [dic objectForKey:@"leftTable"];
+        if (leftTable.count == 0 ) {
+            [self.alertView setMessage:@"对不起，可能由于服务器原因暂时没有数据，请检查网络后再试！"];
+            [self.alertView show];
+        }
+        else{
+            SaleCompareDetailViewController *saleCompareDetailVC = [[SaleCompareDetailViewController alloc] initWithDataDic:dic andTitle:@"柜组销售分析"];
+            [saleCompareDetailVC getTitleKey:str];
+            [self.navigationController pushViewController:saleCompareDetailVC animated:YES];
+        }
+    }
+    @catch (NSException *exception) {
+        [self.alertView setMessage:@"对不起，暂时没有数据，请检查网络后再试！"];
+        [self.alertView show];
+    }
+    @finally {
+        
+    }
     
     
-    NSMutableArray *params = [[NSMutableArray alloc] initWithArray:[SQLDataSearch getUsrInfo]];
-    NSDictionary *key = [NSDictionary dictionaryWithObjectsAndKeys:str,@"primaryKey", nil];
-    self.primaryKey = str;
-    [params addObject:key];
+    [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
     
-    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_SaleCompare" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCompareDataDetail" andParams:params andPageTitle:pageTitleNext]];
     
-    SaleCompareDetailViewController *saleCompareDetailVC = [[SaleCompareDetailViewController alloc] initWithDataDic:dic andTitle:@"柜组销售分析"];
-    [saleCompareDetailVC getTitleKey:str];
-    [self.navigationController pushViewController:saleCompareDetailVC animated:YES];
+    
+    
+    
+    
 }
 
 #pragma mark -- 按钮的响应动作

@@ -228,6 +228,8 @@
         
 //        [successAlertView show];
         
+        
+        
         //TODO: 验证用户名与密码，如果成功则请求基础数据，否则提示输入错误
         if (self.isRememberPassward == YES) {
             //TODO: 进入记住密码状态，则需要将用户名与密码记录在本地数据中，方便下次登录
@@ -258,29 +260,44 @@
 //         NSString* xml=[result.xmlString stringByReplacingOccurrencesOfString:result.xmlnsAttr withString:@""];
 //         [result.xmlParse setDataSource:xml];
 //         ****/
-//        
-//        ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_ManaFrame" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetManaFrameData" andParams:Nil];
-//        ServiceResult *result=[ServiceHelper syncService:args];
-//        //    ServiceResult *result=[ServiceHelper syncMethodName:@"TestConnectOracle"];
-//        NSLog(@"同步请求xml=%@\n",result);
-//        NSLog(@"----------同步请求xml=%@\n",result.xmlString);
-//        NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//ManaFrameData"];
-//        NSLog(@"解析xml结果=%@\n",arr);
-//        [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+//
+        NSMutableArray *params = [[NSMutableArray alloc] init];
+        [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"VYbSBDuFOPVd",@"primaryUserKey", nil]];
+        ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_ManaFrame" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetManaFrameData" andParams:params];
+        NSLog(@"%@", args.soapMessage);
+        ServiceResult *result=[ServiceHelper syncService:args];
+        NSLog(@"同步请求xml=%@\n",result);
+        NSLog(@"----------同步请求xml=%@\n",result.xmlString);
+        NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//ManaFrameData"];
+        NSLog(@"解析xml结果=%@\n",arr);
+        
+        NSDictionary *dic = [DBDataHelper getChineseName:arr];
+        NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射" andType:@"plist"];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if ([fileManager fileExistsAtPath:path]) {
+            [dic writeToFile:path atomically:YES];
+        }
+        else {
+            [fileManager createFileAtPath:path contents:nil attributes:Nil];
+            [dic writeToFile:path atomically:YES];
+        }
+       //NSLog(@"%@", dic);
+        
+        [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
         
         
         
     }
     else
     {
-//        UIAlertView *failAlertView = [[UIAlertView alloc] initWithTitle:@"登录失败" message:@"您的密码输入错误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-//        [failAlertView show];
-//        failAlertView.tag = 200;
+        UIAlertView *failAlertView = [[UIAlertView alloc] initWithTitle:@"登录失败" message:@"您的用户名或密码输入错误，请检查之后重新登入" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [failAlertView show];
+        failAlertView.tag = 200;
         
         
-        MemberAnalyseViewController *memberVC = [[MemberAnalyseViewController alloc] init];
-        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:memberVC];
-        [self presentViewController:navi animated:YES completion:Nil];
+//        MemberAnalyseViewController *memberVC = [[MemberAnalyseViewController alloc] init];
+//        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:memberVC];
+//        [self presentViewController:navi animated:YES completion:Nil];
     }
 }
 

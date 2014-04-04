@@ -79,19 +79,12 @@
     JBCalendarDate *JBCalDate = [JBCalendarDate dateFromNSDate:[NSDate date]];
     NSLog(@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day);
     
-    //  Example 1.1:
-    self.unitView = [[JBUnitView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) UnitType:UnitTypeMonth SelectedDate:[NSDate date] AlignmentRule:JBAlignmentRuleTop Delegate:self DataSource:self];
-    self.unitView.backgroundColor = [UIColor grayColor];
-    [self.view addSubview:self.unitView];
-    
-
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     
-    
     //开始日期
-    UIImageView *startImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, self.unitView.bounds.size.height+80, 300, 40)];
+    UIImageView *startImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, SCREEN_HEIGHT-180, 300, 40)];
     UIImage *startImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"startTime" ofType:@"png"]];
     startImageView.image = startImage;
     startImageView.userInteractionEnabled = YES;
@@ -129,7 +122,7 @@
     
     
     //截止日期
-    UIImageView *endImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, self.unitView.bounds.size.height+120, 300, 40)];
+    UIImageView *endImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, SCREEN_HEIGHT-140, 300, 40)];
     UIImage *endImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"endTime" ofType:@"png"]];
     endImageView.image = endImage;
     endImageView.userInteractionEnabled = YES;
@@ -158,19 +151,11 @@
     [endImageView addSubview:_endTimeLabel];
     [self.view addSubview:endImageView];
     
+    //  Example 1.1:
+    self.unitView = [[JBUnitView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) UnitType:UnitTypeMonth SelectedDate:[NSDate date] AlignmentRule:JBAlignmentRuleTop Delegate:self DataSource:self];
+    self.unitView.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:self.unitView];
 
-    float version = [[[UIDevice currentDevice] systemVersion] floatValue];
-    if(version >= 7.0){
-        
-        
-    }else if (version >= 5.0) {
-        startImageView.frame = CGRectMake(10, self.unitView.bounds.size.height+24, 300, 40);
-        endImageView.frame = CGRectMake(10, self.unitView.bounds.size.height+64, 300, 40);
-        
-    }else{
-        //调用这个方法，就会异步去调用DrawRac方法
-        
-    }
     
 }
 
@@ -200,7 +185,7 @@
 #pragma mark - Class Extensions
 - (void)selectorForButton
 {
-    [self.unitView selectDate:[NSDate date]];
+//    [self.unitView selectDate:[NSDate date]];
 }
 
 #pragma mark -
@@ -392,71 +377,71 @@
 - (void)unitView:(JBUnitView *)unitView SelectedDate:(NSDate *)date
 {
     JBCalendarDate *JBCalDate = [JBCalendarDate dateFromNSDate:date];
-    
     NSLog(@"JBCalDate: %@", JBCalDate);
 
-    NSDate *today = [NSDate date];
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"YYYY-MM-dd"];
+//    NSDate *startTime = [formatter dateFromString:_startTimeLabel.text];
+//    NSDate *endTime = [formatter dateFromString:_endTimeLabel.text];
+//    NSLog(@"%@", endTime);
+//    NSLog(@"--%@", _startTimeLabel.text);
     
-    NSDate *earlierDay = [date earlierDate:today];
+    NSArray *startTimeArr = [[NSArray alloc] initWithArray:[_startTimeLabel.text componentsSeparatedByString:@"-"]];
+    NSLog(@"startTimeArr:%@", startTimeArr);
     
-    NSDate *laterDay = [date laterDate:today];
+    NSArray *endTimeArr = [[NSArray alloc] initWithArray:[_endTimeLabel.text componentsSeparatedByString:@"-"]];
+    NSLog(@"endTimeArr:%@", endTimeArr);
     
-    NSLog(@"earlierDay: %@", earlierDay);
+    JBCalendarDate *JBCalEndTime = [JBCalendarDate dateWithYear:[[endTimeArr objectAtIndex:0] integerValue]
+                                                          Month:[[endTimeArr objectAtIndex:1] integerValue]
+                                                            Day:[[endTimeArr objectAtIndex:2] integerValue]];
+    NSLog(@"EndTime:%@", JBCalEndTime);
+    JBCalendarDate *JBCalStartTime = [JBCalendarDate dateWithYear:[[startTimeArr objectAtIndex:0] integerValue]
+                                                            Month:[[startTimeArr objectAtIndex:1] integerValue]
+                                                              Day:[[startTimeArr objectAtIndex:2] integerValue]];
+    NSLog(@"StartTime:%@", JBCalStartTime);
     
-    NSLog(@"laterDay: %@", laterDay);
+//    JBCalendarDate *JBCalEndTime = [JBCalendarDate dateFromNSDate:endTime];
+//    NSLog(@"EndTime:%@", JBCalEndTime);
+//    JBCalendarDate *JBCalStartTime = [JBCalendarDate dateFromNSDate:startTime];
+//    NSLog(@"StartTime:%@", JBCalStartTime);
     
-    NSLog(@"select date:%@", date);
-    
-    NSLog(@"today: %@", today);
-    
-    
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"YYYY-MM-dd"];
-    NSDate *startTime = [formatter dateFromString:_startTimeLabel.text];
-    NSDate *endTime = [formatter dateFromString:_endTimeLabel.text];
+    if ([JBCalDate compare:JBCalEndTime] == NSOrderedSame) {
+        
+    }
     
 //    NSDate *isEndTime = [date laterDate:endTime];
     
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
     //TODO: 加入日期判断，使截止日期大于初始日期，且小于今天
     if (_dateType == StartDateSelect) {
-        if ([earlierDay isEqualToDate:date]) {
-//            NSLog(@"%d", date.day);
-//            
-//            if (date.day <= endTime.day) {
-//                _startTimeLabel.text = [NSString stringWithFormat:@"%lu-%lu-%lu", (unsigned long)date.year, (unsigned long)date.month, (unsigned long)date.day];
-//            }
+        
+        
+        if ([JBCalDate compare:JBCalEndTime] == NSOrderedAscending || [JBCalDate compare:JBCalEndTime] == NSOrderedSame) {
             
-            float version = [[[UIDevice currentDevice] systemVersion] floatValue];
-            if(version >= 7.0){
-                
-                if ([date isEqualToDate:[date earlierDate:endTime]]) {
-                    _startTimeLabel.text = [NSString stringWithFormat:@"%lu-%lu-%lu", (unsigned long)date.year, (unsigned long)date.month, (unsigned long)date.day];
-                }
-                
-            }else if (version >= 5.0) {
-                if ([date isEqualToDate:[date laterDate:endTime]]) {
-                    _startTimeLabel.text = [NSString stringWithFormat:@"%lu-%lu-%lu", (unsigned long)date.year, (unsigned long)date.month, (unsigned long)date.day];
-                }
-            }else{
-                
-            }
+#warning -- mark 
             
             
-            NSLog(@"------startTime------%@", _startTimeLabel.text);
-            NSLog(@"-------date-------%@", date);
+            
+            _startTimeLabel.text = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
+            [defaults setObject:_startTimeLabel.text forKey:@"startTime"];
         }
         
-        NSLog(@"+++++++++%@", _startTimeLabel.text);
+        NSLog(@"-----startTime-------%@", _startTimeLabel.text);
+        NSLog(@"--------date------%@", JBCalDate);
+        
     }
     else if (_dateType == EndDateSelect)
     {
-        if ([earlierDay isEqualToDate:date]&&[date isEqualToDate:[date laterDate:startTime]]) {
-            _endTimeLabel.text = [NSString stringWithFormat:@"%lu-%lu-%lu", (unsigned long)date.year, (unsigned long)date.month, (unsigned long)date.day];
+        if ([JBCalDate compare:JBCalStartTime] == NSOrderedDescending && ([JBCalDate compare:[JBCalendarDate dateFromNSDate:[NSDate date]]] == NSOrderedAscending || [JBCalDate compare:[JBCalendarDate dateFromNSDate:[NSDate date]]] == NSOrderedSame)) {
+            _endTimeLabel.text = [NSString stringWithFormat:@"%lu-%lu-%lu", (unsigned long)JBCalDate.year, (unsigned long)JBCalDate.month, (unsigned long)JBCalDate.day];
+            
+            [defaults setObject:_endTimeLabel.text forKey:@"endTime"];
             
             NSLog(@"-----endTime-------%@", _endTimeLabel.text);
-            NSLog(@"--------date------%@", date);
+            NSLog(@"--------date------%@", JBCalDate);
         }
         
     }

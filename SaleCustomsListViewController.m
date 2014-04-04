@@ -42,28 +42,49 @@
     
     if ([isTimeChanged isEqualToString:@"YES"]) {
         [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
-        NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
-        
-        NSLog(@"%@", params);
         
         
-        NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_SaleCustomsList" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCustomsListData" andParams:params andPageTitle:@"销售客单"]];
-        [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
-        
-        self.dataDic = dic;
-        self.pageTitle = @"销售客单";
-        
-        [_customTableView changeDataWithNewTime:dic];
-        
-        _customTableView.sumDataDic = [DBDataHelper getSumNum:dic];
-        
-        [_customTableView.leftTableView reloadData];
-        [_customTableView.rightTableView reloadData];
-        [_customTableView.sumTableView reloadData];
-        
-        [self.view reloadInputViews];
-        
-        [defaults setObject:@"NO" forKey:@"isTimeChanged"];
+        @try {
+            NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
+            
+            NSLog(@"%@", params);
+            
+            
+            NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_SaleCustomsList" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCustomsListData" andParams:params andPageTitle:@"销售客单"]];
+            
+            [defaults setObject:@"NO" forKey:@"isTimeChanged"];
+            NSDictionary *leftTable = [dic objectForKey:@"leftTable"];
+            if (leftTable.count == 0 ) {
+                [self.alertView setMessage:@"对不起，可能由于服务器原因暂时没有数据，请检查网络后再试！"];
+                [self.alertView show];
+            }
+            else{
+                
+                self.dataDic = dic;
+                self.pageTitle = @"销售客单";
+                
+                [_customTableView changeDataWithNewTime:dic];
+                
+                _customTableView.sumDataDic = [DBDataHelper getSumNum:dic];
+                
+                [_customTableView.leftTableView reloadData];
+                [_customTableView.rightTableView reloadData];
+                [_customTableView.sumTableView reloadData];
+                
+                [self.view reloadInputViews];
+                
+            }
+            
+            
+            [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+        }
+        @catch (NSException *exception) {
+            [self.alertView setMessage:@"对不起，可能由于服务器原因暂时没有数据，请检查网络后再试！"];
+            [self.alertView show];
+        }
+        @finally {
+            
+        }
     }
 }
 

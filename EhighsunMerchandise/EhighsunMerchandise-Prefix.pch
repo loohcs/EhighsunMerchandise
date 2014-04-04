@@ -39,9 +39,15 @@
 //#define DefaultWebServiceBaseUrl  @"http://192.168.2.217:8200/WebServices"
 //#define DefaultWebServiceNamespace @"http://192.168.2.217:8200/WebServices"
 
+//#define DefaultWebServiceBaseUrl  @"http://192.168.2.217:8201/WebServices"
+//#define DefaultWebServiceNamespace @"http://192.168.2.217:8201/WebServices"
+
 ////发布出去的公网地址
 #define DefaultWebServiceBaseUrl  @"http://dsp.hiooy.com:8200/WebServices"
 #define DefaultWebServiceNamespace @"http://dsp.hiooy.com:8200/WebServices"
+
+//#define DefaultWebServiceBaseUrl  @"http://dsp.hiooy.com:8201/WebServices"
+//#define DefaultWebServiceNamespace @"http://dsp.hiooy.com:8201/WebServices"
 
 #import "PPRevealSideViewController.h"//侧滑型tabBar
 #import "SideTableViewController.h"//侧边栏的tableView

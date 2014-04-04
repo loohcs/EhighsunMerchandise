@@ -103,8 +103,12 @@
     if (other) {
         if (self.year == other.year && self.month == other.month && self.day == other.day) {
             return NSOrderedSame;
-        } else if (self.year < other.year || self.month < other.month || self.day < other.day) {
+        } else if (self.year < other.year || (self.year == other.year && self.month < other.month) || (self.year == other.year && self.month == other.month && self.day < other.day)) {
             return NSOrderedAscending;
+        }
+        else if(self.year > other.year ||(self.year == other.year || self.month > other.month) || (self.year == other.year && self.month == other.month && self.day))
+        {
+            return  NSOrderedDescending;
         }
     }
     

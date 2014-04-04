@@ -173,11 +173,11 @@
             [self.delegate tappedInNextUnitOnUnitTileView:self];
         }
     } else {
-        if (!self.selected) {
-            if ([self.delegate respondsToSelector:@selector(tappedInSelectedUnitOnUnitTileView:)]) {
-                [self.delegate tappedInSelectedUnitOnUnitTileView:self];
-            }
+        
+        if ([self.delegate respondsToSelector:@selector(tappedInSelectedUnitOnUnitTileView:)]) {
+            [self.delegate tappedInSelectedUnitOnUnitTileView:self];
         }
+        
         
         [self tappedOnUnitTileView];
     }

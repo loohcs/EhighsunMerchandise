@@ -501,7 +501,6 @@
     if ([tableView isEqual:_leftTableView]) {
         
         //TODO: 实现在点击左边表单的单行表格时，需要执行跳转的页面
-        NSLog(@"选择了左边的表单第%d行", indexPath.row + 1);
         
         [self.rightTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
         
@@ -529,6 +528,10 @@
     else if([tableView isEqual:_headTableView])
     {
         [self.headTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
+    else if ([tableView isEqual:_sumTableView])
+    {
+        
     }
     
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];

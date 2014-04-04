@@ -143,6 +143,10 @@
             break;
     }
     
+    if (chinese == nil) {
+        NSLog(@"------------");
+    }
+    
     return chinese;
 }
 
@@ -234,7 +238,7 @@
     //获取所需要排序的关键字对应的值
     NSString *tempStr = [tempDic objectForKey:key];
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    formatter.numberStyle = NSNumberFormatterNoStyle;
+    formatter.numberStyle = NSNumberFormatterDecimalStyle;
     NSNumber *num = [formatter numberFromString:tempStr];
     float tempFloat = [num floatValue];
            

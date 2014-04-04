@@ -76,6 +76,7 @@
 		7526EE3918D94217004E4980 /* weekdaysBarView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7526EE1F18D94217004E4980 /* weekdaysBarView@2x.png */; };
 		7526EE3A18D94217004E4980 /* DateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7526EE2118D94217004E4980 /* DateHelper.m */; };
 		7526EE3B18D94217004E4980 /* DeleteImageINBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7526EE2318D94217004E4980 /* DeleteImageINBundle.m */; };
+		75376E4E18ED717C004148C3 /* 店名中文映射.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75376E4D18ED717C004148C3 /* 店名中文映射.plist */; };
 		754BE18918A5D4C00023F4E4 /* UncaughtExceptionHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 754BE18818A5D4C00023F4E4 /* UncaughtExceptionHandler.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		754BE18F18A6255E0023F4E4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 754BE18E18A6255E0023F4E4 /* SystemConfiguration.framework */; };
 		755B068418E4CED50000F37A /* highsun2.png in Resources */ = {isa = PBXBuildFile; fileRef = 755B068318E4CED50000F37A /* highsun2.png */; };
@@ -157,7 +158,6 @@
 		75D48A0318DF6B1600340568 /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 75D489FE18DF6B1600340568 /* Icon-76.png */; };
 		75D48A0418DF6B1600340568 /* Icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75D489FF18DF6B1600340568 /* Icon-76@2x.png */; };
 		75D48A0718DF6DEF00340568 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75D48A0618DF6DEF00340568 /* AudioToolbox.framework */; };
-		75D48A0B18DFCBD100340568 /* 店名中文映射.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75D48A0918DFCBD100340568 /* 店名中文映射.plist */; };
 		75D48A0C18DFCBD100340568 /* TitleInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 75D48A0A18DFCBD100340568 /* TitleInfo.plist */; };
 /* End PBXBuildFile section */
 
@@ -264,6 +264,7 @@
 		7526EE2118D94217004E4980 /* DateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateHelper.m; sourceTree = "<group>"; };
 		7526EE2218D94217004E4980 /* DeleteImageINBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteImageINBundle.h; sourceTree = "<group>"; };
 		7526EE2318D94217004E4980 /* DeleteImageINBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteImageINBundle.m; sourceTree = "<group>"; };
+		75376E4D18ED717C004148C3 /* 店名中文映射.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "店名中文映射.plist"; sourceTree = "<group>"; };
 		754BE18718A5D4C00023F4E4 /* UncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UncaughtExceptionHandler.h; sourceTree = "<group>"; };
 		754BE18818A5D4C00023F4E4 /* UncaughtExceptionHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UncaughtExceptionHandler.mm; sourceTree = "<group>"; };
 		754BE18E18A6255E0023F4E4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -395,7 +396,6 @@
 		75D489FF18DF6B1600340568 /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76@2x.png"; sourceTree = "<group>"; };
 		75D48A0618DF6DEF00340568 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		75D48A0818DF6DEF00340568 /* EhighsunMerchandise.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = EhighsunMerchandise.entitlements; sourceTree = "<group>"; };
-		75D48A0918DFCBD100340568 /* 店名中文映射.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "店名中文映射.plist"; sourceTree = "<group>"; };
 		75D48A0A18DFCBD100340568 /* TitleInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TitleInfo.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -748,8 +748,8 @@
 		75A4C455188FCC3D0083C8AC = {
 			isa = PBXGroup;
 			children = (
+				75376E4D18ED717C004148C3 /* 店名中文映射.plist */,
 				75064D6818E3C4B5008DA0F3 /* pngResource */,
-				75D48A0918DFCBD100340568 /* 店名中文映射.plist */,
 				75D48A0A18DFCBD100340568 /* TitleInfo.plist */,
 				75D489D918DBED0500340568 /* ico_png */,
 				7513FDDB18D9986600BDAE8D /* 动画辅助 */,
@@ -1144,6 +1144,7 @@
 				75A4C474188FCC3D0083C8AC /* Images.xcassets in Resources */,
 				75064DB818E41165008DA0F3 /* saleComp.png in Resources */,
 				75064D9B18E4101E008DA0F3 /* 销售对比.jpg in Resources */,
+				75376E4E18ED717C004148C3 /* 店名中文映射.plist in Resources */,
 				75064DB318E41165008DA0F3 /* saleCusList1.png in Resources */,
 				75BEAB0D18E1128200C2F0B0 /* ico2.png in Resources */,
 				75064DB418E41165008DA0F3 /* saleCusList.png in Resources */,
@@ -1181,7 +1182,6 @@
 				7526EE2518D94217004E4980 /* blueArrow@2x.png in Resources */,
 				75BEAB1018E114C500C2F0B0 /* Icon-120.png in Resources */,
 				75D489E618DBED0500340568 /* ico1.png in Resources */,
-				75D48A0B18DFCBD100340568 /* 店名中文映射.plist in Resources */,
 				75BEAB1318E11BD900C2F0B0 /* Icon@2x.png in Resources */,
 				75064D9818E4101E008DA0F3 /* rightTableCell.png in Resources */,
 				7526EE2418D94217004E4980 /* blueArrow.png in Resources */,
@@ -1335,7 +1335,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: CHUNXIAO Qi (CFTD85GCN5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: CHUNXIAO Qi (CFTD85GCN5)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1353,6 +1354,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "BD4DCB25-84AC-473F-B7C7-C3BA83EFC682";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1375,7 +1377,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: CHUNXIAO Qi (CFTD85GCN5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: CHUNXIAO Qi (CFTD85GCN5)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1386,6 +1389,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PROVISIONING_PROFILE = "BD4DCB25-84AC-473F-B7C7-C3BA83EFC682";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1397,9 +1401,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = EhighsunMerchandise/EhighsunMerchandise.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: CHUNXIAO Qi (CFTD85GCN5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: CHUNXIAO Qi (CFTD85GCN5)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EhighsunMerchandise/EhighsunMerchandise-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -1410,7 +1414,7 @@
 				INFOPLIST_FILE = "EhighsunMerchandise/EhighsunMerchandise-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5909F4AB-BFFB-4CD6-B592-70EEAC7D2656";
+				PROVISIONING_PROFILE = "BD4DCB25-84AC-473F-B7C7-C3BA83EFC682";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;
@@ -1422,9 +1426,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_ENTITLEMENTS = EhighsunMerchandise/EhighsunMerchandise.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: CHUNXIAO Qi (5ZXT7L39U6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: CHUNXIAO Qi (5ZXT7L39U6)";
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: CHUNXIAO Qi (CFTD85GCN5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: CHUNXIAO Qi (CFTD85GCN5)";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "EhighsunMerchandise/EhighsunMerchandise-Prefix.pch";
@@ -1436,7 +1440,7 @@
 				INFOPLIST_FILE = "EhighsunMerchandise/EhighsunMerchandise-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5909F4AB-BFFB-4CD6-B592-70EEAC7D2656";
+				PROVISIONING_PROFILE = "BD4DCB25-84AC-473F-B7C7-C3BA83EFC682";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = NO;
 				WRAPPER_EXTENSION = app;

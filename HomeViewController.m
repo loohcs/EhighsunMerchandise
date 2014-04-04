@@ -309,27 +309,70 @@ static bool isLogin = NO;
 {
     [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
     
-    NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
+    @try {
+        NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
+        
+        NSDictionary *dic = [SQLDataSearch SyncGetDataWith:@"WS_SaleCustomsList" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCustomsListData" andParams:params andPageTitle:@"销售客单"];
+        [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+        
+        NSDictionary *leftTable = [dic objectForKey:@"leftTable"];
+        if (leftTable.count == 0 ) {
+            [self.alertView setMessage:@"对不起，可能由于服务器原因暂时没有数据，请检查网络后再试！"];
+            [self.alertView show];
+        }
+        else{
+            SaleCustomsListViewController *saleCustomsVC = [[SaleCustomsListViewController alloc] initWithDataDic:dic andTitle:@"销售客单"];
+            [self.navigationController pushViewController:saleCustomsVC animated:YES];
+            [saleCustomsVC release];
+
+        }
+        
+        
+        [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+    }
+    @catch (NSException *exception) {
+        [self.alertView setMessage:@"对不起，可能由于服务器原因暂时没有数据，请检查网络后再试！"];
+        [self.alertView show];
+    }
+    @finally {
+        
+    }
     
-    NSDictionary *dic = [SQLDataSearch SyncGetDataWith:@"WS_SaleCustomsList" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCustomsListData" andParams:params andPageTitle:@"销售客单"];
-    [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
     
-    SaleCustomsListViewController *saleCustomsVC = [[SaleCustomsListViewController alloc] initWithDataDic:dic andTitle:@"销售客单"];
-    [self.navigationController pushViewController:saleCustomsVC animated:YES];
-    [saleCustomsVC release];
 }
 
 - (void)saleCompareVCAction
 {
     [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
-    NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
     
-    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_SaleCompare" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCompareData" andParams:params andPageTitle:@"销售对比"]];
+    @try {
+        NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
+        
+        NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_SaleCompare" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCompareData" andParams:params andPageTitle:@"销售对比"]];
+        
+        NSDictionary *leftTable = [dic objectForKey:@"leftTable"];
+        if (leftTable.count == 0 ) {
+            [self.alertView setMessage:@"对不起，可能由于服务器原因暂时没有数据，请检查网络后再试！"];
+            [self.alertView show];
+        }
+        else{
+            SaleCompareViewController *saleCompareVC = [[SaleCompareViewController alloc] initWithDataDic:dic andTitle:@"销售对比"];
+            [self.navigationController pushViewController:saleCompareVC animated:YES];
+            [saleCompareVC release];
+        }
+            }
+    @catch (NSException *exception) {
+        [self.alertView setMessage:@"对不起，暂时没有数据，请检查网络后再试！"];
+        [self.alertView show];
+    }
+    @finally {
+        
+    }
+    
+    
     [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+
     
-    SaleCompareViewController *saleCompareVC = [[SaleCompareViewController alloc] initWithDataDic:dic andTitle:@"销售对比"];
-    [self.navigationController pushViewController:saleCompareVC animated:YES];
-    [saleCompareVC release];
 }
 
 - (void)initWithTableView

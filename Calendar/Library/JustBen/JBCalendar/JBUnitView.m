@@ -182,7 +182,7 @@
  **************************************************************/
 - (void)selectDate:(NSDate *)date
 {    
-    if (![date sameDayWithDate:self.selectedDate]) {
+//    if (![date sameDayWithDate:self.selectedDate]) {
         self.selectedDate = date;
         
         NSDate *previousUnitDate;
@@ -220,7 +220,7 @@
                 }
             });
         }];
-    }
+//    }
 }
 
 /**************************************************************
