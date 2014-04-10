@@ -229,11 +229,11 @@
 //        [successAlertView show];
         
         
-        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         //TODO: 验证用户名与密码，如果成功则请求基础数据，否则提示输入错误
         if (self.isRememberPassward == YES) {
             //TODO: 进入记住密码状态，则需要将用户名与密码记录在本地数据中，方便下次登录
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            
             if ([[defaults objectForKey:@"isRememberPassward"] isEqualToString:@"YES"]) {
                 [defaults setObject:_nameText.text forKey:@"userID"];
                 [defaults setObject:_passwardText.text forKey:@"passward"];
@@ -245,13 +245,23 @@
 //                [defaults setObject:date forKey:@"endTime"];
                 
             }
+            
         }
+        
+#warning --mark 记录关键字，方便后面页面的数据请求
+        [defaults setObject:@"VYbSBDuFOPVd" forKey:@"primaryUserKey"];
         
         HomeViewController *homeVC = [[HomeViewController alloc] init];
         UINavigationController *homeNavi = [[UINavigationController alloc] initWithRootViewController:homeVC];
-        PPRevealSideViewController *revealSideVC = [[PPRevealSideViewController alloc] initWithRootViewController:homeNavi];
-        [self presentViewController:revealSideVC animated:YES completion:nil];
+        
+        //TODO: 加入侧滑栏
+//        PPRevealSideViewController *revealSideVC = [[PPRevealSideViewController alloc] initWithRootViewController:homeNavi];
+//        [self presentViewController:revealSideVC animated:YES completion:nil];
+        
+        //取消侧滑栏
+        [self presentViewController:homeNavi animated:YES completion:nil];
 
+        
         //跳转到主页，主要显示操作按钮，不需要请求数据
         /**(2)调用无参数的webservice**/
 //        [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
@@ -272,7 +282,11 @@
         NSLog(@"解析xml结果=%@\n",arr);
         
         NSDictionary *dic = [DBDataHelper getChineseName:arr];
-        NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射" andType:@"plist"];
+        
+        //在document文件里面
+        NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射.plist"];
+        
+//        NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射" andType:@"plist"];
         NSFileManager *fileManager = [NSFileManager defaultManager];
         if ([fileManager fileExistsAtPath:path]) {
             [dic writeToFile:path atomically:YES];

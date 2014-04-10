@@ -34,6 +34,7 @@
         [_successView release],_successView=nil;
     }
 }
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -42,6 +43,8 @@
     }
     return self;
 }
+
+
 - (void)viewDidLoad
 {
     
@@ -106,6 +109,7 @@
     [rightBtn addTarget:self action:@selector(getSearchDate) forControlEvents:UIControlEventTouchUpInside];
     [rightBtn setBackgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"date" ofType:@"png"]] forState:UIControlStateNormal];
     UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+    
     self.navigationItem.rightBarButtonItem = rightBarBtn;
     
     _alertView = [[UIAlertView alloc] initWithTitle:@"很抱歉。。。" message:@"数据中暂时没有数据，敬请期待下一版本" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancle", nil];
@@ -115,9 +119,19 @@
 {
     NSLog(@"返回");
     
-    [self.navigationController popViewControllerAnimated:YES];
+
     
-//    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
+    if ([self.navigationItem.title isEqualToString:@"海印百货通"]) {
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        [self presentViewController:loginVC animated:YES completion:nil];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        //    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
+    }
+    
 }
 
 - (void)getSearchDate
@@ -125,7 +139,8 @@
     NSLog(@"********************************%@", self.navigationItem.title);
     
     if ([self.navigationItem.title isEqualToString:@"日期选择"]) {
-//        [self.navigationItem.rightBarButtonItem setTitle:@"确定"];
+        //[_rightItemBtn setTitle:@"确定"];
+        //self.navigationItem.rightBarButtonItem = _rightItemBtn;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:@"YES" forKey:@"isTimeChanged"];
         

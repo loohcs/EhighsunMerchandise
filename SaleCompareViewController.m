@@ -107,13 +107,15 @@
     {
         _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"销售对比" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
         CGRect frame = _customTableView.frame;
-        frame.origin = CGPointMake(0, 84);
+        //在IOS7中视图的初始位置是在屏幕的左上角，因此需要下移20（状态栏）+44（导航栏）+20（表头，因为要旋转所以需要下移）+20（空出来预留给时间，搜索栏）
+        frame.origin = CGPointMake(0, 20+44+20);
         _customTableView.frame = frame;
     }
     else if (version >= 5.0)
     {
         _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"销售对比" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-44) andScrollMethod:kScrollMethodWithRight];
         CGRect frame = _customTableView.frame;
+        //在IOS5，IOS6中视图的初始位置是在屏幕的导航栏下面，因此只需要下移20（表头，因为要旋转所以需要下移）+20（空出来预留给时间，搜索栏）
         frame.origin = CGPointMake(0, 20);
         _customTableView.frame = frame;
         

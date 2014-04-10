@@ -153,10 +153,10 @@
 + (NSString *)getChineseWithKey:(NSString *)key andSecondKey:(NSString *)secKey andThirdKey:(NSString *)thirKey
 {
     //获取document文件夹中文件路径
-//    NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射.plist"];
+    NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射.plist"];
     
     //获取沙盒中文件路径
-    NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射" andType:@"plist"];
+//    NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射" andType:@"plist"];
     
     NSDictionary *dic = [NSDictionary dictionaryWithContentsOfFile:path];
     

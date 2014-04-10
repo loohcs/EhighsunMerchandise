@@ -48,11 +48,15 @@
 
 static bool isLogin = NO;
 
-
+//在第一次打开程序的时候，我们需要进入登陆页面
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    if (!isLogin) {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *isAutoLog = [defaults objectForKey:@"isAutoLogIn"];
+    
+    if (!isLogin && ![isAutoLog isEqualToString:@"YES"]) {
         LoginViewController *loginVC = [[LoginViewController alloc] init];
         [self presentViewController:loginVC animated:NO completion:nil];
         [loginVC release];
@@ -108,14 +112,16 @@ static bool isLogin = NO;
 //    self.navigationItem.rightBarButtonItem = rightBarBtn;
 //    [rightBarBtn release];
  
-    self.revealSideViewController.panInteractionsWhenClosed = PPRevealSideInteractionNavigationBar|PPRevealSideInteractionNone;
     
-    _mySideTV = [[SideTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    [self initWithTableView];
-    
-    //预加载侧边栏
-    [self.revealSideViewController preloadViewController:self.mySideTV forSide:PPRevealSideDirectionTop];
-    [self.revealSideViewController preloadViewController:self.mySideTV forSide:PPRevealSideDirectionLeft];
+    //TODO: 加载侧滑栏
+//    self.revealSideViewController.panInteractionsWhenClosed = PPRevealSideInteractionNavigationBar|PPRevealSideInteractionNone;
+//    
+//    _mySideTV = [[SideTableViewController alloc] initWithStyle:UITableViewStylePlain];
+//    [self initWithTableView];
+//    
+//    //预加载侧边栏
+//    [self.revealSideViewController preloadViewController:self.mySideTV forSide:PPRevealSideDirectionTop];
+//    [self.revealSideViewController preloadViewController:self.mySideTV forSide:PPRevealSideDirectionLeft];
     
     
     
@@ -315,6 +321,7 @@ static bool isLogin = NO;
         NSDictionary *dic = [SQLDataSearch SyncGetDataWith:@"WS_SaleCustomsList" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCustomsListData" andParams:params andPageTitle:@"销售客单"];
         [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
         
+        //当请求回来的数据为空的时候弹出警示栏，避免因为空数据引起的崩溃
         NSDictionary *leftTable = [dic objectForKey:@"leftTable"];
         if (leftTable.count == 0 ) {
             [self.alertView setMessage:@"对不起，可能由于服务器原因暂时没有数据，请检查网络后再试！"];
@@ -350,6 +357,7 @@ static bool isLogin = NO;
         
         NSDictionary *dic = [NSDictionary dictionaryWithDictionary:[SQLDataSearch SyncGetDataWith:@"WS_SaleCompare" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCompareData" andParams:params andPageTitle:@"销售对比"]];
         
+        //当请求回来的数据为空的时候弹出警示栏，避免因为空数据引起的崩溃
         NSDictionary *leftTable = [dic objectForKey:@"leftTable"];
         if (leftTable.count == 0 ) {
             [self.alertView setMessage:@"对不起，可能由于服务器原因暂时没有数据，请检查网络后再试！"];

@@ -198,9 +198,6 @@
 {
     [self.activityView startAnimating];
     
-    rightFlag = 0;
-    middleFlag = 0;
-
 }
 
 //加载
@@ -208,7 +205,6 @@
 {
     [self.activityView startAnimating];
     
-
 }
 
 

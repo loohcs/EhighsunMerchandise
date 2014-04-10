@@ -56,6 +56,18 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBtn.frame = CGRectMake(0, 0, 60, 30);
+    [rightBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(getSearchDate) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn setBackgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"date" ofType:@"png"]] forState:UIControlStateNormal];
+    UIBarButtonItem *rightBarBtn = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+    
+    self.navigationItem.rightBarButtonItem = rightBarBtn;
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [SQLDataSearch getDateStr:_startTimeLabel.text andEndTime:_endTimeLabel.text];
@@ -75,6 +87,7 @@
     [self.view setUserInteractionEnabled:YES];
     
     self.navigationItem.title = @"日期选择";
+    [self.navigationItem.rightBarButtonItem setTitle:@"确定"];
     
     JBCalendarDate *JBCalDate = [JBCalendarDate dateFromNSDate:[NSDate date]];
     NSLog(@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day);
@@ -99,16 +112,23 @@
     _startTimeLabel.backgroundColor = [UIColor clearColor];
     _startTimeLabel.tag = 1000;
     _startTimeLabel.userInteractionEnabled = YES;
-    NSString *startTime = [defaults objectForKey:@"startTime"];
-    if (startTime != Nil) {
-        _startTimeLabel.text = startTime;
-        _startTimeLabel.textColor = [UIColor redColor];
-    }
-    else
-    {
-        _startTimeLabel.text = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
-        [defaults setObject:_startTimeLabel.text forKey:@"startTime"];
-    }
+    
+    //日期页面初始化时显示的是上一次使用结束后的日期
+    //NSString *startTime = [defaults objectForKey:@"startTime"];
+//    if (startTime != Nil) {
+//        _startTimeLabel.text = startTime;
+//        _startTimeLabel.textColor = [UIColor redColor];
+//    }
+//    else
+//    {
+//        _startTimeLabel.text = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
+//        [defaults setObject:_startTimeLabel.text forKey:@"startTime"];
+//    }
+    
+    //日期页面初始化时显示的是当天时间
+    _startTimeLabel.textColor = [UIColor redColor];
+    _startTimeLabel.text = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
+    [defaults setObject:_startTimeLabel.text forKey:@"startTime"];
     
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(getTypeOfDate:)];
     [_startTimeLabel addGestureRecognizer:tapGR];
@@ -137,15 +157,21 @@
     _endTimeLabel.userInteractionEnabled = YES;
     _endTimeLabel.backgroundColor = [UIColor clearColor];
     
-    NSString *endTime = [defaults objectForKey:@"endTime"];
-    if (endTime != Nil) {
-        _endTimeLabel.text = endTime;
-    }
-    else
-    {
-        _endTimeLabel.text = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
-        [defaults setObject:_endTimeLabel.text forKey:@"endTime"];
-    }
+    //日期页面初始化时显示的是上一次使用结束后的日期
+//    NSString *endTime = [defaults objectForKey:@"endTime"];
+//    if (endTime != Nil) {
+//        _endTimeLabel.text = endTime;
+//    }
+//    else
+//    {
+//        _endTimeLabel.text = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
+//        [defaults setObject:_endTimeLabel.text forKey:@"endTime"];
+//    }
+    
+    //日期页面初始化时显示的是当天时间
+    _endTimeLabel.text = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
+    [defaults setObject:_endTimeLabel.text forKey:@"endTime"];
+    
     UITapGestureRecognizer *tapGR2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(getTypeOfDate:)];
     [_endTimeLabel addGestureRecognizer:tapGR2];
     [endImageView addSubview:_endTimeLabel];
@@ -159,21 +185,18 @@
     
 }
 
-//- (void)rightBtnDone
-//{
-//    NSLog(@"%@", _startTimeLabel.text);
-//    NSLog(@"%@", _endTimeLabel.text);
-//    
-//    [SQLDataSearch getDateStr:_startTimeLabel.text andEndTime:_endTimeLabel.text];
-//    
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    [defaults setObject:_startTimeLabel.text forKey:@"startTime"];
-//    [defaults setObject:_endTimeLabel.text forKey:@"endTime"];
-//    [defaults setObject:@"YES" forKey:@"isTimeChanged"];
-//    
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-//    
-//}
+- (void)getSearchDate
+{
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:@"YES" forKey:@"isTimeChanged"];
+    [defaults setObject:_startTimeLabel.text forKey:@"startTime"];
+    [defaults setObject:_endTimeLabel.text forKey:@"endTime"];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -376,15 +399,13 @@
  **************************************************************/
 - (void)unitView:(JBUnitView *)unitView SelectedDate:(NSDate *)date
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
     JBCalendarDate *JBCalDate = [JBCalendarDate dateFromNSDate:date];
     NSLog(@"JBCalDate: %@", JBCalDate);
 
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    [formatter setDateFormat:@"YYYY-MM-dd"];
-//    NSDate *startTime = [formatter dateFromString:_startTimeLabel.text];
-//    NSDate *endTime = [formatter dateFromString:_endTimeLabel.text];
-//    NSLog(@"%@", endTime);
-//    NSLog(@"--%@", _startTimeLabel.text);
+    JBCalendarDate *JBCalTodayDate = [JBCalendarDate dateFromNSDate:[NSDate date]];
+    NSLog(@"Today:%@", JBCalTodayDate);
     
     NSArray *startTimeArr = [[NSArray alloc] initWithArray:[_startTimeLabel.text componentsSeparatedByString:@"-"]];
     NSLog(@"startTimeArr:%@", startTimeArr);
@@ -401,19 +422,15 @@
                                                               Day:[[startTimeArr objectAtIndex:2] integerValue]];
     NSLog(@"StartTime:%@", JBCalStartTime);
     
-//    JBCalendarDate *JBCalEndTime = [JBCalendarDate dateFromNSDate:endTime];
-//    NSLog(@"EndTime:%@", JBCalEndTime);
-//    JBCalendarDate *JBCalStartTime = [JBCalendarDate dateFromNSDate:startTime];
-//    NSLog(@"StartTime:%@", JBCalStartTime);
     
-    if ([JBCalDate compare:JBCalEndTime] == NSOrderedSame) {
-        
-    }
-    
-//    NSDate *isEndTime = [date laterDate:endTime];
-    
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    if ([JBCalDate compare:JBCalTodayDate] == NSOrderedSame) {
+//        _startTimeLabel.text = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
+//        [defaults setObject:_startTimeLabel.text forKey:@"startTime"];
+//        
+//        _endTimeLabel.text = [NSString stringWithFormat:@"%lu-%lu-%lu", (unsigned long)JBCalDate.year, (unsigned long)JBCalDate.month, (unsigned long)JBCalDate.day];
+//        
+//        [defaults setObject:_endTimeLabel.text forKey:@"endTime"];
+//    }
     
     //TODO: 加入日期判断，使截止日期大于初始日期，且小于今天
     if (_dateType == StartDateSelect) {
@@ -421,27 +438,23 @@
         
         if ([JBCalDate compare:JBCalEndTime] == NSOrderedAscending || [JBCalDate compare:JBCalEndTime] == NSOrderedSame) {
             
-#warning -- mark 
-            
-            
-            
             _startTimeLabel.text = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
             [defaults setObject:_startTimeLabel.text forKey:@"startTime"];
         }
         
-        NSLog(@"-----startTime-------%@", _startTimeLabel.text);
-        NSLog(@"--------date------%@", JBCalDate);
+//        NSLog(@"-----startTime-------%@", _startTimeLabel.text);
+//        NSLog(@"--------date------%@", JBCalDate);
         
     }
     else if (_dateType == EndDateSelect)
     {
-        if ([JBCalDate compare:JBCalStartTime] == NSOrderedDescending && ([JBCalDate compare:[JBCalendarDate dateFromNSDate:[NSDate date]]] == NSOrderedAscending || [JBCalDate compare:[JBCalendarDate dateFromNSDate:[NSDate date]]] == NSOrderedSame)) {
+        if (([JBCalDate compare:JBCalStartTime] == NSOrderedDescending || [JBCalDate compare:JBCalStartTime] == NSOrderedSame) && ([JBCalDate compare:[JBCalendarDate dateFromNSDate:[NSDate date]]] == NSOrderedAscending || [JBCalDate compare:[JBCalendarDate dateFromNSDate:[NSDate date]]] == NSOrderedSame)) {
             _endTimeLabel.text = [NSString stringWithFormat:@"%lu-%lu-%lu", (unsigned long)JBCalDate.year, (unsigned long)JBCalDate.month, (unsigned long)JBCalDate.day];
             
             [defaults setObject:_endTimeLabel.text forKey:@"endTime"];
             
-            NSLog(@"-----endTime-------%@", _endTimeLabel.text);
-            NSLog(@"--------date------%@", JBCalDate);
+//            NSLog(@"-----endTime-------%@", _endTimeLabel.text);
+//            NSLog(@"--------date------%@", JBCalDate);
         }
         
     }

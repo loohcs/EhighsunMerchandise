@@ -407,13 +407,21 @@
 #pragma mark - Settor
 - (void)setSelectedDate:(NSDate *)selectedDate
 {
-    if (selectedDate && ![selectedDate isEqualToDate:_selectedDate]) {
+    if (selectedDate) {
         _selectedDate = selectedDate;
         
         if ([self.dataSource respondsToSelector:@selector(unitView:SelectedDate:)]) {
             [self.dataSource unitView:self SelectedDate:_selectedDate];
         }
     }
+    
+//    if (selectedDate && ![selectedDate isEqualToDate:_selectedDate]) {
+//        _selectedDate = selectedDate;
+//        
+//        if ([self.dataSource respondsToSelector:@selector(unitView:SelectedDate:)]) {
+//            [self.dataSource unitView:self SelectedDate:_selectedDate];
+//        }
+//    }
 }
 
 
