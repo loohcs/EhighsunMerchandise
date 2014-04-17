@@ -261,7 +261,7 @@
     NSDictionary *leftData = [_dataDic objectForKey:@"leftTable"];
     NSMutableArray *leftDataArr = [NSMutableArray arrayWithArray:[leftData allKeys]];
     
-    NSArray *sortArr = [DBDataHelper QuickSort:_dataDic andKeyArr:leftDataArr andSortKey:key StartIndex:0 EndIndex:leftDataArr.count-1];
+    NSArray *sortArr = [DBDataHelper QuickSort:_dataDic andKeyArr:leftDataArr andSortType:numBigToSmall andSortKey:key StartIndex:0 EndIndex:leftDataArr.count-1];
     [_customTableView changeDataWithSortArr:sortArr];
     [_customTableView.leftTableView reloadData];
     [_customTableView.rightTableView reloadData];

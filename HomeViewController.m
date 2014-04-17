@@ -56,14 +56,7 @@ static bool isLogin = NO;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *isAutoLog = [defaults objectForKey:@"isAutoLogIn"];
     
-    if (!isLogin && ![isAutoLog isEqualToString:@"YES"]) {
-        LoginViewController *loginVC = [[LoginViewController alloc] init];
-        [self presentViewController:loginVC animated:NO completion:nil];
-        [loginVC release];
-        isLogin = YES;
-    }
-    else
-    {
+    if ([isAutoLog isEqualToString:@"YES"]) {
         //网络监测
         AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         if(appDlg.isReachable)
@@ -74,6 +67,15 @@ static bool isLogin = NO;
         {
             NSLog(@"网络连接异常2222222222");//执行网络异常时的代码
         }
+        
+        isLogin = YES;
+    }
+    else if (!isLogin)
+    {
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        [self presentViewController:loginVC animated:NO completion:nil];
+        [loginVC release];
+        isLogin = YES;
     }
     
 }
@@ -84,6 +86,12 @@ static bool isLogin = NO;
 	// Do any additional setup after loading the view.
     
     self.navigationItem.title = @"海印百货通";
+    
+    
+    
+    //[self showLoadingAnimatedWithTitle:@"test"];
+    
+    //[self.view bringSubviewToFront:self.loadingView];
     
     
 //    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 44)];
@@ -319,26 +327,29 @@ static bool isLogin = NO;
         NSArray *params = [NSArray arrayWithArray:[SQLDataSearch getUsrInfo]];
         
         NSDictionary *dic = [SQLDataSearch SyncGetDataWith:@"WS_SaleCustomsList" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetSaleCustomsListData" andParams:params andPageTitle:@"销售客单"];
-        [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+        
         
         //当请求回来的数据为空的时候弹出警示栏，避免因为空数据引起的崩溃
         NSDictionary *leftTable = [dic objectForKey:@"leftTable"];
         if (leftTable.count == 0 ) {
-            [self.alertView setMessage:@"对不起，可能由于服务器原因暂时没有数据，请检查网络后再试！"];
+            [self.alertView setMessage:@"对不起，可能由于网络原因暂时没有数据，请检查网络后再试！"];
             [self.alertView show];
+            
+            [self hideLoadingSuccessWithTitle:@"没有数据！" completed:nil];
         }
         else{
             SaleCustomsListViewController *saleCustomsVC = [[SaleCustomsListViewController alloc] initWithDataDic:dic andTitle:@"销售客单"];
             [self.navigationController pushViewController:saleCustomsVC animated:YES];
             [saleCustomsVC release];
-
+            
+            [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
         }
         
         
-        [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+        
     }
     @catch (NSException *exception) {
-        [self.alertView setMessage:@"对不起，可能由于服务器原因暂时没有数据，请检查网络后再试！"];
+        [self.alertView setMessage:@"对不起，暂时没有数据，请检查网络后再试！"];
         [self.alertView show];
     }
     @finally {

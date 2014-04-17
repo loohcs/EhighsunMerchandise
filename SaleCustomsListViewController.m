@@ -127,7 +127,7 @@
     float version = [[[UIDevice currentDevice] systemVersion] floatValue];
     if(version >= 7.0)
     {
-        _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"销售客单" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
+        _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"销售客单" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84-40) andScrollMethod:kScrollMethodWithRight];
         CGRect frame = _customTableView.frame;
         //在IOS7中视图的初始位置是在屏幕的左上角，因此需要下移20（状态栏）+44（导航栏）+20（表头，因为要旋转所以需要下移）+20（空出来预留给时间，搜索栏）
         frame.origin = CGPointMake(0, 84);
@@ -135,7 +135,7 @@
     }
     else if (version >= 5.0)
     {
-        _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"销售客单" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-104) andScrollMethod:kScrollMethodWithRight];
+        _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"销售客单" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-44-40) andScrollMethod:kScrollMethodWithRight];
         CGRect frame = _customTableView.frame;
         //在IOS5，IOS6中视图的初始位置是在屏幕的导航栏下面，因此只需要下移20（表头，因为要旋转所以需要下移）+20（空出来预留给时间，搜索栏）
         frame.origin = CGPointMake(0, 20);
@@ -168,9 +168,18 @@
     [middleButton addSubview:label];
     self.navigationItem.titleView = titleView;
     
-    _sortTableView = [[UITableView alloc] initWithFrame:CGRectMake(90, 60, 140, 120) style:UITableViewStylePlain];
+    UIImageView *sortImageView = [[UIImageView alloc] initWithFrame:CGRectMake(90, 60, 140, 125)];
+    UIImage *sortBG = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sort_bg" ofType:@"png"]];
+    sortImageView.image = sortBG;
+    
+    _sortTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 5, 140, 120) style:UITableViewStylePlain];
+    _sortTableView.backgroundColor = [UIColor clearColor];
+    [_sortTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLineEtched];
     _sortTableView.delegate = self;
     _sortTableView.dataSource = self;
+    
+    [sortImageView addSubview:_sortTableView];
+    [self.view addSubview:sortImageView];
 }
 
 //TODO: 导航栏上左右两边的动作响应
@@ -249,12 +258,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *identify = @"CellIdentify";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    HeadSortCell *cell = [tableView dequeueReusableCellWithIdentifier:identify];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
+        cell = [[HeadSortCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identify];
     }
+    cell.backgroundColor = [UIColor clearColor];
     NSArray *arr = [_dataDic objectForKey:@"headTitleValue"];
-    cell.textLabel.text = [arr objectAtIndex:indexPath.section];
+    cell.sortKeyLabel.text = [arr objectAtIndex:indexPath.section];
     
     return cell;
 }
@@ -268,8 +278,15 @@
     NSDictionary *leftData = [_dataDic objectForKey:@"leftTable"];
     NSMutableArray *leftDataArr = [NSMutableArray arrayWithArray:[leftData allKeys]];
     
-    NSArray *sortArr = [DBDataHelper QuickSort:_dataDic andKeyArr:leftDataArr andSortKey:key StartIndex:0 EndIndex:leftDataArr.count-1];
-    [_customTableView changeDataWithSortArr:sortArr];
+    
+    if (indexPath.section == 0) {
+        [DBDataHelper QuickSort:leftDataArr andSortType:numBigToSmall StartIndex:0 EndIndex:leftDataArr.count-1];
+    }
+    else
+    {
+        leftDataArr = [NSMutableArray arrayWithArray:[DBDataHelper QuickSort:_dataDic andKeyArr:leftDataArr andSortType:numBigToSmall andSortKey:key StartIndex:0 EndIndex:leftDataArr.count-1]];
+    }
+    [_customTableView changeDataWithSortArr:leftDataArr];
     [_customTableView.leftTableView reloadData];
     [_customTableView.rightTableView reloadData];
     

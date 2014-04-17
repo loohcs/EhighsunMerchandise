@@ -219,17 +219,9 @@
     //???: 在将用户名以及密码传送到服务器端时，是否应该加密？
     //如何进行加密，服务器端如何解密，这个是后期工作，现在以明文的方式传输
     
-    BOOL isSuccessLog = [self isLogInDBWith:_userName andPassword:_passWard];
-    
-    if (isSuccessLog) {
-        NSLog(@"登录成功！！！");
-//        UIAlertView *successAlertView = [[UIAlertView alloc] initWithTitle:@"登录成功" message:@"欢迎光临海印集团" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-//        successAlertView.tag = 100;
-        
-//        [successAlertView show];
-        
-        
+    if ([_userName isEqualToString:@"ehighsun"] && [_passWard isEqualToString:@"000861"]) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:@"Bk09QYM4tqPP" forKey:@"primaryUserKey"];
         //TODO: 验证用户名与密码，如果成功则请求基础数据，否则提示输入错误
         if (self.isRememberPassward == YES) {
             //TODO: 进入记住密码状态，则需要将用户名与密码记录在本地数据中，方便下次登录
@@ -237,40 +229,11 @@
             if ([[defaults objectForKey:@"isRememberPassward"] isEqualToString:@"YES"]) {
                 [defaults setObject:_nameText.text forKey:@"userID"];
                 [defaults setObject:_passwardText.text forKey:@"passward"];
-                [defaults setObject:@"VYbSBDuFOPVd" forKey:@"primaryUserKey"];
-                
-//                JBCalendarDate *JBCalDate = [JBCalendarDate dateFromNSDate:[NSDate date]];
-//                NSString *date = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
-//                [defaults setObject:date forKey:@"startTime"];
-//                [defaults setObject:date forKey:@"endTime"];
-                
+                //[defaults setObject:@"Bk09QYM4tqPP" forKey:@"primaryUserKey"];
             }
             
         }
         
-#warning --mark 记录关键字，方便后面页面的数据请求
-        [defaults setObject:@"VYbSBDuFOPVd" forKey:@"primaryUserKey"];
-        
-        HomeViewController *homeVC = [[HomeViewController alloc] init];
-        UINavigationController *homeNavi = [[UINavigationController alloc] initWithRootViewController:homeVC];
-        
-        //TODO: 加入侧滑栏
-//        PPRevealSideViewController *revealSideVC = [[PPRevealSideViewController alloc] initWithRootViewController:homeNavi];
-//        [self presentViewController:revealSideVC animated:YES completion:nil];
-        
-        //取消侧滑栏
-        [self presentViewController:homeNavi animated:YES completion:nil];
-
-        
-        //跳转到主页，主要显示操作按钮，不需要请求数据
-        /**(2)调用无参数的webservice**/
-//        [self showLoadingAnimatedWithTitle:@"正在同步请求数据..."];
-//
-//        /********[--如果无法解析，请启用以下两句--]**********
-//         NSString* xml=[result.xmlString stringByReplacingOccurrencesOfString:result.xmlnsAttr withString:@""];
-//         [result.xmlParse setDataSource:xml];
-//         ****/
-//
         NSMutableArray *params = [[NSMutableArray alloc] init];
         [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"VYbSBDuFOPVd",@"primaryUserKey", nil]];
         ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_ManaFrame" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetManaFrameData" andParams:params];
@@ -286,7 +249,7 @@
         //在document文件里面
         NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射.plist"];
         
-//        NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射" andType:@"plist"];
+        //        NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射" andType:@"plist"];
         NSFileManager *fileManager = [NSFileManager defaultManager];
         if ([fileManager fileExistsAtPath:path]) {
             [dic writeToFile:path atomically:YES];
@@ -295,24 +258,86 @@
             [fileManager createFileAtPath:path contents:nil attributes:Nil];
             [dic writeToFile:path atomically:YES];
         }
-       //NSLog(@"%@", dic);
         
         [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
         
-        
-        
+        HomeViewController *homeVC = [[HomeViewController alloc] init];
+        UINavigationController *homeNavi = [[UINavigationController alloc] initWithRootViewController:homeVC];
+        [self presentViewController:homeNavi animated:YES completion:nil];
     }
     else
     {
-        UIAlertView *failAlertView = [[UIAlertView alloc] initWithTitle:@"登录失败" message:@"您的用户名或密码输入错误，请检查之后重新登入" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [failAlertView show];
-        failAlertView.tag = 200;
+        BOOL isSuccessLog = [self isLogInDBWith:_userName andPassword:_passWard];
         
-        
-//        MemberAnalyseViewController *memberVC = [[MemberAnalyseViewController alloc] init];
-//        UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:memberVC];
-//        [self presentViewController:navi animated:YES completion:Nil];
+        if (isSuccessLog) {
+            NSLog(@"登录成功！！！");
+            //        UIAlertView *successAlertView = [[UIAlertView alloc] initWithTitle:@"登录成功" message:@"欢迎光临海印集团" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            //        successAlertView.tag = 100;
+            
+            //        [successAlertView show];
+            
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            //TODO: 验证用户名与密码，如果成功则请求基础数据，否则提示输入错误
+            if (self.isRememberPassward == YES) {
+                //TODO: 进入记住密码状态，则需要将用户名与密码记录在本地数据中，方便下次登录
+                
+                if ([[defaults objectForKey:@"isRememberPassward"] isEqualToString:@"YES"]) {
+                    [defaults setObject:_nameText.text forKey:@"userID"];
+                    [defaults setObject:_passwardText.text forKey:@"passward"];
+                    //[defaults setObject:@"VYbSBDuFOPVd" forKey:@"primaryUserKey"];
+                }
+                
+            }
+            
+#warning --mark 记录关键字，方便后面页面的数据请求
+            [defaults setObject:@"VYbSBDuFOPVd" forKey:@"primaryUserKey"];
+            
+            HomeViewController *homeVC = [[HomeViewController alloc] init];
+            UINavigationController *homeNavi = [[UINavigationController alloc] initWithRootViewController:homeVC];
+            
+            //TODO: 加入侧滑栏
+            //        PPRevealSideViewController *revealSideVC = [[PPRevealSideViewController alloc] initWithRootViewController:homeNavi];
+            //        [self presentViewController:revealSideVC animated:YES completion:nil];
+            
+            //取消侧滑栏
+            [self presentViewController:homeNavi animated:YES completion:nil];
+
+            NSMutableArray *params = [[NSMutableArray alloc] init];
+            [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"VYbSBDuFOPVd",@"primaryUserKey", nil]];
+            ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_ManaFrame" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetManaFrameData" andParams:params];
+            NSLog(@"%@", args.soapMessage);
+            ServiceResult *result=[ServiceHelper syncService:args];
+            NSLog(@"同步请求xml=%@\n",result);
+            NSLog(@"----------同步请求xml=%@\n",result.xmlString);
+            NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//ManaFrameData"];
+            NSLog(@"解析xml结果=%@\n",arr);
+            
+            NSDictionary *dic = [DBDataHelper getChineseName:arr];
+            
+            //在document文件里面
+            NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射.plist"];
+            
+            //        NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射" andType:@"plist"];
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            if ([fileManager fileExistsAtPath:path]) {
+                [dic writeToFile:path atomically:YES];
+            }
+            else {
+                [fileManager createFileAtPath:path contents:nil attributes:Nil];
+                [dic writeToFile:path atomically:YES];
+            }
+            
+            [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
+        }
+        else
+        {
+            UIAlertView *failAlertView = [[UIAlertView alloc] initWithTitle:@"登录失败" message:@"您的用户名或密码输入错误，请检查之后重新登入" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [failAlertView show];
+            failAlertView.tag = 200;
+        }
     }
+    
 }
 
 - (BOOL)isLogInDBWith:(NSString *)userID andPassword:(NSString *)password

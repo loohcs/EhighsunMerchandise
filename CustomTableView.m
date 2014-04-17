@@ -8,6 +8,8 @@
 
 #import "CustomTableView.h"
 
+#import "QuickSortTest.h"
+
 @implementation CustomTableView
 
 @synthesize leftScrollView = _leftScrollView;
@@ -59,8 +61,12 @@
         
         NSDictionary *dataDic = [NSDictionary dictionaryWithObjectsAndKeys:leftDataDic,@"leftTable",rightDataDic,@"rightTable",headDataKeys,@"headTitleKey",self.headDataValues, @"headTitleValue", nil];
         
-        self.leftDataKeys = [DBDataHelper QuickSort:dataDic andKeyArr:keyMutableArr andSortKey:[headDataKeys objectAtIndex:0] StartIndex:0 EndIndex:leftDataDic.count-1];
+        [DBDataHelper QuickSort:keyMutableArr andSortType:numSmallToBig StartIndex:0 EndIndex:keyMutableArr.count-1];
+        self.leftDataKeys = [NSArray arrayWithArray:keyMutableArr];
         
+        
+//        [QuickSortTest QuickSort:keyMutableArr StartIndex:0 EndIndex:keyMutableArr.count-1];
+//        NSLog(@"%@", keyMutableArr);
         
         self.sumDataDic = [DBDataHelper getSumNum:dataDic];
         

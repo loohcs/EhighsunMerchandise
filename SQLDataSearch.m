@@ -16,8 +16,33 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *primaryUserKey = [defaults objectForKey:@"primaryUserKey"];
     
-    NSString *startTime = [defaults objectForKey:@"startTime"];
-    NSString *endTime = [defaults objectForKey:@"endTime"];
+    JBCalendarDate *JBCalToday = [JBCalendarDate dateFromNSDate:[NSDate date]];
+    NSString *today = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalToday.year, (long)JBCalToday.month, (long)JBCalToday.day];
+    
+    NSString *time = [defaults objectForKey:@"startTime"];
+    if (time.length == 0) {
+        [defaults setObject:today forKey:@"startTime"];
+        [defaults setObject:today forKey:@"endTime"];
+    }
+    
+    
+    NSString *startTime = [[NSString alloc] init];
+    NSString *endTime = [[NSString alloc] init];
+    
+    if ([primaryUserKey isEqualToString:@"VYbSBDuFOPVd"]) {
+        startTime = [NSString stringWithString:[defaults objectForKey:@"startTime"]];
+        endTime = [NSString stringWithString:[defaults objectForKey:@"endTime"]];
+    }
+    else if([primaryUserKey isEqualToString:@"Bk09QYM4tqPP"])
+    {
+        NSArray *startTimeArr = [[NSArray alloc] initWithArray:[[defaults objectForKey:@"startTime"] componentsSeparatedByString:@"-"]];
+        NSArray *endTimeArr = [[NSArray alloc] initWithArray:[[defaults objectForKey:@"endTime"] componentsSeparatedByString:@"-"]];
+        
+        startTime = [NSString stringWithFormat:@"%@-1-%@", [startTimeArr objectAtIndex:0], [startTimeArr objectAtIndex:2]];
+        endTime = [NSString stringWithFormat:@"%@-1-%@", [endTimeArr objectAtIndex:0], [endTimeArr objectAtIndex:2]];
+    }
+    
+    
     
     NSMutableArray *params = [[NSMutableArray alloc] init];
     [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:primaryUserKey,@"primaryUserKey", nil]];

@@ -112,7 +112,7 @@
     _startTimeLabel.backgroundColor = [UIColor clearColor];
     _startTimeLabel.tag = 1000;
     _startTimeLabel.userInteractionEnabled = YES;
-    
+    _startTimeLabel.textColor = [UIColor redColor];
     //日期页面初始化时显示的是上一次使用结束后的日期
     //NSString *startTime = [defaults objectForKey:@"startTime"];
 //    if (startTime != Nil) {
@@ -126,9 +126,12 @@
 //    }
     
     //日期页面初始化时显示的是当天时间
-    _startTimeLabel.textColor = [UIColor redColor];
-    _startTimeLabel.text = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
-    [defaults setObject:_startTimeLabel.text forKey:@"startTime"];
+//    _startTimeLabel.text = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
+//    [defaults setObject:_startTimeLabel.text forKey:@"startTime"];
+    
+    //当程序刚刚打开的时候，日期页面显示当天时间；如果程序一直在运行，则会显示上一次日期选择时的选择时间
+    NSString *startTime = [defaults objectForKey:@"startTime"];
+    _startTimeLabel.text = startTime;
     
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(getTypeOfDate:)];
     [_startTimeLabel addGestureRecognizer:tapGR];
@@ -169,8 +172,13 @@
 //    }
     
     //日期页面初始化时显示的是当天时间
-    _endTimeLabel.text = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
-    [defaults setObject:_endTimeLabel.text forKey:@"endTime"];
+//    _endTimeLabel.text = [NSString stringWithFormat:@"%ld-%ld-%ld", (long)JBCalDate.year, (long)JBCalDate.month, (long)JBCalDate.day];
+//    [defaults setObject:_endTimeLabel.text forKey:@"endTime"];
+    
+    //当程序刚刚打开的时候，日期页面显示当天时间；如果程序一直在运行，则会显示上一次日期选择时的选择时间
+    NSString *endTime = [defaults objectForKey:@"endTime"];
+    _endTimeLabel.text = endTime;
+
     
     UITapGestureRecognizer *tapGR2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(getTypeOfDate:)];
     [_endTimeLabel addGestureRecognizer:tapGR2];

@@ -14,6 +14,7 @@
 @property (nonatomic, strong) CustomTableView *customTableView;
 @property (nonatomic, strong) NSDictionary *dataDic;
 @property (nonatomic, strong) NSString *pageTitle;
+@property (nonatomic, strong) UIImageView *sortImageView;
 @property (nonatomic, strong) UITableView *sortTableView;
 @property (nonatomic, assign) int flag;
 

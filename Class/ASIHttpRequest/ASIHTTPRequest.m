@@ -286,7 +286,7 @@ static NSOperationQueue *sharedQueue = nil;
     //解决方法将网络复用给关掉
 //	[self setShouldAttemptPersistentConnection:YES];
     
-    [self setShouldAttemptPersistentConnection:NO];
+    [self setShouldAttemptPersistentConnection:YES];
     
 	[self setPersistentConnectionTimeoutSeconds:60.0];
 	[self setShouldPresentCredentialsBeforeChallenge:YES];

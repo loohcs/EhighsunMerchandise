@@ -95,7 +95,20 @@
         
         //获取店铺所在楼层编码
         NSString *key2 = [dicTemp objectForKey:@"MFPCODE"];
-        [dicTemp2 removeObjectForKey:@"MFPCODE"];
+        if (key.length == 8) {
+            if ([key2 isEqualToString:[key substringToIndex:5]])
+            {
+                [dicTemp2 removeObjectForKey:@"MFPCODE"];
+            }
+            else
+            {
+                key2 = [key substringToIndex:5];
+            }
+        }
+        else
+        {
+            [dicTemp2 removeObjectForKey:@"MFPCODE"];
+        }
         
         //获取店铺所在商城编码
         NSString *key3 = [dicTemp objectForKey:@"MFFCODE"];
@@ -169,37 +182,7 @@
     return chinese;
 }
 
-//+ (NSArray *)BubbleSort:(NSDictionary *)dataDic andSortKey:(NSString *)sortKey
-//{
-//    NSMutableArray *sortArray = [NSMutableArray array];
-//    
-//    NSMutableDictionary *leftDataDic = [NSMutableDictionary dictionaryWithDictionary:[dataDic objectForKey:@"leftTable"]];
-//    NSMutableDictionary *rightDataDic = [NSMutableDictionary dictionaryWithDictionary:[dataDic objectForKey:@"rightTable"]];
-//    
-//    NSMutableArray *list = [NSMutableArray arrayWithArray:[leftDataDic allKeys]];
-//    
-//    for (int j = 1; j<= [list count]; j++) {
-//        
-//        for(int i = 0 ;i < j ; i++){
-//            
-//            if(i == [list count]-1) return list;
-//            
-//            NSInteger a1 = [[list objectAtIndex:i] intValue];
-//            NSInteger a2 = [[list objectAtIndex:i+1] intValue];
-//            
-//            if(a1 > a2){
-//                [list exchangeObjectAtIndex:i withObjectAtIndex:i+1];
-//            }
-//            
-//        }
-//        
-//    }
-//    
-//    return  sortArray;
-//}
-
-
-+ (NSArray *)QuickSort:(NSDictionary *)dic andKeyArr:(NSMutableArray *)list andSortKey:(NSString *)key StartIndex:(NSInteger)startIndex EndIndex:(NSInteger)endIndex
++ (NSArray *)QuickSort:(NSDictionary *)dic andKeyArr:(NSMutableArray *)list andSortType:(SortType)sortType andSortKey:(NSString *)key StartIndex:(NSInteger)startIndex EndIndex:(NSInteger)endIndex
 {
     //当开始位置与停止位置一样时，停止排序，并将排好序的关键值数组返回
     if(startIndex >= endIndex)
@@ -214,22 +197,13 @@
         return list;
     }
     
-    NSMutableDictionary *leftDataDic = [NSMutableDictionary dictionaryWithDictionary:[dic objectForKey:@"leftTable"]];
+//    NSMutableDictionary *leftDataDic = [NSMutableDictionary dictionaryWithDictionary:[dic objectForKey:@"leftTable"]];
     NSMutableDictionary *rightDataDic = [NSMutableDictionary dictionaryWithDictionary:[dic objectForKey:@"rightTable"]];
     
-    NSArray *headTitleKey = [NSArray arrayWithArray:[dic objectForKey:@"headTitleKey"]];
-    NSString *firstHeadKey = [headTitleKey objectAtIndex:0];
+//    NSArray *headTitleKey = [NSArray arrayWithArray:[dic objectForKey:@"headTitleKey"]];
+//    NSString *firstHeadKey = [headTitleKey objectAtIndex:0];
     
-    NSDictionary *sortDic;
-    if ([firstHeadKey isEqualToString:key]) {
-        sortDic = [NSDictionary dictionaryWithDictionary:leftDataDic];
-    }
-    else
-    {
-        sortDic = [NSDictionary dictionaryWithDictionary:rightDataDic];
-    }
-    
-    
+    NSDictionary *sortDic = [NSDictionary dictionaryWithDictionary:rightDataDic];
     
     //获取在当前startIndex下，获取对应的同一行中，我们想要排序所依赖的关键值
     NSString *tempKey = [list objectAtIndex:startIndex];//获取当前同一行的关键值
@@ -244,10 +218,6 @@
            
     NSInteger tempIndex = startIndex; //临时索引 处理交换位置(即下一个交换的对象的位置)
     
-//    NSLog(@"%ld", (long)startIndex);
-//    NSLog(@"%ld", (long)endIndex);
-//    NSLog(@"%@", list);
-    
     for(NSInteger i = startIndex + 1 ; i <= endIndex ; i++){
         
         NSString *tempKey2 = [list objectAtIndex:i];
@@ -257,23 +227,78 @@
         float tempFloat2 = [num2 floatValue];
         
         //按照从大到小排序
-        if(tempFloat < tempFloat2){
-            
-            tempIndex = tempIndex + 1;
-            
-            [list exchangeObjectAtIndex:tempIndex withObjectAtIndex:i];
-            
+        if (sortType == numBigToSmall) {
+            if(tempFloat < tempFloat2){
+                
+                tempIndex = tempIndex + 1;
+                
+                [list exchangeObjectAtIndex:tempIndex withObjectAtIndex:i];
+                
+            }
+        }
+        else if (sortType == numSmallToBig)
+        {
+            if(tempFloat > tempFloat2){
+                
+                tempIndex = tempIndex + 1;
+                
+                [list exchangeObjectAtIndex:tempIndex withObjectAtIndex:i];
+                
+            }
         }
         
     }
     
     [list exchangeObjectAtIndex:tempIndex withObjectAtIndex:startIndex];
-    [DBDataHelper QuickSort:dic andKeyArr:list andSortKey:key StartIndex:startIndex EndIndex:tempIndex-1];
-    [DBDataHelper QuickSort:dic andKeyArr:list andSortKey:key StartIndex:tempIndex+1 EndIndex:endIndex];
+    [self QuickSort:dic andKeyArr:list andSortType:sortType andSortKey:key StartIndex:startIndex EndIndex:tempIndex-1];
+    [self QuickSort:dic andKeyArr:list andSortType:sortType andSortKey:key StartIndex:tempIndex+1 EndIndex:endIndex];
     
     
     return list;
 }
+
++(void)QuickSort:(NSMutableArray *)list andSortType:(SortType)sortType StartIndex:(NSInteger)startIndex EndIndex:(NSInteger)endIndex
+{
+    
+    if(startIndex >= endIndex)return;
+    
+    NSNumber * temp = [list objectAtIndex:startIndex];
+    NSInteger tempIndex = startIndex; //临时索引 处理交换位置(即下一个交换的对象的位置)
+    
+    for(NSInteger i = startIndex + 1 ; i <= endIndex ; i++){
+        
+        NSNumber *t = [list objectAtIndex:i];
+        
+        if (sortType == numSmallToBig) {
+            if([temp intValue] > [t intValue]){
+                
+                tempIndex = tempIndex + 1;
+                
+                [list exchangeObjectAtIndex:tempIndex withObjectAtIndex:i];
+                
+            }
+        }
+        else if(sortType == numBigToSmall)
+        {
+            if([temp intValue] < [t intValue]){
+                
+                tempIndex = tempIndex + 1;
+                
+                [list exchangeObjectAtIndex:tempIndex withObjectAtIndex:i];
+                
+            }
+        }
+        
+        
+    }
+    
+    [list exchangeObjectAtIndex:tempIndex withObjectAtIndex:startIndex];
+    [self QuickSort:list andSortType:sortType StartIndex:startIndex EndIndex:tempIndex-1];
+    [self QuickSort:list andSortType:sortType StartIndex:tempIndex+1 EndIndex:endIndex];
+    
+}
+
+
 
 + (NSMutableDictionary *)getSumNum:(NSDictionary *)dic
 {

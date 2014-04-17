@@ -69,6 +69,8 @@
 
 #import "CustomTableView.h"
 
+#import "HeadSortViewController.h"
+#import "HeadSortCell.h"
 
 #import "ServiceHelper.h"
 #import "ServiceArgs.h"

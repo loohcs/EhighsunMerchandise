@@ -119,8 +119,6 @@
 {
     NSLog(@"返回");
     
-
-    
     if ([self.navigationItem.title isEqualToString:@"海印百货通"]) {
         LoginViewController *loginVC = [[LoginViewController alloc] init];
         [self presentViewController:loginVC animated:YES completion:nil];
@@ -141,10 +139,14 @@
     if ([self.navigationItem.title isEqualToString:@"日期选择"]) {
         //[_rightItemBtn setTitle:@"确定"];
         //self.navigationItem.rightBarButtonItem = _rightItemBtn;
+        [self showLoadingAnimatedWithTitle:@"正在重新获取数据，请稍等!"];
+        
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:@"YES" forKey:@"isTimeChanged"];
         
         [self.navigationController popViewControllerAnimated:YES];
+        
+        [self hideLoadingSuccessWithTitle:@"日期更新成功，新的数据已加载，请您查看！" completed:nil];
     }
     else
     {
@@ -200,7 +202,7 @@
     [self.view bringSubviewToFront:loadingView];
     [loadingView.activityIndicatorView startAnimating];
     CGRect r=loadingView.frame;
-    r.origin.y=2;
+    r.origin.y=62;
     [UIView animateWithDuration:0.5f animations:^{
         loadingView.frame=r;
     }];

@@ -124,7 +124,7 @@
     float version = [[[UIDevice currentDevice] systemVersion] floatValue];
     if(version >= 7.0)
     {
-        _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"柜组销售分析" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84) andScrollMethod:kScrollMethodWithRight];
+        _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"柜组销售分析" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-84-40) andScrollMethod:kScrollMethodWithRight];
         CGRect frame = _customTableView.frame;
         //在IOS7中视图的初始位置是在屏幕的左上角，因此需要下移20（状态栏）+44（导航栏）+20（表头，因为要旋转所以需要下移）+20（空出来预留给时间，搜索栏）
         frame.origin = CGPointMake(0, 84);
@@ -132,7 +132,7 @@
     }
     else if (version >= 5.0)
     {
-        _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"柜组销售分析" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-44) andScrollMethod:kScrollMethodWithRight];
+        _customTableView = [[CustomTableView alloc] initWithHeadDataKeys:headArr andHeadDataTitle:@"柜组销售分析" andLeftData:leftDic andRightData:rightDic andSize:CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-44-40) andScrollMethod:kScrollMethodWithRight];
         CGRect frame = _customTableView.frame;
         //在IOS5，IOS6中视图的初始位置是在屏幕的导航栏下面，因此只需要下移20（表头，因为要旋转所以需要下移）+20（空出来预留给时间，搜索栏）
         frame.origin = CGPointMake(0, 20);
@@ -266,7 +266,7 @@
     NSDictionary *leftData = [_dataDic objectForKey:@"leftTable"];
     NSMutableArray *leftDataArr = [NSMutableArray arrayWithArray:[leftData allKeys]];
     
-    NSArray *sortArr = [DBDataHelper QuickSort:_dataDic andKeyArr:leftDataArr andSortKey:key StartIndex:0 EndIndex:leftDataArr.count-1];
+    NSArray *sortArr = [DBDataHelper QuickSort:_dataDic andKeyArr:leftDataArr andSortType:numBigToSmall andSortKey:key StartIndex:0 EndIndex:leftDataArr.count-1];
     [_customTableView changeDataWithSortArr:sortArr];
     [_customTableView.leftTableView reloadData];
     [_customTableView.rightTableView reloadData];
