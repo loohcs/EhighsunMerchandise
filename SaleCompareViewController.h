@@ -12,9 +12,17 @@
 
 
 @property (nonatomic, strong) CustomTableView *customTableView;
+
 @property (nonatomic, strong) NSDictionary *dataDic;
+
 @property (nonatomic, strong) NSString *pageTitle;
+
+@property (nonatomic, strong) UIScrollView *sortScrollView;
 @property (nonatomic, strong) UITableView *sortTableView;
+
+@property (nonatomic, strong) NSMutableDictionary *sortTypeDic;
+@property (nonatomic, strong) NSIndexPath *lastSelectCell;
+
 @property (nonatomic, assign) int flag;
 
 @property (nonatomic, strong) NSString *primaryKey;//用来标记获得的楼层id

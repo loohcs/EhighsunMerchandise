@@ -24,8 +24,8 @@
         _sortKeyLabel.userInteractionEnabled = YES;
         
         _sortTypeImage = [[UIImageView alloc] initWithFrame:CGRectMake(105, 5, 10, 20)];
-        UIImage *sortTypeImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"arrow_down" ofType:@"png"]];
-        _sortTypeImage.image = sortTypeImage;
+//        UIImage *sortTypeImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"arrow_down" ofType:@"png"]];
+//        _sortTypeImage.image = sortTypeImage;
         
         [self addSubview:_sortKeyLabel];
         [self addSubview:_sortTypeImage];

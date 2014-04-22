@@ -103,6 +103,8 @@
         [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
         
         self.dataDic = dic;
+        self.sortTypeDic = [[NSMutableDictionary alloc] init];
+        [self.sortTypeDic setObject:[NSString stringWithFormat:@"%d", numSmallToBig] forKey:[[dic objectForKey:@"headTitleKey"] objectAtIndex:0]];
         self.pageTitle = @"销售客单";
     }
     
@@ -168,36 +170,34 @@
     [middleButton addSubview:label];
     self.navigationItem.titleView = titleView;
     
-    UIImageView *sortImageView = [[UIImageView alloc] initWithFrame:CGRectMake(90, 60, 140, 125)];
-    UIImage *sortBG = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sort_bg" ofType:@"png"]];
-    sortImageView.image = sortBG;
+    NSUInteger index[] = {0, 0};
+    _lastSelectCell = [[NSIndexPath alloc] initWithIndexes:index length:2];
     
-    _sortTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 5, 140, 120) style:UITableViewStylePlain];
+    _sortScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(90, 60, 140, headArr.count*30 + 20)];
+    _sortScrollView.contentSize = CGSizeMake(140, 125);
+    _sortScrollView.delegate = self;
+    _sortScrollView.userInteractionEnabled = YES;
+    _sortScrollView.bounces = NO;
+
+    
+    _sortTableView = [[UITableView alloc] initWithFrame:CGRectMake(5, 15, 130, headArr.count*30) style:UITableViewStylePlain];
     _sortTableView.backgroundColor = [UIColor clearColor];
     [_sortTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLineEtched];
     _sortTableView.delegate = self;
     _sortTableView.dataSource = self;
     
-    [sortImageView addSubview:_sortTableView];
-    [self.view addSubview:sortImageView];
+    UIImageView *sortImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, -15, 140, headArr.count*30 + 35)];
+    UIImage *sortBG = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sort_bg" ofType:@"png"]];
+    sortImageView.image = sortBG;
+    sortImageView.userInteractionEnabled = YES;
+    
+    self.sortTypeDic = [[NSMutableDictionary alloc] init];
+    [self.sortTypeDic setObject:[NSString stringWithFormat:@"%d", numBigToSmall] forKey:[headArr objectAtIndex:0]];
+    
+    [_sortScrollView addSubview:sortImageView];
+    [_sortScrollView addSubview:_sortTableView];
 }
 
-//TODO: 导航栏上左右两边的动作响应
-//- (void)goBackSideTV
-//{
-//    NSLog(@"返回");
-//    
-////    [self.navigationController popToRootViewControllerAnimated:YES];
-//    
-//    [self.revealSideViewController pushOldViewControllerOnDirection:PPRevealSideDirectionLeft animated:YES];
-//}
-//
-//- (void)logOutSystem
-//{
-//    JBViewController *JBVC = [[JBViewController alloc] init];
-//    [self.navigationController pushViewController:JBVC animated:YES];
-//}
-//
 - (NSDictionary *)getData:(NSDictionary *)dic
 {
     self.dataDic = [NSDictionary dictionaryWithDictionary:dic];
@@ -229,11 +229,11 @@
 {
     _flag = (_flag + 1)%2;
     if (_flag == 1) {
-        [self.view addSubview:_sortTableView];
+        [self.view addSubview:_sortScrollView];
     }
     else
     {
-        [_sortTableView removeFromSuperview];
+        [_sortScrollView removeFromSuperview];
     }
     
 }
@@ -241,8 +241,8 @@
 #pragma mark -- TableView的代理方法
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSArray *arr = [_dataDic objectForKey:@"headTitleKey"];
-    return arr.count;
+    
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -253,7 +253,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //    NSLog(@"%s", __func__);
-    return 1;
+    NSArray *arr = [_dataDic objectForKey:@"headTitleKey"];
+    return arr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -264,7 +265,28 @@
     }
     cell.backgroundColor = [UIColor clearColor];
     NSArray *arr = [_dataDic objectForKey:@"headTitleValue"];
-    cell.sortKeyLabel.text = [arr objectAtIndex:indexPath.section];
+    cell.sortKeyLabel.text = [arr objectAtIndex:indexPath.row];
+    
+    NSString *typeStr = [self.sortTypeDic objectForKey:[[_dataDic objectForKey:@"headTitleKey"] objectAtIndex:indexPath.row]];
+    int type = -1;
+    if (typeStr == nil) {
+        type = -1;
+    }
+    else {
+        type = [typeStr intValue];
+    }
+    
+    if (type == 0) {
+        cell.sortTypeImage.image = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"arrow_up" ofType:@"png"]];
+    }
+    else if(type == 1)
+    {
+        cell.sortTypeImage.image = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"arrow_down" ofType:@"png"]];
+    }
+    else
+    {
+        [cell.sortImageView removeFromSuperview];
+    }
     
     return cell;
 }
@@ -273,28 +295,82 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSArray *arr = [_dataDic objectForKey:@"headTitleKey"];
-    NSString *key = [arr objectAtIndex:indexPath.section];
+    NSString *key = [arr objectAtIndex:indexPath.row];
     
     NSDictionary *leftData = [_dataDic objectForKey:@"leftTable"];
     NSMutableArray *leftDataArr = [NSMutableArray arrayWithArray:[leftData allKeys]];
     
     
-    if (indexPath.section == 0) {
-        [DBDataHelper QuickSort:leftDataArr andSortType:numBigToSmall StartIndex:0 EndIndex:leftDataArr.count-1];
+    NSString *sortTypeStr = [self.sortTypeDic objectForKey:key];
+    if (sortTypeStr == nil) {
+        sortTypeStr = @"1";
+    }
+    SortType sortType = [sortTypeStr intValue];
+//    NSArray *sortArr = [DBDataHelper QuickSort:_dataDic andKeyArr:leftDataArr andSortType:sortType andSortKey:key StartIndex:0 EndIndex:leftDataArr.count-1];
+    if (indexPath.row == 0) {
+        [DBDataHelper QuickSort:leftDataArr andSortType:sortType StartIndex:0 EndIndex:leftDataArr.count-1];
     }
     else
     {
-        leftDataArr = [NSMutableArray arrayWithArray:[DBDataHelper QuickSort:_dataDic andKeyArr:leftDataArr andSortType:numBigToSmall andSortKey:key StartIndex:0 EndIndex:leftDataArr.count-1]];
+        leftDataArr = [NSMutableArray arrayWithArray:[DBDataHelper QuickSort:_dataDic andKeyArr:leftDataArr andSortType:sortType andSortKey:key StartIndex:0 EndIndex:leftDataArr.count-1]];
     }
+    
+    [self.sortTypeDic removeAllObjects];
+    self.sortTypeDic = [[NSMutableDictionary alloc] init];
+    
+    if (sortType == numBigToSmall) {
+        sortType = numSmallToBig;
+        
+        [self.sortTypeDic setObject:[NSString stringWithFormat:@"%d", sortType] forKey:key];
+    }
+    else
+    {
+        sortType = numBigToSmall;
+        [self.sortTypeDic setObject:[NSString stringWithFormat:@"%d", sortType] forKey:key];
+        
+    }
+    
     [_customTableView changeDataWithSortArr:leftDataArr];
     [_customTableView.leftTableView reloadData];
     [_customTableView.rightTableView reloadData];
     
     [_customTableView reloadInputViews];
     
-    [_sortTableView removeFromSuperview];
+    HeadSortCell *cell = [[HeadSortCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CellIdentify"];
+    cell = (HeadSortCell *)[_sortTableView cellForRowAtIndexPath:indexPath];
+    cell.sortKeyLabel.textColor = [UIColor whiteColor];
+    NSString *typeStr = [self.sortTypeDic objectForKey:[arr objectAtIndex:indexPath.row]];
+    int type = -1;
+    if (typeStr == nil) {
+        type = -1;
+    }
+    else {
+        type = [typeStr intValue];
+    }
     
-    _flag = _flag++%2;
+    //根据获取的排序方法确定箭头方向
+    if (type == 0) {
+        cell.sortTypeImage.image = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"arrow_up" ofType:@"png"]];
+    }
+    else if(type == 1)
+    {
+        cell.sortTypeImage.image = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"arrow_down" ofType:@"png"]];
+    }
+    [cell addSubview:cell.sortTypeImage];
+    
+    //改变前一次选择的cell字体颜色，以及去掉箭头
+    if (![indexPath isEqual:_lastSelectCell]) {
+        HeadSortCell *cellLast = [[HeadSortCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CellIdentify"];
+        cellLast = (HeadSortCell *)[_sortTableView cellForRowAtIndexPath:_lastSelectCell];
+        cellLast.sortKeyLabel.textColor = [UIColor blackColor];
+        [cellLast.sortTypeImage removeFromSuperview];
+        _lastSelectCell = indexPath;
+    }
+    
+    [_sortTableView reloadData];
+    [_sortScrollView removeFromSuperview];
+    
+    _flag = 0;
 }
 
 

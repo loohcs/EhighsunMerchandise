@@ -14,8 +14,12 @@
 @property (nonatomic, strong) CustomTableView *customTableView;
 @property (nonatomic, strong) NSDictionary *dataDic;
 @property (nonatomic, strong) NSString *pageTitle;
+@property (nonatomic, strong) UIScrollView *sortScrollView;
 @property (nonatomic, strong) UITableView *sortTableView;
 @property (nonatomic, assign) int flag;
+
+@property (nonatomic, strong) NSMutableDictionary *sortTypeDic;
+@property (nonatomic, strong) NSIndexPath *lastSelectCell;
 
 @property (nonatomic, strong) NSString *primaryKey;
 
