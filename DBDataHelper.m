@@ -157,7 +157,7 @@
     }
     
     if (chinese == nil) {
-        NSLog(@"------------");
+        NSLog(@"------------%@", mfCode);
     }
     
     return chinese;

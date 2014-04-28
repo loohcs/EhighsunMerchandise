@@ -49,10 +49,10 @@ typedef enum {
     self = [super initWithFrame:frame];
     if (self) {
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		self.backgroundColor = [UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0];;
+//		self.backgroundColor = [UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0];
         _stateLabel = [[UILabel alloc] init ];
         _stateLabel.font = [UIFont fontWithName:@"ArialMT" size:14.f];
-        _stateLabel.textColor = [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0];
+//        _stateLabel.textColor = [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0];
         _stateLabel.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0];
 		_stateLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
         _stateLabel.textAlignment = NSTextAlignmentCenter;
@@ -63,7 +63,7 @@ typedef enum {
         
         _dateLabel = [[UILabel alloc] init ];
         _dateLabel.font = [UIFont fontWithName:@"ArialMT" size:13.f];;
-        _dateLabel.textColor = [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0];
+//        _dateLabel.textColor = [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0];
         _stateLabel.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1.0];
 		_stateLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
         _dateLabel.textAlignment = NSTextAlignmentCenter;

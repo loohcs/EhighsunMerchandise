@@ -147,8 +147,8 @@
 {
     ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:ws_name andServiceNameSpace:ws_namespace andMethod:method andParams:params];
     ServiceResult *result=[ServiceHelper syncService:args];
-    NSLog(@"同步请求xml=%@\n",result);
-    NSLog(@"----------同步请求xml=%@\n",result.xmlString);
+//    NSLog(@"同步请求xml=%@\n",result);
+//    NSLog(@"----------同步请求xml=%@\n",result.xmlString);
     
     /********[--如果无法解析，请启用以下两句--]**********
      NSString* xml=[result.xmlString stringByReplacingOccurrencesOfString:result.xmlnsAttr withString:@""];
@@ -158,10 +158,10 @@
     NSString *nodeStr = [NSString stringWithFormat:@"//%@", [method substringFromIndex:3]];
     
     NSArray *arr=[result.xmlParse soapXmlSelectNodes:nodeStr];
-    NSLog(@"解析xml结果=%@\n",arr);
+//    NSLog(@"解析xml结果=%@\n",arr);
     
     NSDictionary *dic = [DBDataHelper getData:arr andValueArrName:pageTitle];
-    NSLog(@"%@", dic);
+//    NSLog(@"%@", dic);
     
     
     

@@ -22,7 +22,7 @@ typedef enum {
 //标题栏的高度
 #define kTableViewTitleHeight 20.0
 
-@interface CustomTableView : UIView <UITableViewDataSource, UITableViewDelegate>
+@interface CustomTableView : UIView <UITableViewDataSource, UITableViewDelegate, PullDelegate>
 
 @property (nonatomic, retain) UIScrollView *headScrollView;//标题滚动栏
 @property (nonatomic, retain) UITableView *headTableView;//标题的表格

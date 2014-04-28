@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SaleCompareDetailViewController : BasicViewController<UITableViewDataSource,UITableViewDelegate>
+@interface SaleCompareDetailViewController : BasicViewController<UITableViewDataSource,UITableViewDelegate, PullDelegate>
 
 
 @property (nonatomic, strong) CustomTableView *customTableView;

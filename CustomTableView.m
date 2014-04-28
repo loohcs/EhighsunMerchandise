@@ -206,24 +206,10 @@
         self.headTableView.showsVerticalScrollIndicator = NO;
         self.headTableView.bounces = NO;
         
-        
-        float version = [[[UIDevice currentDevice] systemVersion] floatValue];
-        if(version >= 7.0)
-        {
-            
-            
-        }
-        else if (version >= 5.0)
-        {
-//            imageView.frame = CGRectMake(0, -20, 60, 20);
-            
-            
-            
-        }else{
-            //调用这个方法，就会异步去调用DrawRac方法
-            
-        }
-        
+        //添加下拉刷新以及上拉加载
+        _rightTableView.pullDelegate = self;//添加代理
+        _rightTableView.canPullDown = YES;//确定可以向下拉动
+        _rightTableView.canPullUp = YES;//确定可以向上拉动
 
         [self addSubview:_leftScrollView];
         [self addSubview:_rightScrollView];
@@ -272,8 +258,38 @@
     [super dealloc];
 }
 
-#pragma mark - Custom TableView Content
 
+//下拉刷新跟加载的方法
+#pragma mark -
+#pragma mark UIScrollView PullDelegate
+- (void)scrollView:(UIScrollView*)scrollView loadWithState:(LoadState)state
+{
+    if (state == PullDownLoadState)
+    {
+        [self performSelector:@selector(PullDownLoadEnd) withObject:nil afterDelay:3];
+    }
+    else
+    {
+        [self performSelector:@selector(PullUpLoadEnd) withObject:nil afterDelay:3];
+    }
+}
+
+//下拉
+- (void)PullDownLoadEnd
+{
+    //[_tableView reloadData];
+    [_rightTableView stopLoadWithState:PullDownLoadState];
+}
+
+//加载
+- (void)PullUpLoadEnd
+{
+    //[_rightTableView reloadData];
+    [_rightTableView stopLoadWithState:PullUpLoadState];
+}
+
+#pragma mark - Custom TableView Content
+//初始化左边表单的具体视图以及添加具体数据
 - (UIView *)viewWithLeftContent:(NSInteger)index {
     UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _leftTableView.frame.size.width, kTableViewCellHeight)] autorelease];
     view.backgroundColor = [UIColor clearColor];
@@ -285,10 +301,10 @@
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewCellHeight)];
     label.contentMode = UIViewContentModeCenter;
     label.textAlignment = NSTextAlignmentCenter;
-    NSString *key = [_leftDataKeys objectAtIndex:index];
-    NSDictionary *dic = [_leftDataDic objectForKey:key];
-    NSString *key2 = [_headDataKeys objectAtIndex:0];
-    label.text = [DBDataHelper getChineseWithCode:[dic objectForKey:key2]];
+    NSString *key = [_leftDataKeys objectAtIndex:index];//获取每一行的具体数据的关键值
+    NSDictionary *dic = [_leftDataDic objectForKey:key];//根据关键字我们拿到相应的左边表单数据
+    NSString *key2 = [_headDataKeys objectAtIndex:0];//获取左边表单的表头值
+    label.text = [DBDataHelper getChineseWithCode:[dic objectForKey:key2]];//根据编码获取中文名称
     label.textColor = [UIColor whiteColor];
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont systemFontOfSize:10.0];
@@ -302,6 +318,7 @@
 }
 
 
+//初始化右边表单的视图以及添加具体数据
 - (UIView *)viewWithRightContent:(NSInteger)index {
     UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, _rightTableView.frame.size.width, kTableViewCellHeight)] autorelease];
     
@@ -353,6 +370,7 @@
     return view;
 }
 
+//初始化表头的视图以及添加具体的数据
 - (UIView *)viewWithHeadContent:(NSInteger)index
 {
     UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewTitleHeight)] autorelease];
@@ -389,6 +407,7 @@
     return view;
 }
 
+//初始化合计的数据表单（水平方向的表单）
 - (UIView *)viewWithSumContent:(NSInteger)index
 {
     UIView *view = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewCellHeight)] autorelease];
@@ -401,8 +420,8 @@
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kTableViewTitleWidth, kTableViewCellHeight)];
     label.contentMode = UIViewContentModeCenter;
     label.textAlignment = NSTextAlignmentCenter;
-    NSString *key = [_headDataKeys objectAtIndex:index+1];
-    label.text = [_sumDataDic objectForKey:key];
+    NSString *key = [_headDataKeys objectAtIndex:index+1];//合计时候需要计算的数据是从表头的第二项开始
+    label.text = [_sumDataDic objectForKey:key];//得到具体的合计数据
     label.textColor = [UIColor whiteColor];
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont systemFontOfSize:10.0];

@@ -61,11 +61,36 @@ static bool isLogin = NO;
         AppDelegate *appDlg = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         if(appDlg.isReachable)
         {
-            NSLog(@"网络已连接11111111111");//执行网络正常时的代码
+            //NSLog(@"网络已连接11111111111");//执行网络正常时的代码
         }
         else
         {
-            NSLog(@"网络连接异常2222222222");//执行网络异常时的代码
+            //NSLog(@"网络连接异常2222222222");//执行网络异常时的代码
+        }
+        
+        NSMutableArray *params = [[NSMutableArray alloc] init];
+        [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"VYbSBDuFOPVd",@"primaryUserKey", nil]];
+        ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_ManaFrame" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetManaFrameData" andParams:params];
+        //        NSLog(@"%@", args.soapMessage);
+        ServiceResult *result=[ServiceHelper syncService:args];
+        //        NSLog(@"同步请求xml=%@\n",result);
+        //        NSLog(@"----------同步请求xml=%@\n",result.xmlString);
+        NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//ManaFrameData"];
+        //        NSLog(@"解析xml结果=%@\n",arr);
+        
+        NSDictionary *dic = [DBDataHelper getChineseName:arr];
+        
+        //在document文件里面
+        NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射.plist"];
+        
+        //        NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射" andType:@"plist"];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if ([fileManager fileExistsAtPath:path]) {
+            [dic writeToFile:path atomically:YES];
+        }
+        else {
+            [fileManager createFileAtPath:path contents:nil attributes:Nil];
+            [dic writeToFile:path atomically:YES];
         }
         
         isLogin = YES;

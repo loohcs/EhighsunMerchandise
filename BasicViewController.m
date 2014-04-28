@@ -98,7 +98,7 @@
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     leftBtn.frame = CGRectMake(0, 0, 60, 30);
     [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
-    [leftBtn addTarget:self action:@selector(goBackSideTV) forControlEvents:UIControlEventTouchUpInside];
+    [leftBtn addTarget:self action:@selector(goBackVC) forControlEvents:UIControlEventTouchUpInside];
     [leftBtn setBackgroundImage:[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"back" ofType:@"png"]] forState:UIControlStateNormal];
     UIBarButtonItem *leftBarBtn = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
     self.navigationItem.leftBarButtonItem = leftBarBtn;
@@ -115,7 +115,7 @@
     _alertView = [[UIAlertView alloc] initWithTitle:@"很抱歉。。。" message:@"数据中暂时没有数据，敬请期待下一版本" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Cancle", nil];
 }
 
-- (void)goBackSideTV
+- (void)goBackVC
 {
     NSLog(@"返回");
     
@@ -303,8 +303,5 @@
         [self performSelector:@selector(hideSuccessViewAnimated:) withObject:complete afterDelay:2.0f];
     }];
 }
-
-
-
 
 @end
