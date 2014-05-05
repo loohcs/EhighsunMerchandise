@@ -68,30 +68,6 @@ static bool isLogin = NO;
             //NSLog(@"网络连接异常2222222222");//执行网络异常时的代码
         }
         
-        NSMutableArray *params = [[NSMutableArray alloc] init];
-        [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"VYbSBDuFOPVd",@"primaryUserKey", nil]];
-        ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_ManaFrame" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetManaFrameData" andParams:params];
-        //        NSLog(@"%@", args.soapMessage);
-        ServiceResult *result=[ServiceHelper syncService:args];
-        //        NSLog(@"同步请求xml=%@\n",result);
-        //        NSLog(@"----------同步请求xml=%@\n",result.xmlString);
-        NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//ManaFrameData"];
-        //        NSLog(@"解析xml结果=%@\n",arr);
-        
-        NSDictionary *dic = [DBDataHelper getChineseName:arr];
-        
-        //在document文件里面
-        NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射.plist"];
-        
-        //        NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射" andType:@"plist"];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if ([fileManager fileExistsAtPath:path]) {
-            [dic writeToFile:path atomically:YES];
-        }
-        else {
-            [fileManager createFileAtPath:path contents:nil attributes:Nil];
-            [dic writeToFile:path atomically:YES];
-        }
         
         isLogin = YES;
     }
@@ -268,6 +244,40 @@ static bool isLogin = NO;
     //获取当前的屏幕大小，即确定屏幕方向
     [self resignBtnFram:self.interfaceOrientation];
     
+    //如果是自动登录，那么在直接显示主页的时候也需要更新店铺名
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *isAutoLog = [defaults objectForKey:@"isAutoLogIn"];
+    
+    if ([isAutoLog isEqualToString:@"YES"]) {
+        NSMutableArray *params = [[NSMutableArray alloc] init];
+        [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"VYbSBDuFOPVd",@"primaryUserKey", nil]];
+        ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_ManaFrame" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetManaFrameData" andParams:params];
+        NSLog(@"%@", args.soapMessage);
+        ServiceResult *result=[ServiceHelper syncService:args];
+        NSLog(@"同步请求xml=%@\n",result);
+        NSLog(@"----------同步请求xml=%@\n",result.xmlString);
+        NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//ManaFrameData"];
+        NSLog(@"解析xml结果=%@\n",arr);
+        
+        NSDictionary *dic = [DBDataHelper getChineseName:arr];
+        
+        //在document文件里面
+        NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射.plist"];
+        
+        //        NSString *path = [SQLDataSearch getPlistPath:@"店名中文映射" andType:@"plist"];
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if ([fileManager fileExistsAtPath:path]) {
+            if (dic.count != 0) {
+                [dic writeToFile:path atomically:YES];
+            }
+        }
+        else {
+            [fileManager createFileAtPath:path contents:nil attributes:Nil];
+            [dic writeToFile:path atomically:YES];
+        }
+
+    }
+
 
 }
 

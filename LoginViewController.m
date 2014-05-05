@@ -291,29 +291,16 @@
                 
             }
             
-#warning --mark 记录关键字，方便后面页面的数据请求
-            [defaults setObject:@"VYbSBDuFOPVd" forKey:@"primaryUserKey"];
-            
-            HomeViewController *homeVC = [[HomeViewController alloc] init];
-            UINavigationController *homeNavi = [[UINavigationController alloc] initWithRootViewController:homeVC];
-            
-            //TODO: 加入侧滑栏
-            //        PPRevealSideViewController *revealSideVC = [[PPRevealSideViewController alloc] initWithRootViewController:homeNavi];
-            //        [self presentViewController:revealSideVC animated:YES completion:nil];
-            
-            //取消侧滑栏
-            [self presentViewController:homeNavi animated:YES completion:nil];
-
             //每次在登录成功的时候我们都需要更新店铺名
             NSMutableArray *params = [[NSMutableArray alloc] init];
             [params addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"VYbSBDuFOPVd",@"primaryUserKey", nil]];
             ServiceArgs *args=[[ServiceArgs alloc] initWithWebServiceName:@"WS_ManaFrame" andServiceNameSpace:DefaultWebServiceNamespace andMethod:@"GetManaFrameData" andParams:params];
-//            NSLog(@"%@", args.soapMessage);
+            //            NSLog(@"%@", args.soapMessage);
             ServiceResult *result=[ServiceHelper syncService:args];
-//            NSLog(@"同步请求xml=%@\n",result);
-//            NSLog(@"----------同步请求xml=%@\n",result.xmlString);
+            //            NSLog(@"同步请求xml=%@\n",result);
+            //            NSLog(@"----------同步请求xml=%@\n",result.xmlString);
             NSArray *arr=[result.xmlParse soapXmlSelectNodes:@"//ManaFrameData"];
-//            NSLog(@"解析xml结果=%@\n",arr);
+            //            NSLog(@"解析xml结果=%@\n",arr);
             
             NSDictionary *dic = [DBDataHelper getChineseName:arr];
             
@@ -329,6 +316,21 @@
                 [fileManager createFileAtPath:path contents:nil attributes:Nil];
                 [dic writeToFile:path atomically:YES];
             }
+            
+#warning --mark 记录关键字，方便后面页面的数据请求
+            [defaults setObject:@"VYbSBDuFOPVd" forKey:@"primaryUserKey"];
+            
+            HomeViewController *homeVC = [[HomeViewController alloc] init];
+            UINavigationController *homeNavi = [[UINavigationController alloc] initWithRootViewController:homeVC];
+            
+            //TODO: 加入侧滑栏
+            //        PPRevealSideViewController *revealSideVC = [[PPRevealSideViewController alloc] initWithRootViewController:homeNavi];
+            //        [self presentViewController:revealSideVC animated:YES completion:nil];
+            
+            //取消侧滑栏
+            [self presentViewController:homeNavi animated:YES completion:nil];
+
+
             
             [self hideLoadingSuccessWithTitle:@"同步完成，获得数据!" completed:nil];
         }
